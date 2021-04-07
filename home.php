@@ -18,7 +18,7 @@
 <?php 
 
   require_once('./dbConnect.php');
-  require_once('./dbFuncts.php');
+  require_once('./dbGameFuncts.php');
   $dbh = ConnectDB();
 
   $playerlist = ListAllPlayers($dbh);

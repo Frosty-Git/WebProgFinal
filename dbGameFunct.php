@@ -1,5 +1,5 @@
 <?php 
-
+    // Remove this later.
     function ListAllPlayers($dbh) {
         try {
             $player_query = "SELECT username FROM player";
@@ -15,5 +15,23 @@
         }
     }
 
+    
+    function makeMove($dbh) {
+        
+    }
+
+
+    function validateMove($dbh) {
+        
+    }
+
+    // The function for player 2 to wait for a move to happen
+    function waitForMove($dbh) {
+        
+    }
+    
+    function endGame($dbh) {
+
+    }
 
 ?>
