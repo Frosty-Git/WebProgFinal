@@ -18,4 +18,24 @@
     return $dbh;
   }
 
-?> 
+  function dbSelect($dbh, $query) {
+      $stmt = $dbh->prepare($query);
+      $stmt->execute();
+      $data = $stmt->fetchAll(PDO::FETCH_OBJ);
+      $stmt = null;
+      return $data;
+    }
+
+  function dbInsert($dbh, $query) {
+      $stmt = $dbh->prepare($query);
+      $stmt->execute();
+      $stmt = null;
+  }
+
+  function dbDelete($dbh, $query) {
+    $stmt = $dbh->prepare($query);
+    $stmt->execute();
+    $stmt = null;
+  }
+
+?>

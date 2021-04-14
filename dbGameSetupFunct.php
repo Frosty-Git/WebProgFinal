@@ -1,7 +1,7 @@
 <?php 
     
     function createGame($dbh, $playerID) {
-        
+                
     }
 
     // Enter in the game id to join your friend's game.

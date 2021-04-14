@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
   <title> Games! </title>
   <meta charset="utf-8" />
-  <meta name="Author" content="Joseph Frost" />
+  <meta name="Author" content="Joseph Frost, Katie Lee, Marc Colin, Jacelynn Duranceau" />
   <meta name="generator" content="VS Code" />
   <link rel="shortcut icon" href="" />
   <style>
@@ -14,11 +13,12 @@
 </head>
 
 <body>
-
+<h1>Hello</h1>
 <?php 
 
   require_once('./dbConnect.php');
-  require_once('./dbGameFuncts.php');
+  require_once('./dbGameFunct.php');
+  require_once('./dbLoginFunct.php');
   $dbh = ConnectDB();
 
   $playerlist = ListAllPlayers($dbh);
@@ -35,12 +35,18 @@
   // Debugging
   echo '<pre>'; print_r($playerlist); echo '</pre>';
 
+  $found = signup($dbh, "pizza", "password1");
+  echo '<p> signup test:'; print_r($found); echo '</p>';
+
+  $found = login($dbh, "potato", "password");
+  echo '<p> login test:'; print_r($found); echo '</p>';
+
 ?> 
 
   <footer style="border-top: 1px solid blue">
-  <a href="http://elvis.rowan.edu/~kilroy/" 
+  <a href="http://elvis.rowan.edu/~frostj16/" 
     title="Link to my home page">
-    D. Provine
+    Joe, Katie, Marc, Jacelynn
   </a>
 
   <span style="float: right;">
