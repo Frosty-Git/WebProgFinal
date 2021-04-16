@@ -19,27 +19,48 @@
   require_once('./dbConnect.php');
   require_once('./dbGameFunct.php');
   require_once('./dbLoginFunct.php');
+  require_once('./dbGameSetupFunct.php');
   $dbh = ConnectDB();
 
-  $playerlist = ListAllPlayers($dbh);
+  // $playerlist = ListAllPlayers($dbh);
 
-  $counter = 0;
-  echo "<ul>\n";
-  foreach ( $playerlist as $player ) {
-    $counter++;
-    echo "    <li> $player->username</li>\n";
-  }
-  echo "</ul>\n";
-  echo "<p> $counter record(s) returned.<p>\n";
+  // $counter = 0;
+  // echo "<ul>\n";
+  // foreach ( $playerlist as $player ) {
+  //   $counter++;
+  //   echo "    <li> $player->username</li>\n";
+  // }
+  // echo "</ul>\n";
+  // echo "<p> $counter record(s) returned.<p>\n";
 
   // Debugging
-  echo '<pre>'; print_r($playerlist); echo '</pre>';
+  // echo '<pre>'; print_r($playerlist); echo '</pre>';
 
-  $found = signup($dbh, "pizza", "password1");
-  echo '<p> signup test:'; print_r($found); echo '</p>';
+  // $found = signup($dbh, "pizza", "password1");
+  // echo '<p> signup test:'; print_r($found); echo '</p>';
 
-  $found = login($dbh, "potato", "password");
-  echo '<p> login test:'; print_r($found); echo '</p>';
+  // $found = login($dbh, "potato", "password");
+  // echo '<p> login test:'; print_r($found); echo '</p>';
+
+
+
+
+  // $result = makeMove($dbh, 5, 13, "b1", 1);
+  // echo '<p> make move test:'; print_r($result); echo '</p>';
+  // $result = makeMove($dbh, 6, 13, "c2", 0);
+  // echo '<p> make move test:'; print_r($result); echo '</p>';
+  // $result = makeMove($dbh, 5, 13, "b2", 1);
+  // echo '<p> make move test:'; print_r($result); echo '</p>';
+  // $result = makeMove($dbh, 6, 13, "c1", 0);
+  // echo '<p> make move test:'; print_r($result); echo '</p>';
+  // $result = makeMove($dbh, 5, 13, "b3", 1);
+  // echo '<p> make move test:'; print_r($result); echo '</p>';
+
+  $result = createGame($dbh, 5);
+  echo '<p>create game test:'; print_r($result); echo '</p>';
+
+
+  
 
 ?> 
 

@@ -26,16 +26,11 @@
       return $data;
     }
 
-  function dbInsert($dbh, $query) {
+  function dbQuery($dbh, $query) {
       $stmt = $dbh->prepare($query);
       $stmt->execute();
       $stmt = null;
   }
 
-  function dbDelete($dbh, $query) {
-    $stmt = $dbh->prepare($query);
-    $stmt->execute();
-    $stmt = null;
-  }
 
 ?>

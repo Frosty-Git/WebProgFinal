@@ -22,7 +22,7 @@
             }
             else {
                 $player_creation = "INSERT INTO player (username, password, date_created) VALUES ('$username', '$password', now())";
-                dbInsert($dbh, $player_creation);
+                dbQuery($dbh, $player_creation);
                 return "Welcome to our site buddy!";
             }
         }
