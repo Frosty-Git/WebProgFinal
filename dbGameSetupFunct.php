@@ -2,9 +2,10 @@
     
     function createGame($dbh, $playerID) {
         try { 
-            $game_creation = "INSERT INTO games (player1, date_created, date_updated ) OUTPUT Inserted.games_id VALUES ('$playerID', now(), now())";
-            $gameID = dbSelect($dbh, $game_creation);
-            return $gameID;
+            // this doesnt work
+            $game_creation = "INSERT INTO games (player1, date_created, date_updated ) VALUES ('$playerID', now(), now())";
+            dbQuery($dbh, $game_creation);
+            
         }
         catch (PDOException $e) {
             die ('PDO error in createGame()": ' . $e->getMessage() );
