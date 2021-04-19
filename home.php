@@ -16,10 +16,10 @@
 <h1>Hello</h1>
 <?php 
 
-  require_once('./dbConnect.php');
-  require_once('./dbGameFunct.php');
-  require_once('./dbLoginFunct.php');
-  require_once('./dbGameSetupFunct.php');
+  require_once('scripts/dbConnect.php');
+  require_once('scripts/dbGameFunct.php');
+  require_once('scripts/dbLoginFunct.php');
+  require_once('scripts/dbGameSetupFunct.php');
   $dbh = ConnectDB();
 
   // $playerlist = ListAllPlayers($dbh);
@@ -58,10 +58,6 @@
 
   $result = createGame($dbh, 5);
   echo '<p>create game test:'; print_r($result); echo '</p>';
-
-
-  
-
 ?> 
 
   <footer style="border-top: 1px solid blue">

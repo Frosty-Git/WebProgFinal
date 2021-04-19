@@ -86,4 +86,6 @@
             die ('PDO error in cancelGame()": ' . $e->getMessage() );
         }
     }
+
+    
 ?>

@@ -1,13 +1,12 @@
 <?php 
+    require_once('decoder.php');
 
     function login($dbh, $username, $password) {
         try {
             if (validateUser($dbh, $username, $password)) {
-                return "You Logged in :) :D";
+                return true;
             }
-            else {
-                return "You suck.";
-            }
+            return false;
         }
         catch (PDOException $e) {
             die ('PDO error in login()": ' . $e->getMessage() );
@@ -65,6 +64,19 @@
         catch(PDOException $e)
         {
             die ('PDO error in validatePassword()": ' . $e->getMessage() );
+        }
+    }
+
+    function getUserID($dbh, $username) {
+        try {
+            $player_query = "SELECT player_id FROM player WHERE username='$username'";
+            $player_data = dbSelect($dbh, $player_query);
+            $player_data_array = decodeSelectResults($player_data);
+            return $player_data_array['player_id'];
+        }
+        catch(PDOException $e)
+        {
+            die ('PDO error in getUserID()": ' . $e->getMessage() );
         }
     }
 
