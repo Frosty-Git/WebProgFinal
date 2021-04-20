@@ -34,7 +34,7 @@ if (login($dbh, $_POST['username'], $_POST['password'])) {
 }
 else {
     echo "<h4>Login Failed. Incorrect Username or Password.</h4>";
-    $_SESSION["user_id"] = FAILED_LOGIN;
+    $_SESSION["user_id"] = FAILED;
     $_SESSION["username"] = "fail_login";
     header('Location: login.php');
 }

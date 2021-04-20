@@ -17,12 +17,12 @@
         try {
             // If the username is already in the database
             if (validateUsername($dbh, $username)) {
-               return "Username taken loser.";
+               return false;
             }
             else {
                 $player_creation = "INSERT INTO player (username, password, date_created) VALUES ('$username', '$password', now())";
                 dbQuery($dbh, $player_creation);
-                return "Welcome to our site buddy!";
+                return true;
             }
         }
         catch (PDOException $e) {
