@@ -10,8 +10,8 @@
 
 <body>
 <h1>Hello</h1>
-<a href="./login.php">Login Here!</a>
-<a href="./signup.php">Sign Up Here!</a>
+<button href="./login.php">Login Here!</button>&nbsp;
+<button href="./signup.php">Sign Up Here!</button>
 
   <footer style="border-top: 1px solid blue">
   <a href="http://elvis.rowan.edu/~frostj16/" 

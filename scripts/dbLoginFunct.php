@@ -71,7 +71,8 @@
         try {
             $player_query = "SELECT player_id FROM player WHERE username='$username'";
             $player_data = dbSelect($dbh, $player_query);
-            $player_data_array = decodeSelectResults($player_data);
+            $index = 0;
+            $player_data_array = decodeSelectResults($player_data, $index);
             return $player_data_array['player_id'];
         }
         catch(PDOException $e)

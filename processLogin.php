@@ -29,7 +29,9 @@ echo "</p>";
 if (login($dbh, $_POST['username'], $_POST['password'])) {
     echo "<h4>Login Succeeded!</h4>";
     $_SESSION["user_id"] = getUserID($dbh, $_POST['username']);
+    echo "<p>got user</p>";
     $_SESSION["username"] = $_POST['username'];
+    echo "<p>time to go to gamehub!</p>";
     header('Location: gamehub.php');
 }
 else {

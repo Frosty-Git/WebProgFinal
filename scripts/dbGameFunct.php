@@ -9,6 +9,8 @@
                 dbQuery($dbh, $update_game_date);
                 editBoard($dbh, $gameID, $location, $is_x);
                 if (checkForWinner($dbh, $gameID, $is_x)) {
+                    $update_game = "UPDATE games SET game_ended = 1 WHERE games_id = '$gameID';";
+                    dbQuery($dbh, $update_game);
                     return "YOU WON! Congrats";
                 }
                 return "Move successful! Great job, you son of a bitch";            
