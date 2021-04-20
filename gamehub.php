@@ -1,6 +1,8 @@
-<?php 
+<?php
+// Start the session
+session_start();
+?>
 
-echo "
 <!DOCTYPE html>
 <html xmlns='http://www.w3.org/1999/xhtml' lang='en'>
 <head>
@@ -17,14 +19,13 @@ echo "
 
 <body>
 <h1>Welcome to the Game Hub!</h1>
-<p>You are now logged in!</p>";
+<p>You are now logged in!</p>
 
+<?php
 echo $_SESSION['user_id'];
+echo "<br>";
 echo $_SESSION['username'];
-
-
-echo "
+?>
 </body>
-</html>";
+</html>
 
-?> 

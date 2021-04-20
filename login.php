@@ -11,6 +11,7 @@ require_once('./scripts/dbConnect.php');
 require_once('./scripts/dbLoginFunct.php');
 $dbh = ConnectDB();
 
+
 echo "<form action='./processLogin.php' method='post'>
     <fieldset>
     <legend>Login</legend>
@@ -29,6 +30,10 @@ echo "<form action='./processLogin.php' method='post'>
         <input type='submit' />
     </p>
     </form>";
+
+if ($_SESSION["user_id"] == -1) {
+    echo "<p style='color: red;'>Incorrect Username or Password. Please try again.</p>";
+}
 
 // if (isset($_POST['submit']))
 // {
