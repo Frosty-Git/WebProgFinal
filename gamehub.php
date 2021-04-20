@@ -1,6 +1,8 @@
 <?php
 // Start the session
 session_start();
+
+require_once('./scripts/constants.php');
 ?>
 
 <!DOCTYPE html>
@@ -11,10 +13,6 @@ session_start();
   <meta name='Author' content='Joseph Frost, Katie Lee, Marc Colin, Jacelynn Duranceau' />
   <meta name='generator' content='VS Code' />
   <link rel='shortcut icon' href='' />
-  <style>
-    a { text-decoration: none; }
-    a:hover { text-decoration: underline; }
-  </style>
 </head>
 
 <body>
