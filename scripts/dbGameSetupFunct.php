@@ -1,5 +1,4 @@
 <?php 
-    
     function createGame($dbh, $playerID) {
         try { 
             // this doesnt work
@@ -40,12 +39,27 @@
     }
 
     // Finds all the games that are open to join.
-    function findOpenGame($dbh) {
+    function findOpenGames($dbh) {
         try {
             $games_query = "SELECT games_id, player1, date_created FROM games WHERE is_private=0";
             $games_set = dbSelect($dbh, $games_query);
             if(empty($games_set)) {
                 return "No games are open!";
+            }
+            return $games_set;
+        }
+        catch (PDOException $e) {
+            die ('PDO error in findOpenGame()": ' . $e->getMessage() );
+        }
+    }
+
+    //Finds all active games 
+    function findAllGames($dbh) {
+        try {
+            $games_query = "SELECT * FROM games WHERE game_ended=0";
+            $games_set = dbSelect($dbh, $games_query);
+            if(empty($games_set)) {
+                return null;
             }
             return $games_set;
         }
@@ -87,5 +101,18 @@
         }
     }
 
+    function getUsername($dbh, $playerID) {
+        try {
+            $player_query = "SELECT username FROM player WHERE player_id='$playerID'";
+            $player_data = dbSelect($dbh, $player_query);
+            $index = 0;
+            $player_data_array = decodeSelectResults($player_data, $index);
+            return $player_data_array['username'];
+        }
+        catch(PDOException $e)
+        {
+            die ('PDO error in getUserID()": ' . $e->getMessage() );
+        }
+    }
     
 ?>
