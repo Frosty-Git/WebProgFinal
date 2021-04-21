@@ -9,9 +9,6 @@ require_once('./scripts/checkLogIn.php');
 require_once('./scripts/constants.php');
 require_once('./scripts/decoder.php');
 require_once('./scripts/dbGameSetupFunct.php');
-require_once('./scripts/dbConnect.php');
-
-$dbh = ConnectDB();
 
 ?>
 
@@ -28,13 +25,22 @@ $dbh = ConnectDB();
 <body>
   <h1>Welcome to the Game Hub!</h1>
   
+
+  <!-- Join Game Fail Message -->
+  <?php
+    if ($_SESSION["join_test"] == FAILED) {
+        echo "<p style='color: red;'>Game Full. Join another game sucka.</p>";
+    }
+    ?>
+
+
+
   <button href="">Create Game</button>
   
   <form method="post">
     <input type="text" name="searchGame">
     <button type="submit">Find Game</button>
   </form>
-
 
 
   <!-- Games List Table -->
@@ -45,13 +51,15 @@ $dbh = ConnectDB();
     <?php 
       // Games List Format:
       // Game ID    Players (1/2)   User Who Created   Date Created   Join Button
-      
-      $results = findAllGames($dbh);
+      $playerID = $_SESSION['user_id'];
+      $results = findAllGames();
       for ($i = 0; $i < count($results); $i++) {
         $game = decodeSelectResults($results, $i);
-        $player_name = getUsername($dbh, $game['player1']);
+        $gameID = $game['games_id'];
+        $player_name = getUsername($game['player1']);
+
         echo "<tr>";
-        echo "<td>"; print_r($game['games_id']); echo "</td>";
+        echo "<td>"; print_r($gameID); echo "</td>";
         if ($game['player2'] == null) {
           echo "<td>1/2</td>";
         }
@@ -60,11 +68,15 @@ $dbh = ConnectDB();
         }
         echo "<td>"; print_r($player_name); echo "</td>";
         echo "<td>"; print_r($game['date_created']); echo "</td>";
-        echo "<td><button>Join</button></td>";
+        echo "<form method='post' action='processGHJoin.php'><input hidden name='gameid' value='$gameID'>";
+        echo "<td><button type='submit' class='joinBtn'>Join</button></td></form>";
         echo "</tr>";
+
+        
       }
-    
+
     ?>
+
   </table>
   <!-- End Games List Table -->
   

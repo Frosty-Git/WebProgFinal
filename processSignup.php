@@ -4,14 +4,11 @@ session_start();
 
 // Yoink imports
 require_once('./scripts/constants.php');
-require_once('./scripts/dbConnect.php');
 require_once('./scripts/dbLoginFunct.php');
 
-$dbh = ConnectDB();
-
 // ---------- Signup Validation and Session Setting ------------------
-    if (signup($dbh, $_POST['username'], $_POST['password'])) {
-        $_SESSION["user_id"] = getUserID($dbh, $_POST['username']);
+    if (signup($_POST['username'], $_POST['password'])) {
+        $_SESSION["user_id"] = getUserID($_POST['username']);
         $_SESSION["username"] = $_POST['username'];
         header('Location: gamehub.php');
     }
@@ -26,9 +23,9 @@ $dbh = ConnectDB();
 
 
 
-// if (login($dbh, $_POST['username'], $_POST['password'])) {
+// if (login( $_POST['username'], $_POST['password'])) {
 //     echo "<h4>Login Succeeded!</h4>";
-//     $_SESSION["user_id"] = getUserID($dbh, $_POST['username']);
+//     $_SESSION["user_id"] = getUserID($_POST['username']);
 //     $_SESSION["username"] = $_POST['username'];
 //     header('Location: gamehub.php');
 // }

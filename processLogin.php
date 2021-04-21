@@ -4,12 +4,7 @@ session_start();
 
 // Yoink imports
 require_once('./scripts/constants.php');
-require_once('./scripts/dbConnect.php');
 require_once('./scripts/dbLoginFunct.php');
-
-$dbh = ConnectDB();
-
-
 
 
 // -----------Unnecessary Testing Text. DELETE LATER------------------
@@ -26,9 +21,9 @@ echo "</p>";
 
 
 // ---------- Login Validation and Session Setting -------------------
-if (login($dbh, $_POST['username'], $_POST['password'])) {
+if (login($_POST['username'], $_POST['password'])) {
     echo "<h4>Login Succeeded!</h4>";
-    $_SESSION["user_id"] = getUserID($dbh, $_POST['username']);
+    $_SESSION["user_id"] = getUserID($_POST['username']);
     echo "<p>got user</p>";
     $_SESSION["username"] = $_POST['username'];
     echo "<p>time to go to gamehub!</p>";

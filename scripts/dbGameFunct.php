@@ -1,16 +1,19 @@
-<?php 
-    function makeMove($dbh, $playerID, $gameID, $location, $is_x) {
+<?php
+
+    require_once("dbConnect.php");
+
+    function makeMove($playerID, $gameID, $location, $is_x) {
         try {
-            if (validateMove($dbh, $gameID, $location)) {
+            if (validateMove($gameID, $location)) {
                 $move_creation = "INSERT INTO moves ( location, is_x, player_id, game_id ) 
                                     VALUES ('$location', '$is_x', '$playerID', '$gameID')";
                 $update_game_date = "UPDATE games SET date_updated = now() WHERE games_id = '$gameID';";
-                dbQuery($dbh, $move_creation);
-                dbQuery($dbh, $update_game_date);
-                editBoard($dbh, $gameID, $location, $is_x);
-                if (checkForWinner($dbh, $gameID, $is_x)) {
+                dbQuery($move_creation);
+                dbQuery($update_game_date);
+                editBoard($gameID, $location, $is_x);
+                if (checkForWinner($gameID, $is_x)) {
                     $update_game = "UPDATE games SET game_ended = 1 WHERE games_id = '$gameID';";
-                    dbQuery($dbh, $update_game);
+                    dbQuery($update_game);
                     return "YOU WON! Congrats";
                 }
                 return "Move successful! Great job, you son of a bitch";            
@@ -25,10 +28,10 @@
     }
 
 
-    function validateMove($dbh, $gameID, $location) {
+    function validateMove($gameID, $location) {
         try {
             $select_query = "SELECT location FROM moves WHERE game_id = '$gameID' AND location = '$location';";
-            $data = dbSelect($dbh, $select_query);
+            $data = dbSelect($select_query);
             if(empty($data)) {
                 return true;
             }
@@ -40,16 +43,16 @@
     }
 
     // The function for player 2 to wait for a move to happen
-    function waitForMove($dbh, $gameID, $playerID) {
+    function waitForMove($gameID, $playerID) {
         try {
             $query = "SELECT moves_id FROM moves WHERE game_id='$gameID' ORDER BY moves_id DESC LIMIT 1;";
-            $last_move = dbSelect($dbh, $query)[0];
+            $last_move = dbSelect($query)[0];
             $waiting = true;
 
             while ($waiting) {
                 sleep(1);
                 $query = "SELECT moves_id FROM moves WHERE game_id='$gameID' AND moves_id>'$last_move';";
-                $result = dbSelect($dbh, $query);
+                $result = dbSelect($query);
                 if (!empty($result)) {
                     $waiting = false;
                     // Switch the active player.
@@ -67,10 +70,10 @@
     //         gameID = the game's id
     //         is_x = If the player being checked is X or O
     // return: true if the player being checked for won. false if not.
-    function checkForWinner($dbh, $gameID, $is_x) {
+    function checkForWinner($gameID, $is_x) {
         try {
             $letter = $is_x ? 'X' : 'O';
-            $board = getBoard($dbh, $gameID);
+            $board = getBoard($gameID);
             $found_winner = false;
             
             $a1 = $board["a1"];
@@ -128,11 +131,11 @@
         
     }
 
-    function endGame($dbh) {
+    function endGame($gameID) {
 
     }
 
-    function editBoard($dbh, $gameID, $location, $is_x) {
+    function editBoard($gameID, $location, $is_x) {
         try {
             $update_query = null;
             if($is_x) {
@@ -141,21 +144,21 @@
             else {
                 $update_query = "UPDATE board SET $location = 'O' WHERE game_id = '$gameID';";
             }
-            dbQuery($dbh, $update_query);
+            dbQuery($update_query);
         }
         catch (PDOException $e) {
             die ('PDO error in drawBoard()": ' . $e->getMessage() );
         }
     }
 
-    function drawBoard($dbh) {
+    function drawBoard() {
 
     }
 
-    function getBoard($dbh, $gameID) {
+    function getBoard($gameID) {
         // Ensures order of the board (in case * doesn't)
         $query = "SELECT a1, a2, a3, b1, b2, b3, c1, c2, c3 FROM board WHERE game_id = '$gameID';";
-        $board = dbSelect($dbh, $query);
+        $board = dbSelect($query);
         return json_decode(json_encode($board[0]),true);
     }
 

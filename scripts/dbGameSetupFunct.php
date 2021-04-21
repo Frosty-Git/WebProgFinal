@@ -1,9 +1,11 @@
 <?php 
-    function createGame($dbh, $playerID) {
+    require_once("dbConnect.php");
+    
+    function createGame($playerID) {
         try { 
             // this doesnt work
             $game_creation = "INSERT INTO games (player1, date_created, date_updated ) VALUES ('$playerID', now(), now())";
-            dbQuery($dbh, $game_creation);
+            dbQuery($game_creation);
             
         }
         catch (PDOException $e) {
@@ -11,10 +13,10 @@
         }
     }
 
-    function createBoard($dbh, $gameID) {
+    function createBoard($gameID) {
         try {
             $board_creation = "INSERT INTO board (game_id) VALUES ('$gameID')";
-            dbQuery($dbh, $board_creation);
+            dbQuery($board_creation);
             return "You created a game!";
         }
         catch (PDOException $e) {
@@ -23,10 +25,10 @@
     }
 
     // Enter in the game id to join your friend's game.
-    function findGame($dbh, $gameID) {
+    function findGame($gameID) {
         try {
             $games_query = "SELECT games_id, player1, date_created FROM games WHERE games_id='$gameID'";
-            $game = dbSelect($dbh, $games_query);
+            $game = dbSelect($games_query);
 
             if(empty($game)) {
                 return "No game found!";
@@ -39,10 +41,10 @@
     }
 
     // Finds all the games that are open to join.
-    function findOpenGames($dbh) {
+    function findOpenGames() {
         try {
             $games_query = "SELECT games_id, player1, date_created FROM games WHERE is_private=0";
-            $games_set = dbSelect($dbh, $games_query);
+            $games_set = dbSelect($games_query);
             if(empty($games_set)) {
                 return "No games are open!";
             }
@@ -54,10 +56,10 @@
     }
 
     //Finds all active games 
-    function findAllGames($dbh) {
+    function findAllGames() {
         try {
             $games_query = "SELECT * FROM games WHERE game_ended=0";
-            $games_set = dbSelect($dbh, $games_query);
+            $games_set = dbSelect($games_query);
             if(empty($games_set)) {
                 return null;
             }
@@ -69,31 +71,33 @@
     }
 
     // The second playing joining the game that they found.
-    function joinGame($dbh, $gameID, $playerID) {
+    function joinGame($gameID, $playerID) {
         try {
             // Check if the game is full
             $games_query = "SELECT games_id FROM games WHERE games_id='$gameID' AND player2 IS NULL" ;
-            $games_set = dbSelect($dbh, $games_query);
+            $games_set = dbSelect($games_query);
             if(empty($games_set)) {
-                return "This game is full!";
+                return false;
             }
+            
+            // If the game wasn't full, go join the game
             $update_query = "UPDATE games SET player2 = '$playerID' WHERE games_id = '$gameID';";
-            dbQuery($dbh, $update_query);
-            return "You joined the game!";
+            dbQuery($update_query);
+            return true;
         }
         catch (PDOException $e) {
             die ('PDO error in joinGame()": ' . $e->getMessage() );
         }
     }
 
-    function startGame($dbh, $gameID) {
+    function startGame($gameID) {
         
     }
 
-    function cancelGame($dbh, $gameID) {
+    function cancelGame($gameID) {
         try {
             $delete_query = "DELETE FROM games WHERE games_id = '$gameID';";
-            dbQuery($dbh, $update_query);
+            dbQuery($update_query);
             return "GAME OVER";
         }
         catch (PDOException $e) {
@@ -101,10 +105,10 @@
         }
     }
 
-    function getUsername($dbh, $playerID) {
+    function getUsername($playerID) {
         try {
             $player_query = "SELECT username FROM player WHERE player_id='$playerID'";
-            $player_data = dbSelect($dbh, $player_query);
+            $player_data = dbSelect($player_query);
             $index = 0;
             $player_data_array = decodeSelectResults($player_data, $index);
             return $player_data_array['username'];

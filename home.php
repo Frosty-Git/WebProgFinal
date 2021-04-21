@@ -9,9 +9,32 @@
 </head>
 
 <body>
-<h1>Hello</h1>
-<button href="./login.php">Login Here!</button>&nbsp;
-<button href="./signup.php">Sign Up Here!</button>
+  <h1>Hello</h1>
+  <button><a href="login.php">Login Here!</a></button>&nbsp;
+  <button><a href="signup.php">Sign Up Here!</a></button>
+
+
+
+
+
+
+<?php
+// require_once('./scripts/dbGameSetupFunct.php');
+
+
+// $playerID = 8;
+// $gameID = 25;
+
+// $update_query = "UPDATE games SET player2 = '$playerID' WHERE games_id = '$gameID';";
+// dbQuery($update_query);
+
+?>
+
+
+
+
+
+
 
   <footer style="border-top: 1px solid blue">
   <a href="http://elvis.rowan.edu/~frostj16/" 

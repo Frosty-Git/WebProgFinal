@@ -18,18 +18,22 @@
     return $dbh;
   }
 
-  function dbSelect($dbh, $query) {
-      $stmt = $dbh->prepare($query);
-      $stmt->execute();
-      $data = $stmt->fetchAll(PDO::FETCH_OBJ);
-      $stmt = null;
-      return $data;
-    }
+  function dbSelect($query) {
+    $dbh = ConnectDB();
+    $stmt = $dbh->prepare($query);
+    $stmt->execute();
+    $data = $stmt->fetchAll(PDO::FETCH_OBJ);
+    $stmt = null;
+    $dbh = null;
+    return $data;
+  }
 
-  function dbQuery($dbh, $query) {
-      $stmt = $dbh->prepare($query);
-      $stmt->execute();
-      $stmt = null;
+  function dbQuery($query) {
+    $dbh = ConnectDB();
+    $stmt = $dbh->prepare($query);
+    $stmt->execute();
+    $stmt = null;
+    $dbh = null;
   }
 
 
