@@ -14,7 +14,7 @@ require_once('./scripts/constants.php');
     <link rel='shortcut icon' href='' />
 </head>
 <body>
-    <form action='./processLogin.php' method='post'>
+    <form action='./scripts/forms/processLogin.php' method='post'>
         <fieldset>
         <legend>Login</legend>
         <table>

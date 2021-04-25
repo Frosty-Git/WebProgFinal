@@ -12,14 +12,21 @@
                 dbQuery($update_game_date);
                 editBoard($gameID, $location, $is_x);
                 if (checkForWinner($gameID, $is_x)) {
-                    $update_game = "UPDATE games SET game_ended = 1 WHERE games_id = '$gameID';";
+                    $is_tie = 0;
+                    $update_game = "CALL endGame('$playerID','$gameID','$is_x', '$is_tie')";
                     dbQuery($update_game);
-                    return "YOU WON! Congrats";
+                }
+                // Check for a full board and if the other player has won to
+                // determine a tie.
+                elseif (checkFullBoard($gameID) and !(checkForWinner($gameID, !$is_x))) {
+                    $is_tie = 1;
+                    $update_game = "CALL endGame('$playerID','$gameID','$is_x', '$is_tie')";
+                    dbQuery($update_game);
                 }
                 return "Move successful! Great job, you son of a bitch";            
             }
             else {
-                return "You failed to make a mover loser.";
+                return "You failed to make a move loser.";
             }
         }
         catch (PDOException $e){
@@ -131,6 +138,44 @@
         
     }
 
+    function checkFullBoard($gameID) {
+        try {
+            $board = getBoard($gameID);
+            $empty = '-'; // The empty space symbol on our board
+            $result = false;
+
+            $a1 = $board["a1"];
+            $a2 = $board["a2"];
+            $a3 = $board["a3"];
+            $b1 = $board["b1"];
+            $b2 = $board["b2"];
+            $b3 = $board["b3"];
+            $c1 = $board["c1"];
+            $c2 = $board["c2"];
+            $c3 = $board["c3"];
+
+            if(!($a1 == $empty and $a2 == $empty and $a3 == $empty and
+                 $b1 == $empty and $b2 == $empty and $b3 == $empty and
+                 $c1 == $empty and $c2 == $empty and $c3 == $empty)) {
+                $result = true;
+            }
+
+            return $result;
+        } 
+        catch (PDOException $e) {
+            die ('PDO error in checkFullBoard()": ' . $e->getMessage() );
+        }
+    }
+
+    function checkForTie($gameID) {
+
+    }
+
+    // the pretty pretty thing for makemove's if else shenanigans
+    function checkEndGame() {
+
+    }
+    
     function endGame($gameID) {
 
     }

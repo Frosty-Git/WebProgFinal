@@ -16,7 +16,7 @@ require_once('./scripts/constants.php');
     <link rel='shortcut icon' href='' />
 </head>
 <body>
-    <form enctype="multipart/form-data" action='./processSignup.php' method='post'>
+    <form enctype="multipart/form-data" action='./scripts/forms/processSignup.php' method='post'>
         <fieldset>
         <legend>Sign Up</legend>
         <table>

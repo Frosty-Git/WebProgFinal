@@ -4,7 +4,7 @@
     function createGame($playerID) {
         try { 
             // this doesnt work
-            $game_creation = "INSERT INTO games (player1, date_created, date_updated ) VALUES ('$playerID', now(), now())";
+            $game_creation = "CALL createGame('$playerID')";
             dbQuery($game_creation);
             
         }
@@ -96,8 +96,8 @@
 
     function cancelGame($gameID) {
         try {
-            $delete_query = "DELETE FROM games WHERE games_id = '$gameID';";
-            dbQuery($update_query);
+            $delete_query = "CALL deleteGame('$gameID');";
+            dbQuery($delete_query);
             return "GAME OVER";
         }
         catch (PDOException $e) {
