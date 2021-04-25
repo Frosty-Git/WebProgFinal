@@ -25,7 +25,6 @@
     <body>
         <h1>Welcome to the Game Hub!</h1>
 
-
         <!-- Join Game Fail Message -->
         <?php
             if ($_SESSION["join_test"] == FAILED) {
@@ -34,7 +33,7 @@
         ?>
 
         <!-- Create Game Button -->
-        <form action="processCreateGame.php">
+        <form action="processCreateGame.php" method="post">
             <label for="">Game Name</label>
             <input type="text" id="game_name" name="game_name" value="My Game">
             <input type="checkbox" id="is_private" name="is_private">

@@ -23,7 +23,7 @@
             die ('PDO error in createBoard()": ' . $e->getMessage() );
         }
     }
-
+    
     // Enter in the game id to join your friend's game.
     function findGame($gameID) {
         try {
@@ -39,6 +39,22 @@
             die ('PDO error in findGame()": ' . $e->getMessage() );
         }
     }
+
+        // Finds the game id if you have the player id.
+        function findGameNoID($playerID) {
+            try {
+                $games_query = "CALL findGameNoGameID('$playerID')";
+                $game = dbSelect($games_query);
+    
+                if(empty($game)) {
+                    return "No game found!";
+                }
+                return $game;
+            }
+            catch (PDOException $e) {
+                die ('PDO error in findGame()": ' . $e->getMessage() );
+            }
+        }
 
     // Finds all the games that are open to join.
     function findOpenGames() {
@@ -70,7 +86,7 @@
         }
     }
 
-    // The second playing joining the game that they found.
+    // The second player joining the game that they found.
     function joinGame($gameID, $playerID) {
         try {
             // Check if the game is full
