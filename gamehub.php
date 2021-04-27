@@ -32,16 +32,19 @@
         }
     ?>
 
+    <!-- Logout -->
+    <form action="./scripts/forms/processLogout.php" method="post">
+        <input type="submit" value="Logout">
+    </form>
+
     <!-- Create Game Button -->
-    <form action="processCreateGame.php" method="post">
+    <form action="./scripts/forms/processCreateGame.php" method="post">
         <label for="">Game Name</label>
         <input type="text" id="game_name" name="game_name" value="My Game">
         <input type="checkbox" id="is_private" name="is_private">
         <label for="">Private</label>
         <input type="submit" value="Create Game">
     </form>
-    
-    <button href="">Create Game</button>
 
     <!-- Find Game Button -->
     <form method="post">

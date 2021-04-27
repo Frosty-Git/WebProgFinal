@@ -2,7 +2,7 @@
 // Start the session
 session_start();
 
-require_once('./scripts/dbGameSetupFunct.php');
+require_once('../dbGameSetupFunct.php');
 
 $player_id = $_SESSION['user_id'];
 
