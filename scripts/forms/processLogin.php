@@ -3,8 +3,8 @@
 session_start();
 
 // Yoink imports
-require_once('../constants.php');
-require_once('../dbLoginFunct.php');
+require_once(__DIR__.'/../constants.php');
+require_once(__DIR__.'/../dbLoginFunct.php');
 
 // ---------- Login Validation and Session Setting -------------------
 if (login($_POST['username'], $_POST['password'])) {

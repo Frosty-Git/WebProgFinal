@@ -1,5 +1,8 @@
 <?php 
     session_start();
+
+    require_once(__DIR__.'/scripts/dbConnect.php');
+    require_once(__DIR__.'/scripts/decoder.php');
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +25,14 @@
         echo $_SESSION['user_id'];
         echo '<br><p>username: </p>';
         echo $_SESSION['username']; 
+
+        $gameID = $_SESSION['game_id'];
+        $private = dbSelect("SELECT is_private FROM games WHERE games_id = '$gameID';");
+        $private_decoded = decodeSelectFirstResult($private)['is_private'];
+
+        echo "<p>Game is private: "; 
+        echo $private_decoded;
+        echo "</p>";
     ?>
 
     <!-- Only clickable for the host -->
@@ -29,10 +40,6 @@
 
     <!-- People can join this -->
     <button>Leave</button>
-
-    <!-- Only clickable for the host -->
-    <input type="checkbox" id="check">
-    <label for="check">Private?</label>
     
 </body>
 </html>
