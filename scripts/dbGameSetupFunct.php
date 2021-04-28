@@ -42,6 +42,10 @@
     }
 
     // Finds the game id if you have the player id.
+    // Returns the game id of the most recently created open game 
+    // which the entered playerID is in if there is one.
+    // If the player is not in any open games, then
+    // returns -1 (FAILED).
     function findGameNoID($playerID) {
         try {
             $games_query = "CALL findGameNoGameID('$playerID')";
