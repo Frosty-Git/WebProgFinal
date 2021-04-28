@@ -1,5 +1,17 @@
 <?php 
     session_start();
+
+    require_once('./scripts/dbGetters.php');
+    $gameID = $_SESSION['game_id'];
+    $player1 = getPlayer1($gameID);
+    $player2 = getPlayer2($gameID);
+    if ($_SESSION['user_id'] ==  $player1) {
+        $_SESSION['character'] = 'X';
+    }
+    elseif ($_SESSION['user_id'] == $player2) {
+        $_SESSION['character'] = 'O';
+    }
+    
 ?>
 
 
@@ -12,13 +24,16 @@
   <meta name='generator' content='VS Code' />
   <link rel='shortcut icon' href='' />
   <link rel="stylesheet" href="./css/tic-tac-toe.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		  crossorigin="anonymous"></script>
 </head>
 <body>
 
 <div class="container-out">
     <div class="container-in">
     <div class="table-container">
-        <p>Player <span id="player">X</span> your turn</p>
+        <p id="yourturn">Your turn</p>
         <table align="center">
         <tr>
             <td><div class="box" id="a1" value="a1"></div></td>
@@ -44,27 +59,40 @@
 
 <!-- used to fill in box, check for winner, and switch players -->
 <script type="text/javascript">
-    $(document).ready(function(){
-        function checkBox() {
-            $(".box").click(function(){
-              let selected_box = $(this).val();
-              $.ajax({
-                  type: 'POST',
-                  url: 'script.php', // needs to be made
-                  data: {
-                      selected_box: selected_box
-                  }
-                  success: function(data) {
-                      alert(data);
-                      $("p").text(data);
-                  }
-              });
-          });
-        }
-        checkBox.done(function(data)){
-          // switch players
-        }
-    });
+    const boxes = document.getElementsByClassName("box");
+    for(let i = 0; i < boxes.length; i++) {
+        boxes[i].addEventListener("click", function(){
+            let location = boxes[i].getAttribute('value');
+            if (boxes[i].innerHTML.trim() == "") {
+                $('#yourturn').hide();
+                let letter = "<?php echo $_SESSION['character']; ?>";
+                boxes[i].innerHTML = letter;
+                $.ajax({
+                    type: 'POST',
+                    url: './scripts/forms/processMove.php', // needs to be made
+                    async: false,
+                    data: {
+                        location: location,
+                    },
+                    success: function(json) {
+                        $('#a1').html(json['a1']);
+                        $('#a2').html(json['a2']);
+                        $('#a3').html(json['a3']);
+                        $('#b1').html(json['b1']);
+                        $('#b2').html(json['b2']);
+                        $('#b3').html(json['b3']);
+                        $('#c1').html(json['c1']);
+                        $('#c2').html(json['c2']);
+                        $('#c3').html(json['c3']);
+                        $('#yourturn').show();
+                    }
+                });
+            }
+            else {
+                // pick another box
+            }      
+        });
+    }
 </script>
 
 </body>
