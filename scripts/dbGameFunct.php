@@ -2,6 +2,7 @@
 
     require_once("dbConnect.php");
 
+
     function makeMove($playerID, $gameID, $location, $is_x) {
         try {
             if (validateMove($gameID, $location)) {

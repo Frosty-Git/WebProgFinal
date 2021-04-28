@@ -2,6 +2,8 @@
 // Start the session
 session_start();
 
+require_once('./scripts/sessionSetup.php');
+
 // Yoink imports
 require_once('./scripts/constants.php');
 ?>
