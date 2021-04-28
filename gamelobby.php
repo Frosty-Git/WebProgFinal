@@ -23,8 +23,8 @@
          which is player2 -->
     <?php 
         $gameID = $_SESSION['game_id'];
-        $currSessionUserID = $_SESSION['user_id'];
-        $currSessionUsername = $_SESSION['username'];
+        $user_id = $_SESSION['user_id'];
+        $username = $_SESSION['username'];
         $private = getIsPrivate($gameID); //from dbGetters.php
         $players = getPlayers($gameID); //from dbGetters.php
         $player1 = $players[0]; //player1 according to db (game creator)
@@ -32,12 +32,15 @@
                                 //null if only 1 player in game
         
 
-        echo '<br><p>game_id: </p>';
+        echo '<p>game_id: ';
+        echo "</p>";
         echo $gameID;
-        echo '<br><p>user_id: </p>';
-        echo $currSessionUserID;
-        echo '<br><p>username: </p>';
-        echo $currSessionUsername; 
+        echo '<p>user_id: ';
+        echo "</p>";
+        echo $user_id;
+        echo '<p>username: ';
+        echo "</p>";
+        echo $username; 
         echo "<p>Game is private: "; 
         echo $private;
         echo "</p>";

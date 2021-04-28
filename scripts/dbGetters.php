@@ -1,7 +1,7 @@
 <?php 
     require_once("dbConnect.php");
     require_once("decoder.php");
-    require_once("contants.php");
+    require_once("constants.php");
     
     // -------------------Player Table Getters------------------------
 
