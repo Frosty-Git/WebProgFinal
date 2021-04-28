@@ -9,6 +9,7 @@
     require_once('./scripts/constants.php');
     require_once('./scripts/decoder.php');
     require_once('./scripts/dbGameSetupFunct.php');
+    require_once('./scripts/dbGetters.php');
 
 ?>
 
@@ -81,12 +82,12 @@
         // Games List Format:
         // Game ID   Public/Private   Players (1/2)   User Who Created   Date Created   Join Button
         $playerID = $_SESSION['user_id'];
-        $results = findAllGames();
+        $results = findAllGames(); //from dbGameSetupFunct.php
         for ($i = 0; $i < count($results); $i++) {
-            $game = decodeSelectResults($results, $i);
+            $game = decodeSelectResults($results, $i); //from decoder.php
             $gameID = $game['games_id'];
             $private = $game['is_private'];
-            $player_name = getUsername($game['player1']);
+            $player_name = getUsername($game['player1']); //from dbGetters.php
 
             echo "<tr>";
             echo "<td>"; print_r($gameID); echo "</td>";

@@ -157,19 +157,5 @@
             die ('PDO error in cancelGame()": ' . $e->getMessage() );
         }
     }
-
-    function getUsername($playerID) {
-        try {
-            $player_query = "SELECT username FROM player WHERE player_id='$playerID'";
-            $player_data = dbSelect($player_query);
-            $index = 0;
-            $player_data_array = decodeSelectResults($player_data, $index);
-            return $player_data_array['username'];
-        }
-        catch(PDOException $e)
-        {
-            die ('PDO error in getUserID()": ' . $e->getMessage() );
-        }
-    }
     
 ?>
