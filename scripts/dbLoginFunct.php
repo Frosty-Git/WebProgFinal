@@ -37,11 +37,17 @@
         try {
             $player_query = "SELECT username FROM player WHERE username='$username'";
             $player_data = dbSelect($player_query);
-            
-            if(empty($player_data)) {
+            if(empty($player_data)) { // valid to sign up
+                // This prevents a user from being able to call the process 
+                // signup script by typing it in the url, thus they cannot create
+                // infinite empty credential users.
+                if(empty($username)) // also check isset and null
+                {
+                    return true; // as if a user already exists to prevent sign up from occurring
+                }
                 return false;
             }
-            return true;
+            return true; // username is already inside the database
         }
         catch(PDOException $e)
         {
