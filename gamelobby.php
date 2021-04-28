@@ -1,6 +1,9 @@
 <?php 
     session_start();
 
+    // Check if user is not logged in, redirect to login page.
+    require_once('./scripts/checkLogIn.php');
+
     require_once(__DIR__.'/scripts/dbGameSetupFunct.php');
     require_once(__DIR__.'/scripts/dbGetters.php');
 ?>
