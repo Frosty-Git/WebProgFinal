@@ -52,7 +52,7 @@
         $player2 = $players[1]; 
     }
     else {
-        $player2 = FAILED;
+        $player2 = IS_DEFAULT;
     }
     // Determine if the user is player1 or player2
     if ($user_id == $player1) {

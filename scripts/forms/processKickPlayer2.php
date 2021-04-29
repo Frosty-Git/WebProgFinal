@@ -11,7 +11,7 @@
     // Yoink imports.
     require_once(__DIR__.'/../dbGameSetupFunct.php');
 
-    kickPlayer($_SESSION['game_id'], $_SESSION['user_id']); 
+    kickPlayer2($_SESSION['game_id'], $_SESSION['user_id']); 
                 //from dbGameSetupFunct.php
-    header("Refresh:0"); // Reload the page to see player 2 is gone
+    header('Location: ../../gamelobby.php'); // Reload the page to see player 2 is gone
 ?>
