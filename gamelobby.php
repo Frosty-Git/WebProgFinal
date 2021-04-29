@@ -106,18 +106,24 @@
         if ($user_is_player1) {
             // Start Button: Only clickable for the host. Starts the game.
             echo '<form action="./scripts/forms/processStartGame.php">
-                      <input type="submit" value="Start">
+                      <input type="submit" value="Start Game">
                   </form>';
 
             // End Game Button: For Host, ends game.
-            echo '<button action="./scripts/forms/processCancelGame.php">
-                                Cancel Game</button>';
+            echo '<form action="./scripts/forms/processCancelGame.php">
+                      <input type="submit" value="Cancel Game">
+                  </form>';
+            // Kick Player 2 button: For Host, kicks second player from game
+            echo '<form action="./scripts/forms/processKickPlayer2.php">
+                      <input type="submit" value="Kick Player 2">
+                  </form>';
         }
         else {
             echo '<p>Waiting for player 1 to start the game.</p>';
             // Leave Button: For player2, makes them leave the game.
-            echo '<button action="./scripts/forms/processLeaveGame.php">
-                                Leave Game</button>';
+            echo '<form action="./scripts/forms/processLeaveGame.php">
+                      <input type="submit" value="Leave Game">
+                  </form>';
         }
         
         // If the user is player2, then they need to be checking the 
@@ -127,6 +133,11 @@
         // they wish.
         // Note: when the game is ended, player2's game_id needs to be 
         //       set to default before sending them back to game lobby
+        // Player2 also needs to be checking if they have been kicked.
+
+        // Player 1: Check player 2 join <-> player 2 leave (can switch)
+        // Player 2: Check cancel game, start game, if been kicked
+
     ?>    
     
 </body>
