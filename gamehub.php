@@ -11,12 +11,11 @@
     require_once('./scripts/dbGameSetupFunct.php');
     require_once('./scripts/dbGetters.php');
 
-    if ($_SESSION["game_id"] == IS_DEFAULT) {
-        // Set the game id to the user's currently in progress game id. If there
-        // is no such game, then this value will be FAILED (-1)
-        $_SESSION["game_id"] = findGameNoID($_SESSION["user_id"]);
-    }
-    
+    // if ($_SESSION["game_id"] == IS_DEFAULT) {
+    //     // Set the game id to the user's currently in progress game id. If there
+    //     // is no such game, then this value will be FAILED (-1)
+    // }
+    $_SESSION["game_id"] = findGameNoID($_SESSION["user_id"]);
     // Check if user is already in a game or not.
     // If they are already in a game, redirect them to that game.
     if ($_SESSION["game_id"] != FAILED) { //from dbGameSetupFunct.php
@@ -51,7 +50,7 @@
     <!-- Join Game Fail Message -->
     <?php
         if ($_SESSION["join_test"] == FAILED) {
-            echo "<p style='color: red;'>Game Full or this is your game. Join another game sucka.</p>";
+            echo "<p style='color: red;'>Game Full. Join another game sucka.</p>";
         }
 
         if ($_SESSION['FAILED_CREATE_GAME'] == FAILED_CREATE_GAME) {

@@ -151,9 +151,10 @@
         
     }
 
-    function cancelGame($gameID) {
+    function cancelGame($gameID, $player) {
         try {
-            $delete_query = "CALL deleteGame('$gameID');";
+            // The player cancelling the game must be player 1 (the host)
+            $delete_query = "CALL deleteGame('$gameID', '$player');";
             dbQuery($delete_query);
             return "GAME OVER";
         }

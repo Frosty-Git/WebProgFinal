@@ -9,18 +9,19 @@
     require_once(__DIR__.'/scripts/dbGameSetupFunct.php');
     require_once(__DIR__.'/scripts/dbGetters.php');
     
-    // Check if user is already in a game or not.
-    if ($_SESSION["game_id"] == IS_DEFAULT) {
-        // Set the game id to the user's currently in progress game id. If there
-        // is no such game, then this value will be FAILED (-1)
-        $_SESSION["game_id"] = findGameNoID($_SESSION["user_id"]);
-    }
-
+    // // Check if user is already in a game or not.
+    // if ($_SESSION["game_id"] == IS_DEFAULT) {
+    //     // Set the game id to the user's currently in progress game id. If there
+    //     // is no such game, then this value will be FAILED (-1)
+         
+    //                             //from dbGameSetupFunct.php
+    // }
+    $_SESSION["game_id"] = findGameNoID($_SESSION["user_id"]);
     // If they are already in a game, redirect them to that game's board.
-    if ($_SESSION["game_id"] != IS_DEFAULT && $_SESSION["game_id"] != FAILED) { //from dbGameSetupFunct.php
+    if ($_SESSION["game_id"] != IS_DEFAULT && $_SESSION["game_id"] != FAILED) {
         // The user is already in a game, so redirect them to that game rather
         // than loading the game lobby.
-        if(getIsStarted($_SESSION["game_id"]) != 0) {
+        if(getIsStarted($_SESSION["game_id"]) != 0) { //from dbGetters.php
             header('Location: tic-tac-toe.php');
         }
         // else: the game hasn't started so you are allowed to be in the lobby, proceed
@@ -36,19 +37,28 @@
 
 
 
-    // Display Game Lobby Info 
-    // Also, determine which curent session player is player1 and 
-    // which is player2
-    
+    // Set Game Lobby Info Variables
     $gameID = $_SESSION['game_id'];
     $user_id = $_SESSION['user_id'];
     $username = $_SESSION['username'];
     $private = getIsPrivate($gameID); //from dbGetters.php
     $players = getPlayers($gameID); //from dbGetters.php
-    $player1 = $players[0]; //player1 according to db (game creator)
-    $player2 = $players[1]; //player2 according to db
-                            //null if only 1 player in game
     $user_is_player1 = false;
+    $player1 = $players[0]; //player1 according to db (game creator)
+    $player2 = null;
+    //player2 according to db. Check if null because player2 can be 
+    // null if only 1 player is currently in the game lobby
+    if (isset($players[1])) {
+        $player2 = $players[1]; 
+    }
+    else {
+        $player2 = FAILED;
+    }
+    // Determine if the user is player1 or player2
+    if ($user_id == $player1) {
+        $user_is_player1 = true;
+    }
+
 
     //--------------Session Info Prints --- DELETE LATER--------------
     echo '<p>game_id: ';
@@ -69,15 +79,13 @@
     echo "<p>Player2 ID: "; 
     echo $player2;
     echo "</p>";
+    echo "<p>Players[0] ID: "; 
+    echo $players[0];
+    echo "</p>";
+    echo "<p>Players[1] ID: "; 
+    echo $players[1];
+    echo "</p>";
     //---------- End Session Info Prints -----------------------------
-
-
-    // Determine if the user is player1 or player2
-
-    if ($user_id == $player1) {
-        $user_is_player1 = true;
-    }
-
 
 ?>
 
@@ -94,18 +102,32 @@
 
     <h1>Get Ready for Your High Velocity Gaming Experience</h1>
     
-    
-
-    <!-- Only clickable for the host. Starts the game. -->
     <?php 
         if ($user_is_player1) {
-            echo "<button>Start</button>";
-        }
-    ?>
-    
+            // Start Button: Only clickable for the host. Starts the game.
+            echo '<form action="./scripts/forms/processStartGame.php">
+                      <input type="submit" value="Start">
+                  </form>';
 
-    <!-- Allows Player1 to End the Game. Allows Player2 to leave -->
-    <button>Leave</button>
+            // End Game Button: For Host, ends game.
+            echo '<button action="./scripts/forms/processCancelGame.php">
+                                Cancel Game</button>';
+        }
+        else {
+            echo '<p>Waiting for player 1 to start the game.</p>';
+            // Leave Button: For player2, makes them leave the game.
+            echo '<button action="./scripts/forms/processLeaveGame.php">
+                                Leave Game</button>';
+        }
+        
+        // If the user is player2, then they need to be checking the 
+        // db to see if player1 has started the game, or if player1 
+        // has ended the game. This needs to be async so that player2 
+        // can still choose to click the leave game button if 
+        // they wish.
+        // Note: when the game is ended, player2's game_id needs to be 
+        //       set to default before sending them back to game lobby
+    ?>    
     
 </body>
 </html>
