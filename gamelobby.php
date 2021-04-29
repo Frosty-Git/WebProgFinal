@@ -117,6 +117,8 @@
             echo '<form action="./scripts/forms/processKickPlayer2.php">
                       <input type="submit" value="Kick Player 2">
                   </form>';
+
+            header("Refresh:5");
         }
         else {
             echo '<p>Waiting for player 1 to start the game.</p>';
@@ -124,6 +126,7 @@
             echo '<form action="./scripts/forms/processLeaveGame.php">
                       <input type="submit" value="Leave Game">
                   </form>';
+            header("Refresh:5");
         }
         
         // If the user is player2, then they need to be checking the 
