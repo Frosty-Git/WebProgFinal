@@ -1,6 +1,7 @@
 <?php 
     require_once("dbConnect.php");
     require_once("decoder.php");
+    require_once("dbGetters.php");
     
     function createGame($playerID, $is_private, $password) {
         try { 
@@ -147,8 +148,22 @@
         }
     }
 
-    function startGame($gameID) {
-        
+    function startGame($gameID, $player) {
+        try {
+            // The player cancelling the game must be player 1 (the host)
+            $start_query = "CALL startGame('$gameID', '$player');";
+            dbQuery($start_query);
+            $is_started = getIsStarted($gameID); // from gbGetters.php
+            if($is_started == 1) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        catch (PDOException $e) {
+            die ('PDO error in startGame()": ' . $e->getMessage() );
+        }
     }
 
     function cancelGame($gameID, $player) {
@@ -171,7 +186,7 @@
             return "LEFT GAME";
         }
         catch (PDOException $e) {
-            die ('PDO error in cancelGame()": ' . $e->getMessage() );
+            die ('PDO error in leaveGame()": ' . $e->getMessage() );
         }
     }
 
@@ -184,7 +199,7 @@
             return "KICKED PLAYER 2";
         }
         catch (PDOException $e) {
-            die ('PDO error in cancelGame()": ' . $e->getMessage() );
+            die ('PDO error in kickPlayer2()": ' . $e->getMessage() );
         }
     }
     
