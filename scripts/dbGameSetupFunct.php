@@ -42,6 +42,10 @@
     }
 
     // Finds the game id if you have the player id.
+    // Returns the game id of the most recently created open game 
+    // which the entered playerID is in if there is one.
+    // If the player is not in any open games, then
+    // returns -1 (FAILED).
     function findGameNoID($playerID) {
         try {
             $games_query = "CALL findGameNoGameID('$playerID')";
@@ -147,11 +151,37 @@
         
     }
 
-    function cancelGame($gameID) {
+    function cancelGame($gameID, $player) {
         try {
-            $delete_query = "CALL deleteGame('$gameID');";
+            // The player cancelling the game must be player 1 (the host)
+            $delete_query = "CALL deleteGame('$gameID', '$player');";
             dbQuery($delete_query);
             return "GAME OVER";
+        }
+        catch (PDOException $e) {
+            die ('PDO error in cancelGame()": ' . $e->getMessage() );
+        }
+    }
+
+    function leaveGame($gameID, $player) {
+        try {
+            // The player leaving the game must be player 2
+            $leave_query = "CALL leaveGame('$gameID', '$player');";
+            dbQuery($leave_query);
+            return "LEFT GAME";
+        }
+        catch (PDOException $e) {
+            die ('PDO error in cancelGame()": ' . $e->getMessage() );
+        }
+    }
+
+    function kickPlayer2($gameID, $player) {
+        try {
+            // Player 1 kicks player 2. $player must match player 1, and player
+            // 2 in this game will be set to null.
+            $kick_query = "CALL kickPlayer2('$gameID', '$player');";
+            dbQuery($kick_query);
+            return "KICKED PLAYER 2";
         }
         catch (PDOException $e) {
             die ('PDO error in cancelGame()": ' . $e->getMessage() );

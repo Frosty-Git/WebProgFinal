@@ -11,6 +11,27 @@
     require_once('./scripts/dbGameSetupFunct.php');
     require_once('./scripts/dbGetters.php');
 
+    // if ($_SESSION["game_id"] == IS_DEFAULT) {
+    //     // Set the game id to the user's currently in progress game id. If there
+    //     // is no such game, then this value will be FAILED (-1)
+    // }
+    $_SESSION["game_id"] = findGameNoID($_SESSION["user_id"]);
+    // Check if user is already in a game or not.
+    // If they are already in a game, redirect them to that game.
+    if ($_SESSION["game_id"] != FAILED) { //from dbGameSetupFunct.php
+        // The user is already in a game, so redirect them to that game rather
+        // than loading the game hub.
+        if(getIsStarted($_SESSION["game_id"]) == 0) { // The game has not started, redirect to game lobby
+            header('Location: gamelobby.php');
+        }
+        else { // The game has started, redirect to the game board
+            header('Location: tic-tac-toe.php');
+        }
+    }
+
+    // If you make it to this point, you aren't in a game so proceed and set
+    // the game id back to default
+    $_SESSION["game_id"] = IS_DEFAULT;
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +50,7 @@
     <!-- Join Game Fail Message -->
     <?php
         if ($_SESSION["join_test"] == FAILED) {
-            echo "<p style='color: red;'>Game Full or this is your game. Join another game sucka.</p>";
+            echo "<p style='color: red;'>Game Full. Join another game sucka.</p>";
         }
 
         if ($_SESSION['FAILED_CREATE_GAME'] == FAILED_CREATE_GAME) {
