@@ -16,6 +16,7 @@
                     $is_tie = 0;
                     $update_game = "CALL endGame('$playerID','$gameID','$is_x', '$is_tie')";
                     dbQuery($update_game);
+                    return "Winner";
                 }
                 // Check for a full board and if the other player has won to
                 // determine a tie.
@@ -23,8 +24,9 @@
                     $is_tie = 1;
                     $update_game = "CALL endGame('$playerID','$gameID','$is_x', '$is_tie')";
                     dbQuery($update_game);
+                    return "Tie";
                 }
-                return "Move successful! Great job, you son of a bitch";            
+                return "Continue";      
             }
             else {
                 return "You failed to make a move loser.";
@@ -64,7 +66,7 @@
                 if (!empty($result)) {
                     $waiting = false;
                     // Switch the active player.
-                    return "Switched active player.";
+                    return true;
                 }
             }
         }
@@ -206,6 +208,13 @@
         $query = "SELECT a1, a2, a3, b1, b2, b3, c1, c2, c3 FROM board WHERE game_id = '$gameID';";
         $board = dbSelect($query);
         return json_decode(json_encode($board[0]),true);
+    }
+
+    function getEncodedBoard($gameID) {
+        // Ensures order of the board (in case * doesn't)
+        $query = "SELECT a1, a2, a3, b1, b2, b3, c1, c2, c3 FROM board WHERE game_id = '$gameID';";
+        $board = dbSelect($query);
+        return json_encode($board[0]);
     }
 
 ?>
