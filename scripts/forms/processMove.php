@@ -16,6 +16,6 @@ if ($answer) {
 }
 else {
     waitForMove($gameID, $playerID);
-    $_SESSION['active'] = ;
+    $_SESSION['active'] = true;
 }
 ?>

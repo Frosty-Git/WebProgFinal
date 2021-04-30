@@ -5,7 +5,10 @@
     require_once(__DIR__.'/scripts/dbGameFunct.php');
 
     header('Refresh:5');
-    
+
+    if (getIsEnded($_SESSION['game_id'])) {
+        header('Location: gamehub.php');
+    }
 ?>
 
 
