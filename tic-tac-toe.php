@@ -3,12 +3,7 @@
 
     require_once(__DIR__.'/scripts/dbGetters.php');
     require_once(__DIR__.'/scripts/dbGameFunct.php');
-
-    header('Refresh:5');
-
-    if (getIsEnded($_SESSION['game_id'])) {
-        header('Location: gamehub.php');
-    }
+    
 ?>
 
 
@@ -27,8 +22,6 @@
 		  crossorigin="anonymous"></script>
 </head>
 <body>
-
-
 
 <?php
 //--------------Session Info Prints --- DELETE LATER--------------
@@ -59,11 +52,7 @@
     <div class="container-in">
     <div class="table-container">
         <?php
-            if($_SESSION['active']) {
-                echo '<p id="yourturn">';
-                echo $_SESSION['character'];
-                echo "'s Turn</p>";
-            }
+            echo '<p id="yourturn">Your Turn</p>';
             echo '<table align="center">';
 
 
@@ -127,27 +116,45 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('.disabled').attr("disabled", "disabled");
-        // player2();
+        update();
     });
 
-    // function player2() {
-    //     if ("<?php echo $_SESSION['character']; ?>" == 'O' && "<?php echo getIsStarted(); ?>") {
-    //         $.ajax({
-    //             url: './scripts/forms/processStartPlayer2.php',
-    //         }).done(json => {
-    //             $('#a1').html(json[0].a1);
-    //             $('#a2').html(json[0].a2);
-    //             $('#a3').html(json[0].a3);
-    //             $('#b1').html(json[0].b1);
-    //             $('#b2').html(json[0].b2);
-    //             $('#b3').html(json[0].b3);
-    //             $('#c1').html(json[0].c1);
-    //             $('#c2').html(json[0].c2);
-    //             $('#c3').html(json[0].c3);
-    //             $('#activeturn').show();
-    //         });
-    //     }
-    // }
+    function update() {
+        $.ajax({
+            type:"GET",
+            url: "./scripts/forms/processBoardUpdate.php", 
+            dataType: 'json',
+            success: function(res){
+                $('#a1').html(res.a1); 
+                $('#a2').html(res.a2); 
+                $('#a3').html(res.a3); 
+                $('#b1').html(res.b1); 
+                $('#b2').html(res.b2); 
+                $('#b3').html(res.b3); 
+                $('#c1').html(res.c1); 
+                $('#c2').html(res.c2); 
+                $('#c3').html(res.c3); 
+            }
+        });
+
+        $.get("./scripts/forms/processActivePlayer.php", function(data) {
+            console.log(data);
+            if(data == 1) {
+                $('.disabled').removeClass('disabled');
+                $('.disabled').attr("disabled", "");
+                $('#yourturn').show();
+            }
+            else if (data == '') {
+                $('.box').attr("disabled", "disabled");
+                $('.box').addClass('disabled');
+                $('#yourturn').hide();
+            }
+            else if (data == 2) {
+                window.location = "/~duranceaj3/webprog/FinalProject/gameover.php";
+            }
+            window.setTimeout(update, 1000);
+        });
+    }
     
     const boxes = document.getElementsByClassName("box");
     for(let i = 0; i < boxes.length; i++) {
@@ -161,16 +168,13 @@
                 let gameID = "<?php echo $_SESSION['game_id']; ?>";
                 $.ajax({
                     type: 'POST',
-                    url: './scripts/forms/processMove.php', // needs to be made
+                    url: './scripts/forms/processMove.php', 
                     data: {
                         location: location,
                         game_id: gameID,
                     },                  
                 });
-            }
-            else {
-                // pick another box
-            }      
+            }   
         });
     }
 </script>

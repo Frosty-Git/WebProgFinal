@@ -1,16 +1,17 @@
 <?php
 
     require_once("dbConnect.php");
-
+    require_once("dbGetters.php");
 
     function makeMove($playerID, $gameID, $location, $is_x) {
         try {
             if (validateMove($gameID, $location)) {
                 $move_creation = "INSERT INTO moves ( location, is_x, player_id, game_id ) 
                                     VALUES ('$location', '$is_x', '$playerID', '$gameID')";
-                $update_game_date = "UPDATE games SET date_updated = now() WHERE games_id = '$gameID';";
+                $otherPlayer = getOtherPlayer($gameID, $playerID);
+                $update_game = "UPDATE games SET date_updated = now(), active_player = '$otherPlayer' WHERE games_id = '$gameID';";
                 dbQuery($move_creation);
-                dbQuery($update_game_date);
+                dbQuery($update_game);
                 editBoard($gameID, $location, $is_x);
                 if (checkForWinner($gameID, $is_x)) {
                     $is_tie = 0;

@@ -156,6 +156,22 @@
         }
     }
 
+    // Gets the active player of the game (whose turn it is)
+    function getActivePlayer($gameID) {
+        try {
+            $query_result = dbSelect("SELECT active_player FROM games WHERE games_id = '$gameID';"); // from dbConnect.php
+            if (empty($query_result)) {
+                return FAILED; //from constants.php
+            }
+            $result_decoded = decodeSelectFirstResult($query_result)['active_player']; //from decoder.php
+            return $result_decoded;
+        }
+        catch(PDOException $e)
+        {
+            die ('PDO error in getActivePlayer()": ' . $e->getMessage() );
+        }
+    }
+
     // Get the game's password.
     function getGamePassword($gameID) {
         try {
@@ -190,9 +206,37 @@
         }
         catch(PDOException $e)
         {
-            die ('PDO error in getPlayer1()": ' . $e->getMessage() );
+            die ('PDO error in getPlayers()": ' . $e->getMessage() );
         }
     }
+
+    
+    function getOtherPlayer($gameID, $playerID) {
+        try {
+            $players = getPlayers($gameID);
+            if ($playerID == $players[0]) {
+                return $players[1];
+            }
+            return $players[0];
+        }
+        catch (PDOException $e){
+            die ('PDO error in getOtherPlayer()": ' . $e->getMessage() );
+        }
+    }
+
+    function getGameWinner($playerID) {
+        try {
+            $query = "CALL findLastGame('$playerID')";
+            $game = dbSelect($query);
+            $game_stats = decodeSelectFirstResult($game);
+
+            return $game_stats;
+        }
+        catch (PDOException $e){
+            die ('PDO error in getGameWinner()": ' . $e->getMessage() );
+        }
+    }
+
 
     // ----------------End Games Table Getters------------------------
 
