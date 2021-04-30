@@ -22,7 +22,9 @@
         // The user is already in a game, so redirect them to that game rather
         // than loading the game lobby.
         if(getIsStarted($_SESSION["game_id"]) != 0) { //from dbGetters.php
-            header('Location: tic-tac-toe.php');
+            if(getIsEnded($_SESSION["game_id"]) == 0) {
+                header('Location: tic-tac-toe.php');
+            }
         }
         // else: the game hasn't started so you are allowed to be in the lobby, proceed
     }

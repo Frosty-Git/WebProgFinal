@@ -24,8 +24,10 @@
         if(getIsStarted($_SESSION["game_id"]) == 0) { // The game has not started, redirect to game lobby
             header('Location: gamelobby.php');
         }
-        else { // The game has started, redirect to the game board
-            header('Location: tic-tac-toe.php');
+        else { // The game has started, redirect to the game board if the game hasn't ended
+            if(getIsEnded($_SESSION["game_id"]) == 0) {
+                header('Location: tic-tac-toe.php');
+            }
         }
     }
 

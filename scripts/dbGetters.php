@@ -105,6 +105,22 @@
             die ('PDO error in getIsStarted()": ' . $e->getMessage() );
         }
     }
+
+    // Get whether or not the game has ended from the Games table.
+    function getIsEnded($gameID) {
+        try {
+            $query_result = dbSelect("SELECT game_ended FROM games WHERE games_id = '$gameID';"); // from dbConnect.php
+            if (empty($query_result)) {
+                return FAILED; //from constants.php
+            }
+            $result_decoded = decodeSelectFirstResult($query_result)['game_ended']; //from decoder.php
+            return $result_decoded;
+        }
+        catch(PDOException $e)
+        {
+            die ('PDO error in getIsStarted()": ' . $e->getMessage() );
+        }
+    }
     
     // Get Player1.
     function getPlayer1($gameID) {

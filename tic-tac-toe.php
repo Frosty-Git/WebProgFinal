@@ -68,9 +68,6 @@
 
         
             $board = getBoard($_SESSION['game_id']);
-
-            echo $board;
-            echo $board['a1'];
             echo "<tr>";
             echo "<td><div class='box' id='a1' value='a1'>"; echo $board['a1']; echo "</div></td>";
             echo "<td><div class='box' id='a2' value='a2'>"; echo $board['a2']; echo "</div></td>";

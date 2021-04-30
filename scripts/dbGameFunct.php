@@ -29,7 +29,7 @@
                 return false;      
             }
             else {
-                return "You failed to make a move loser.";
+                return false;
             }
         }
         catch (PDOException $e){
@@ -86,7 +86,7 @@
             $board = getBoard($gameID);
             $found_winner = false;
             
-            $a1 = $board["a1"];
+            $a1 = $board["a1"]; 
             $a2 = $board["a2"];
             $a3 = $board["a3"];
             $b1 = $board["b1"];
@@ -96,8 +96,8 @@
             $c2 = $board["c2"];
             $c3 = $board["c3"];
 
-            // 3 Horizontal Checks
-            // a1, a2, a3
+            //3 Horizontal Checks
+            //a1, a2, a3
             if ($a1 == $letter and $a2 == $letter and $a3 == $letter) {
                 $found_winner = true;
             }
@@ -126,7 +126,7 @@
             
             // 2 Diagonal Checks
             // a1, b2, c3
-            elseif ($a1 == $letter and $b2 == $letter and $a3 == $letter) {
+            elseif ($a1 == $letter and $b2 == $letter and $c3 == $letter) {
                 $found_winner = true;
             }
             // a3, b2, c1
@@ -157,9 +157,9 @@
             $c2 = $board["c2"];
             $c3 = $board["c3"];
 
-            if(!($a1 == $empty and $a2 == $empty and $a3 == $empty and
-                 $b1 == $empty and $b2 == $empty and $b3 == $empty and
-                 $c1 == $empty and $c2 == $empty and $c3 == $empty)) {
+            if( ($a1 != $empty and $a2 != $empty and $a3 != $empty and
+                 $b1 != $empty and $b2 != $empty and $b3 != $empty and
+                 $c1 != $empty and $c2 != $empty and $c3 != $empty)) {
                 $result = true;
             }
 
