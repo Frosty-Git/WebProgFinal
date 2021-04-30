@@ -42,6 +42,7 @@
     <meta name='Author' content='Joseph Frost, Katie Lee, Marc Colin, Jacelynn Duranceau' />
     <meta name='generator' content='VS Code' />
     <link rel='shortcut icon' href='' />
+    <link rel="stylesheet" href="./css/base.css">
 </head>
 
 <body>

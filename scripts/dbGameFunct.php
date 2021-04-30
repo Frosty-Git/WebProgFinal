@@ -16,7 +16,7 @@
                     $is_tie = 0;
                     $update_game = "CALL endGame('$playerID','$gameID','$is_x', '$is_tie')";
                     dbQuery($update_game);
-                    return "Winner";
+                    return true;
                 }
                 // Check for a full board and if the other player has won to
                 // determine a tie.
@@ -24,9 +24,9 @@
                     $is_tie = 1;
                     $update_game = "CALL endGame('$playerID','$gameID','$is_x', '$is_tie')";
                     dbQuery($update_game);
-                    return "Tie";
+                    return true;
                 }
-                return "Continue";      
+                return false;      
             }
             else {
                 return "You failed to make a move loser.";
@@ -144,7 +144,7 @@
     function checkFullBoard($gameID) {
         try {
             $board = getBoard($gameID);
-            $empty = '-'; // The empty space symbol on our board
+            $empty = ""; // The empty space symbol on our board
             $result = false;
 
             $a1 = $board["a1"];
