@@ -50,3 +50,7 @@
   .table-container button:focus {
     outline: none;
   }
+
+  .disabled {
+    pointer-events:none;
+  }

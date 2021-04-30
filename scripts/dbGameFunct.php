@@ -74,6 +74,7 @@
             die ('PDO error in waitForMove()": ' . $e->getMessage() );
         }
     }
+
     
     // Checks to see if a player has won.
     // params: dbh = the database

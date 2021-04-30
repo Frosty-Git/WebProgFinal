@@ -59,35 +59,55 @@
     <div class="container-in">
     <div class="table-container">
         <?php
-        if($_SESSION['active']) {
-            echo '<p id="yourturn">';
-            echo $_SESSION['character'];
-            echo "'s Turn</p>";
-        }
-        ?>
-        <table align="center">
+            if($_SESSION['active']) {
+                echo '<p id="yourturn">';
+                echo $_SESSION['character'];
+                echo "'s Turn</p>";
+            }
+            echo '<table align="center">';
 
-        <?php
 
-        
             $board = getBoard($_SESSION['game_id']);
-            echo "<tr>";
-            echo "<td><div class='box' id='a1' value='a1'>"; echo $board['a1']; echo "</div></td>";
-            echo "<td><div class='box' id='a2' value='a2'>"; echo $board['a2']; echo "</div></td>";
-            echo "<td><div class='box' id='a3' value='a3'>"; echo $board['a3']; echo "</div></td>";
-            echo "</tr>";
-            
-            echo "<tr>";
-            echo "<td><div class='box' id='b1' value='b1'>"; echo $board['b1']; echo "</div></td>";
-            echo "<td><div class='box' id='b2' value='b2'>"; echo $board['b2']; echo "</div></td>";
-            echo "<td><div class='box' id='b3' value='b3'>"; echo $board['b3']; echo "</div></td>";
-            echo "</tr>";
 
-            echo "<tr>";
-            echo "<td><div class='box' id='c1' value='c1'>"; echo $board['c1']; echo "</div></td>";
-            echo "<td><div class='box' id='c2' value='c2'>"; echo $board['c2']; echo "</div></td>";
-            echo "<td><div class='box' id='c3' value='c3'>"; echo $board['c3']; echo "</div></td>";
-            echo "</tr>";
+            if ($_SESSION['active']) {
+                echo "<tr>";
+                echo "<td><div class='box' id='a1' value='a1'>"; echo $board['a1']; echo "</div></td>";
+                echo "<td><div class='box' id='a2' value='a2'>"; echo $board['a2']; echo "</div></td>";
+                echo "<td><div class='box' id='a3' value='a3'>"; echo $board['a3']; echo "</div></td>";
+                echo "</tr>";
+                
+                echo "<tr>";
+                echo "<td><div class='box' id='b1' value='b1'>"; echo $board['b1']; echo "</div></td>";
+                echo "<td><div class='box' id='b2' value='b2'>"; echo $board['b2']; echo "</div></td>";
+                echo "<td><div class='box' id='b3' value='b3'>"; echo $board['b3']; echo "</div></td>";
+                echo "</tr>";
+
+                echo "<tr>";
+                echo "<td><div class='box' id='c1' value='c1'>"; echo $board['c1']; echo "</div></td>";
+                echo "<td><div class='box' id='c2' value='c2'>"; echo $board['c2']; echo "</div></td>";
+                echo "<td><div class='box' id='c3' value='c3'>"; echo $board['c3']; echo "</div></td>";
+                echo "</tr>";
+            }
+            else {
+                echo "<tr>";
+                echo "<td><div class='box disabled' id='a1' value='a1'>"; echo $board['a1']; echo "</div></td>";
+                echo "<td><div class='box disabled' id='a2' value='a2'>"; echo $board['a2']; echo "</div></td>";
+                echo "<td><div class='box disabled' id='a3' value='a3'>"; echo $board['a3']; echo "</div></td>";
+                echo "</tr>";
+                
+                echo "<tr>";
+                echo "<td><div class='box disabled' id='b1' value='b1'>"; echo $board['b1']; echo "</div></td>";
+                echo "<td><div class='box disabled' id='b2' value='b2'>"; echo $board['b2']; echo "</div></td>";
+                echo "<td><div class='box disabled' id='b3' value='b3'>"; echo $board['b3']; echo "</div></td>";
+                echo "</tr>";
+
+                echo "<tr>";
+                echo "<td><div class='box disabled' id='c1' value='c1'>"; echo $board['c1']; echo "</div></td>";
+                echo "<td><div class='box disabled' id='c2' value='c2'>"; echo $board['c2']; echo "</div></td>";
+                echo "<td><div class='box disabled' id='c3' value='c3'>"; echo $board['c3']; echo "</div></td>";
+                echo "</tr>";
+            }
+            
         ?> 
 
         </table>
@@ -105,6 +125,9 @@
 ?>
 <!-- used to fill in box, check for winner, and switch players -->
 <script type="text/javascript">
+    $(document).ready(function() {
+        $('.disabled').attr("disabled", "disabled");
+    });
     
     const boxes = document.getElementsByClassName("box");
     for(let i = 0; i < boxes.length; i++) {
@@ -112,6 +135,7 @@
             let location = boxes[i].getAttribute('value');
             if (boxes[i].innerHTML.trim() == "") {
                 $('#yourturn').hide();
+                
                 let letter = "<?php echo $_SESSION['character']; ?>";
                 boxes[i].innerHTML = letter;
                 let gameID = "<?php echo $_SESSION['game_id']; ?>";
