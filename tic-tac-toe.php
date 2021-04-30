@@ -127,7 +127,27 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('.disabled').attr("disabled", "disabled");
+        // player2();
     });
+
+    // function player2() {
+    //     if ("<?php echo $_SESSION['character']; ?>" == 'O' && "<?php echo getIsStarted(); ?>") {
+    //         $.ajax({
+    //             url: './scripts/forms/processStartPlayer2.php',
+    //         }).done(json => {
+    //             $('#a1').html(json[0].a1);
+    //             $('#a2').html(json[0].a2);
+    //             $('#a3').html(json[0].a3);
+    //             $('#b1').html(json[0].b1);
+    //             $('#b2').html(json[0].b2);
+    //             $('#b3').html(json[0].b3);
+    //             $('#c1').html(json[0].c1);
+    //             $('#c2').html(json[0].c2);
+    //             $('#c3').html(json[0].c3);
+    //             $('#activeturn').show();
+    //         });
+    //     }
+    // }
     
     const boxes = document.getElementsByClassName("box");
     for(let i = 0; i < boxes.length; i++) {

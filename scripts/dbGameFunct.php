@@ -75,6 +75,22 @@
         }
     }
 
+    function player2Start($gameID, $playerID) {
+        try {
+            $query = "SELECT moves_id FROM moves WHERE game_id='$gameID';";
+            $result = dbSelect($query);
+            if (!empty($result)) {
+                // Switch the active player.
+                return true;
+            }
+            //player2Start($gameID, $playerID);
+            return false;
+        }
+        catch (PDOException $e) {
+            die ('PDO error in waitForMove()": ' . $e->getMessage() );
+        }
+    }
+
     
     // Checks to see if a player has won.
     // params: dbh = the database
