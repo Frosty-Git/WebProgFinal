@@ -15,6 +15,7 @@ if ($answer) {
     header('Location: ../../gamehub.php');
 }
 else {
+    wait fo
     $_SESSION['active'] = false;
 }
 ?>
