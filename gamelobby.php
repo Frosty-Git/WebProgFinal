@@ -50,6 +50,15 @@
     // null if only 1 player is currently in the game lobby
     if (isset($players[1])) {
         $player2 = $players[1]; 
+
+        if ($_SESSION['user_id'] ==  $player1) {
+            $_SESSION['character'] = 'X';
+            $_SESSION['active'] = true;
+        }
+        elseif ($_SESSION['user_id'] == $player2) {
+            $_SESSION['character'] = 'O';
+            $_SESSION['active'] = false;
+        }
     }
     else {
         $player2 = IS_DEFAULT;

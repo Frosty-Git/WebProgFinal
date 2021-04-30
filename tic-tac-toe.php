@@ -1,17 +1,12 @@
 <?php 
     session_start();
 
-    require_once('./scripts/dbGetters.php');
-    $gameID = $_SESSION['game_id'];
-    $player1 = getPlayer1($gameID);
-    $player2 = getPlayer2($gameID);
-    if ($_SESSION['user_id'] ==  $player1) {
-        $_SESSION['character'] = 'X';
+    require_once(__DIR__.'/scripts/dbGetters.php');
+    require_once(__DIR__.'/scripts/dbGameFunct.php');
+
+    if(!$_SESSION['active']) {
+        header('Refresh:5');
     }
-    elseif ($_SESSION['user_id'] == $player2) {
-        $_SESSION['character'] = 'O';
-    }
-    
 ?>
 
 
@@ -29,6 +24,11 @@
 		  crossorigin="anonymous"></script>
 </head>
 <body>
+<?php
+    echo "<p>";
+    echo getEncodedBoard($_SESSION['game_id']);
+    echo "</p>";
+?> 
 
 <div class="container-out">
     <div class="container-in">
@@ -59,6 +59,11 @@
 
 <!-- used to fill in box, check for winner, and switch players -->
 <script type="text/javascript">
+    $(document).ready(function() {
+
+    });
+
+
     const boxes = document.getElementsByClassName("box");
     for(let i = 0; i < boxes.length; i++) {
         boxes[i].addEventListener("click", function(){
