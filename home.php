@@ -6,13 +6,20 @@
   <meta name="Author" content="Joseph Frost, Katie Lee, Marc Colin, Jacelynn Duranceau" />
   <meta name="generator" content="VS Code" />
   <link rel="shortcut icon" href="" />
+  <link rel="stylesheet" href="./css/base.css">
+  <style>
+    .nostyle { text-decoration: none; color: black;}
+  </style>
 </head>
 
 <body>
-  <h1>Hello</h1>
-  <button><a href="login.php">Login Here!</a></button>&nbsp;
-  <button><a href="signup.php">Sign Up Here!</a></button>
-
+<div class="centerDiv">
+  <h1><span style="color: #FC4A1A">Tic</span><span style="color: #4ABDAC">-</span><span style="color: #FC4A1A">Tac</span><span style="color: #4ABDAC">-</span><span style="color: #FC4A1A">Toe</span></h1>
+  <button class="button2"><a href="login.php" class="nostyle">Login Here!</a></button>&nbsp;
+  <button class="button"><a href="signup.php" class="nostyle">Sign Up Here!</a></button>
+  <p></p> 
+  <!-- ^ Wanted a gap between the footer but a line break wouldn't do it -->
+</div>
 
 
 
@@ -36,10 +43,22 @@
 
 
 
-  <footer style="border-top: 1px solid blue">
+  <footer style="border-top: 1px solid #FC4A1A">
   <a href="http://elvis.rowan.edu/~frostj16/" 
-    title="Link to my home page">
-    Joe, Katie, Marc, Jacelynn
+    title="Joe's Home Page">
+    Joe
+  </a>, 
+  <a href="http://elvis.rowan.edu/~leekat32/" 
+    title="Katie's Home Page">
+    Katie
+  </a>, 
+  <a href="http://elvis.rowan.edu/~colinm36/" 
+    title="Marc's Home Page">
+    Marc
+  </a>& 
+  <a href="http://elvis.rowan.edu/~duranceaj3/" 
+    title="Jacelynn's Home Page">
+    Jacelynn
   </a>
 
   <span style="float: right;">

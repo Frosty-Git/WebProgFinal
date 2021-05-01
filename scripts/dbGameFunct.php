@@ -1,22 +1,23 @@
 <?php
 
     require_once("dbConnect.php");
-
+    require_once("dbGetters.php");
 
     function makeMove($playerID, $gameID, $location, $is_x) {
         try {
             if (validateMove($gameID, $location)) {
                 $move_creation = "INSERT INTO moves ( location, is_x, player_id, game_id ) 
                                     VALUES ('$location', '$is_x', '$playerID', '$gameID')";
-                $update_game_date = "UPDATE games SET date_updated = now() WHERE games_id = '$gameID';";
+                $otherPlayer = getOtherPlayer($gameID, $playerID);
+                $update_game = "UPDATE games SET date_updated = now(), active_player = '$otherPlayer' WHERE games_id = '$gameID';";
                 dbQuery($move_creation);
-                dbQuery($update_game_date);
+                dbQuery($update_game);
                 editBoard($gameID, $location, $is_x);
                 if (checkForWinner($gameID, $is_x)) {
                     $is_tie = 0;
                     $update_game = "CALL endGame('$playerID','$gameID','$is_x', '$is_tie')";
                     dbQuery($update_game);
-                    return "Winner";
+                    return true;
                 }
                 // Check for a full board and if the other player has won to
                 // determine a tie.
@@ -24,12 +25,12 @@
                     $is_tie = 1;
                     $update_game = "CALL endGame('$playerID','$gameID','$is_x', '$is_tie')";
                     dbQuery($update_game);
-                    return "Tie";
+                    return true;
                 }
-                return "Continue";      
+                return false;      
             }
             else {
-                return "You failed to make a move loser.";
+                return false;
             }
         }
         catch (PDOException $e){
@@ -74,6 +75,23 @@
             die ('PDO error in waitForMove()": ' . $e->getMessage() );
         }
     }
+
+    function player2Start($gameID, $playerID) {
+        try {
+            $query = "SELECT moves_id FROM moves WHERE game_id='$gameID';";
+            $result = dbSelect($query);
+            if (!empty($result)) {
+                // Switch the active player.
+                return true;
+            }
+            //player2Start($gameID, $playerID);
+            return false;
+        }
+        catch (PDOException $e) {
+            die ('PDO error in waitForMove()": ' . $e->getMessage() );
+        }
+    }
+
     
     // Checks to see if a player has won.
     // params: dbh = the database
@@ -86,7 +104,7 @@
             $board = getBoard($gameID);
             $found_winner = false;
             
-            $a1 = $board["a1"];
+            $a1 = $board["a1"]; 
             $a2 = $board["a2"];
             $a3 = $board["a3"];
             $b1 = $board["b1"];
@@ -96,8 +114,8 @@
             $c2 = $board["c2"];
             $c3 = $board["c3"];
 
-            // 3 Horizontal Checks
-            // a1, a2, a3
+            //3 Horizontal Checks
+            //a1, a2, a3
             if ($a1 == $letter and $a2 == $letter and $a3 == $letter) {
                 $found_winner = true;
             }
@@ -126,7 +144,7 @@
             
             // 2 Diagonal Checks
             // a1, b2, c3
-            elseif ($a1 == $letter and $b2 == $letter and $a3 == $letter) {
+            elseif ($a1 == $letter and $b2 == $letter and $c3 == $letter) {
                 $found_winner = true;
             }
             // a3, b2, c1
@@ -144,7 +162,7 @@
     function checkFullBoard($gameID) {
         try {
             $board = getBoard($gameID);
-            $empty = '-'; // The empty space symbol on our board
+            $empty = ""; // The empty space symbol on our board
             $result = false;
 
             $a1 = $board["a1"];
@@ -157,9 +175,9 @@
             $c2 = $board["c2"];
             $c3 = $board["c3"];
 
-            if(!($a1 == $empty and $a2 == $empty and $a3 == $empty and
-                 $b1 == $empty and $b2 == $empty and $b3 == $empty and
-                 $c1 == $empty and $c2 == $empty and $c3 == $empty)) {
+            if( ($a1 != $empty and $a2 != $empty and $a3 != $empty and
+                 $b1 != $empty and $b2 != $empty and $b3 != $empty and
+                 $c1 != $empty and $c2 != $empty and $c3 != $empty)) {
                 $result = true;
             }
 

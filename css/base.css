@@ -1,0 +1,101 @@
+body {
+    background-color: #DFDCE3;
+    font-family:"Comic Sans MS";
+    font-style: oblique;
+}
+
+h1 {
+    color:#FC4A1A;
+}
+
+.fSet { /* fieldsets on signup and login */
+    border: 3px dotted #4ABDAC;
+    border-radius: 2px;
+    padding: 5px;
+    display: inline-block;
+    text-align:left;
+}
+
+.fLegend { /* The legend on the fieldset */
+    color: #FC4A1A;
+    /* Yellow color: #F7B733*/
+}
+
+.centerDiv { /* div containing form / fieldsets on signup and login */
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button {
+    border-radius: 4px;
+    font-family: "Comic Sans MS";
+    font-style: oblique;
+}
+
+.button:hover {
+    background-color: #FC4A1A;
+}
+
+.userInput { 
+    border: 1px solid #FC4A1A;
+    border-radius: 4px; 
+    font-family: "Comic Sans MS";
+    font-style: oblique;
+}
+
+/* Begin GameHub */
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ghTable { /* Table for game info on GameHub */
+    width: 80%;
+    border: 3px dotted #4ABDAC;
+    border-radius: 2px;
+}
+
+.tableTd { /* td to center on a table */
+    text-align: center;
+}
+
+.button2 {
+    border-radius: 4px;
+    font-family: "Comic Sans MS";
+    font-style: oblique;
+}
+
+.button2:hover {
+    background-color: #4ABDAC;
+}
+
+/* input.checkBox[type="checkbox"]:checked{
+    background-color: #4ABDAC;
+}
+input.checkBox[type="checkbox"]:active{
+    background-color: #4ABDAC;
+}
+input.checkBox[type="checkbox"]:focus{
+    background-color: #4ABDAC;
+}
+.checkBox[type="checkbox"]:after{
+    background-color: #4ABDAC;
+}
+
+.checkBox:active, .checkBox:focus{
+    background-color: #4ABDAC;
+    border-color:#d9dadc;
+    -webkit-box-shadow: inset 0 1px 1px rgb(74,189,172),0 0 8px rgb(74,189,172);
+    box-shadow: inset 0 1px 1px rgb(74,189,172),0 0 8px rgb(74,189,172);
+} */
+
+/* End GameHub */
+
+/* Start Game Over / Game Stats*/
+.goTable { /* Table for game info on GameHub */
+    width: 50%;
+    border: 3px dotted #4ABDAC;
+    border-radius: 2px;
+}
+/* End Game Over/ Game Stats */

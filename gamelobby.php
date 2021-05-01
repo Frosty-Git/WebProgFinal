@@ -22,7 +22,9 @@
         // The user is already in a game, so redirect them to that game rather
         // than loading the game lobby.
         if(getIsStarted($_SESSION["game_id"]) != 0) { //from dbGetters.php
-            header('Location: tic-tac-toe.php');
+            if(getIsEnded($_SESSION["game_id"]) == 0) {
+                header('Location: tic-tac-toe.php');
+            }
         }
         // else: the game hasn't started so you are allowed to be in the lobby, proceed
     }
@@ -57,6 +59,15 @@
     // Determine if the user is player1 or player2
     if ($user_id == $player1) {
         $user_is_player1 = true;
+    }
+
+    if ($_SESSION['user_id'] ==  $player1) {
+        $_SESSION['character'] = 'X';
+        $_SESSION['active'] = true;
+    }
+    elseif ($_SESSION['user_id'] != $player1) {
+        $_SESSION['character'] = 'O';
+        $_SESSION['active'] = false;
     }
 
 
@@ -97,35 +108,47 @@
   <meta name='Author' content='Joseph Frost, Katie Lee, Marc Colin, Jacelynn Duranceau' />
   <meta name='generator' content='VS Code' />
   <link rel='shortcut icon' href='' />
+  <link rel="stylesheet" href="./css/base.css">
 </head>
 <body>
 
-    <h1>Get Ready for Your High Velocity Gaming Experience</h1>
+    <center><h1>Get Ready for Your High Velocity Gaming Experience</h1></center>
     
     <?php 
         if ($user_is_player1) {
             // Start Button: Only clickable for the host. Starts the game.
-            echo '<form action="./scripts/forms/processStartGame.php">
-                      <input type="submit" value="Start Game">
+            echo '<div class="centerDiv">
+                  <h3>'; echo getUsername($player1); echo ' VS '; 
+                  if($player2 > 0) {
+                        echo getUsername($player2);
+                  }
+                  else {
+                        echo 'Player 2';
+                  }
+                  echo '</h3>
+                  <form action="./scripts/forms/processStartGame.php">
+                      <input type="submit" value="Start Game" class="button2">
                   </form>';
 
             // End Game Button: For Host, ends game.
             echo '<form action="./scripts/forms/processCancelGame.php">
-                      <input type="submit" value="Cancel Game">
+                      <input type="submit" value="Cancel Game" class="button2">
                   </form>';
             // Kick Player 2 button: For Host, kicks second player from game
             echo '<form action="./scripts/forms/processKickPlayer2.php">
-                      <input type="submit" value="Kick Player 2">
-                  </form>';
+                      <input type="submit" value="Kick Player 2" class="button2">
+                  </form>
+                  </div>';
 
             header("Refresh:5");
         }
         else {
-            echo '<p>Waiting for player 1 to start the game.</p>';
+            echo '<div class="centerDiv"><p>Waiting for host to start the game.</p>';
             // Leave Button: For player2, makes them leave the game.
             echo '<form action="./scripts/forms/processLeaveGame.php">
-                      <input type="submit" value="Leave Game">
-                  </form>';
+                      <input type="submit" value="Leave Game" class="button2">
+                  </form>
+                  </div>';
             header("Refresh:5");
         }
         

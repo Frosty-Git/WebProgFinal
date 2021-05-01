@@ -10,6 +10,8 @@
     $_SESSION["username"] = IS_DEFAULT;
     $_SESSION["join_test"] = IS_DEFAULT;
     $_SESSION["FAILED_CREATE_GAME"] = IS_DEFAULT;
+    $_SESSION["active"] = IS_DEFAULT;
+    $_SESSION["character"] = IS_DEFAULT;
     // $_SESSION[""];
     
 ?>
