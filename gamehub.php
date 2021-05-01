@@ -34,7 +34,7 @@
     // If you make it to this point, you aren't in a game so proceed and set
     // the game id back to default
     $_SESSION["game_id"] = IS_DEFAULT;
-    $_SESSION["character"] = IS_DEFAULT;
+    // $_SESSION["character"] = IS_DEFAULT;
 ?>
 
 <!DOCTYPE html>
