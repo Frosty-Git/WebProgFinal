@@ -16,6 +16,7 @@
          
     //                             //from dbGameSetupFunct.php
     // }
+    $_SESSION["password_fail"] = IS_DEFAULT; // If you made it here, the password was correct
     $_SESSION["game_id"] = findGameNoID($_SESSION["user_id"]);
     // If they are already in a game, redirect them to that game's board.
     if ($_SESSION["game_id"] != IS_DEFAULT && $_SESSION["game_id"] != FAILED) {
@@ -109,24 +110,29 @@
   <meta name='generator' content='VS Code' />
   <link rel='shortcut icon' href='' />
   <link rel="stylesheet" href="./css/base.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		  crossorigin="anonymous"></script>
 </head>
 <body>
 
     <center><h1>Get Ready for Your High Velocity Gaming Experience</h1></center>
     
     <?php 
+        echo '<div class="centerDiv">
+            <h3>'; echo getUsername($player1); echo ' VS '; 
+            echo '<span id="player2name">';
+        if($player2 > 0) {
+              echo getUsername($player2);
+        }
+        else {
+              echo 'Player 2';
+        }
+        echo '</span>';
+        echo '</h3></div>';
         if ($user_is_player1) {
             // Start Button: Only clickable for the host. Starts the game.
-            echo '<div class="centerDiv">
-                  <h3>'; echo getUsername($player1); echo ' VS '; 
-                  if($player2 > 0) {
-                        echo getUsername($player2);
-                  }
-                  else {
-                        echo 'Player 2';
-                  }
-                  echo '</h3>
-                  <form action="./scripts/forms/processStartGame.php">
+            echo '<div class="centerDiv"><form action="./scripts/forms/processStartGame.php">
                       <input type="submit" value="Start Game" class="button2">
                   </form>';
 
@@ -140,7 +146,7 @@
                   </form>
                   </div>';
 
-            header("Refresh:5");
+            // header("Refresh:5");
         }
         else {
             echo '<div class="centerDiv"><p>Waiting for host to start the game.</p>';
@@ -149,7 +155,7 @@
                       <input type="submit" value="Leave Game" class="button2">
                   </form>
                   </div>';
-            header("Refresh:5");
+            // header("Refresh:5");
         }
         
         // If the user is player2, then they need to be checking the 
@@ -165,6 +171,30 @@
         // Player 2: Check cancel game, start game, if been kicked
 
     ?>    
-    
+<script type="text/javascript">
+    $(document).ready(function() {
+        lobby_update();
+    });
+
+    function lobby_update() {
+        $.get("./scripts/forms/lobbyRefresh.php", function(data) {
+            console.log(data);
+            if (data == -1) { // 1 Means the game has started, go to the board
+                window.location = "tic-tac-toe.php";
+            }
+            else if (data == -2) { // The game was canceled so go back to gamehub
+                window.location = "gamehub.php";
+            }
+            else {
+                $('#player2name').html(data);
+                window.setTimeout(lobby_update, 1000);
+            }
+
+        });
+    }
+</script>
+
+
+
 </body>
 </html>

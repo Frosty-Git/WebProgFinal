@@ -54,12 +54,17 @@
     <!-- Join Game Fail Message -->
     <?php
         if ($_SESSION["join_test"] == FAILED) {
-            echo "<p style='color: red;'>Game Full. Join another game sucka.</p>";
+            echo "<p style='color: red; text-align: center'>Game Full. Join another game sucka.</p>";
         }
 
         if ($_SESSION['FAILED_CREATE_GAME'] == FAILED_CREATE_GAME) {
-            echo "<p style='color: red;'>Could not create game. Try again!</p>";
+            echo "<p style='color: red; text-align: center'>Could not create game. Try again!</p>";
         }
+
+        if ($_SESSION["password_fail"] == FAILED) {
+            echo "<p style='color: red; text-align: center'>incorect paswurd tri agane.</p>";
+        }
+
     ?>
 
     <!-- Logout -->
@@ -74,7 +79,7 @@
         <form action="./scripts/forms/processCreateGame.php" method="post">
             <input type="checkbox" class="checkBox" id="is_private" name="is_private">
             <label for="is_private">Private</label>
-            <input type="text" id="game_password" name="game_password" style="display:none" class="userInput">
+            <input type="password" id="game_password" name="game_password" style="display:none" class="userInput">
             <input type="submit" value="Create Game" class="button2">
         </form>
     </div>
@@ -140,8 +145,11 @@
             echo "<td class='tableTd'>"; print_r($player_name); echo "</td>";
             echo "<td class='tableTd'>"; print_r($game['date_created']); echo "</td>";
             echo "<form method='post' action='./scripts/forms/processGHJoin.php'><input hidden name='gameid' value='$gameID'>";
-            echo "<td class='tableTd'><button type='submit' class='joinBtn button'>Join</button></td></form>";
-            echo "</tr>";
+            echo "<td class='tableTd'><button type='submit' class='joinBtn button'>Join</button></td>";
+            if ($private) {
+                echo "<td class='tableTd'><input type='password' name='game_password'></td>";
+            }
+            echo "</form></tr>";
         }
     ?>
 
