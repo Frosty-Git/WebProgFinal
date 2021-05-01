@@ -4,9 +4,9 @@
     require_once(__DIR__.'/../dbGetters.php');
 
     if (getIsEnded($_SESSION['game_id'])) {
-        header('Location: ../../gameover.php');
-        // $endgame = 2;
-        // echo $endgame;
+        // header('Location: ../../gameover.php');
+        $endgame = 2;
+        echo $endgame;
     }
     else {
         $activePlayer = getActivePlayer($_SESSION['game_id']);

@@ -140,11 +140,9 @@
         $.get("./scripts/forms/processActivePlayer.php", function(data) {
             console.log(data);
             // 2 is if the game is ended
-            // if (data == 2) {
-            //     // window.location = "/~duranceaj3/webprog/FinalProject/gameover.php"; // WTF fix this!!!
-            //     // Now the site won't work on my elvis, or marc's
-            //     // This is silly
-            // }
+            if (data == 2) {
+                window.location = "gameover.php";
+            }
             if ((data == 1) || (data == '')) {
                 // 1 is true, you are the active player
                 if (data == 1) {
@@ -161,6 +159,7 @@
                 }
                 window.setTimeout(update, 1000);
             }
+
         });
     }
     
