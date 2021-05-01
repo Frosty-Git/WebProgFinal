@@ -237,6 +237,19 @@
         }
     }
 
+    function getTopPlayerInfo() {
+        try {
+            $query = "CALL getTopPlayerInfo()";
+            $players = dbSelect($query);
+
+            return $players;
+        }
+        catch (PDOException $e){
+            die ('PDO error in getGameWinner()": ' . $e->getMessage() );
+        }
+    }
+
+
 
     // ----------------End Games Table Getters------------------------
 

@@ -2,7 +2,7 @@
     session_start();
 
     // Check if user is not logged in, redirect to login page.
-    require_once('./scripts/checkLogIn.php');
+    // require_once('./scripts/checkLogIn.php');
 
     // Yoink Imports
     require_once(__DIR__.'/scripts/constants.php');
@@ -16,6 +16,8 @@
          
     //                             //from dbGameSetupFunct.php
     // }
+
+
     $_SESSION["password_fail"] = IS_DEFAULT; // If you made it here, the password was correct
     $_SESSION["game_id"] = findGameNoID($_SESSION["user_id"]);
     // If they are already in a game, redirect them to that game's board.
@@ -35,6 +37,7 @@
         header('Location: gamehub.php');
     }
 
+    
     // If the game is not started and they have a game id, then they 
     // should indeed be on this page. Proceed ;)
 
@@ -104,11 +107,11 @@
 <!DOCTYPE html>
 <html xmlns='http://www.w3.org/1999/xhtml' lang='en'>
 <head>
-<title>Games!</title>
+<title>Tic-Tac-Toe | Game Lobby</title>
   <meta charset='utf-8' />
   <meta name='Author' content='Joseph Frost, Katie Lee, Marc Colin, Jacelynn Duranceau' />
   <meta name='generator' content='VS Code' />
-  <link rel='shortcut icon' href='' />
+  <link rel='shortcut icon' href='#' />
   <link rel="stylesheet" href="./css/base.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 		  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -116,7 +119,7 @@
 </head>
 <body>
 
-    <center><h1>Get Ready for Your High Velocity Gaming Experience</h1></center>
+    <h1 class="centerText">Get Ready for Your High Velocity Gaming Experience</h1>
     
     <?php 
         echo '<div class="centerDiv">
@@ -171,7 +174,7 @@
         // Player 2: Check cancel game, start game, if been kicked
 
     ?>    
-<script type="text/javascript">
+<script>
     $(document).ready(function() {
         lobby_update();
     });

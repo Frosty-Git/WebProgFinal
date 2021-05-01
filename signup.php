@@ -11,11 +11,11 @@ require_once('./scripts/constants.php');
 <!DOCTYPE html>
 <html xmlns='http://www.w3.org/1999/xhtml' lang='en'>
 <head>
-    <title>Sign Up</title>
+    <title>Tic-Tac-Toe | Sign Up</title>
     <meta charset='utf-8' />
     <meta name='Author' content='Joseph Frost, Katie Lee, Marc Colin, Jacelynn Duranceau' />
     <meta name='generator' content='VS Code' />
-    <link rel='shortcut icon' href='' />
+    <link rel='shortcut icon' href='#' />
     <link rel="stylesheet" href="./css/base.css">
 </head>
 <body>
@@ -42,8 +42,8 @@ require_once('./scripts/constants.php');
         <p>
             <input type='submit' value="Sign Up" class="button"/>
         </p>
-        </div>
     </form>
+    </div>
 
     <?php
     if ($_SESSION["user_id"] == FAILED) {

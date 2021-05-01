@@ -99,3 +99,17 @@ input.checkBox[type="checkbox"]:focus{
     border-radius: 2px;
 }
 /* End Game Over/ Game Stats */
+
+
+.nostyle { /* Remove style (underlines) from a tags */
+    text-decoration: none;
+    color: black;
+}
+
+.inlineForm {
+    display: inline;
+}
+
+.centerText {
+    text-align: center;
+}

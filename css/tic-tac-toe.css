@@ -1,14 +1,14 @@
 .container-out {
-    font-family: "Fira Sans", sans-serif;
-    padding: 15px 0;
-  }
+  font-family:"Comic Sans MS";
+  font-style: normal;
+}
 
   .container-in {
     width: 97%;
     margin: 0 auto;
   }
   .table-container {
-    margin: 10 auto;
+    /* margin: 10 auto; */
     text-align: center;
   }
 

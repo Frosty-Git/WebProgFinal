@@ -40,16 +40,16 @@
 <!DOCTYPE html>
 <html xmlns='http://www.w3.org/1999/xhtml' lang='en'>
 <head>
-    <title>Games!</title>
+    <title>Tic-Tac-Toe | Game Hub</title>
     <meta charset='utf-8' />
     <meta name='Author' content='Joseph Frost, Katie Lee, Marc Colin, Jacelynn Duranceau' />
     <meta name='generator' content='VS Code' />
-    <link rel='shortcut icon' href='' />
+    <link rel='shortcut icon' href='#' />
     <link rel="stylesheet" href="./css/base.css">
 </head>
 
 <body>
-    <center><h1>Welcome to the Game Hub!</h1></center>
+    <h1 class='centerText'>Welcome to the Game Hub!</h1>
 
     <!-- Join Game Fail Message -->
     <?php
@@ -71,6 +71,13 @@
     <div class="centerDiv">
         <form action="./scripts/forms/processLogout.php" method="post">
             <input type="submit" value="Logout" class="button2">
+        </form>
+    </div>
+
+    <!-- Top Players Button -->
+    <div class="centerDiv">
+        <form action="top_players.php">
+            <input type="submit" value="See Top Players Here!" class="button2">
         </form>
     </div>
 
@@ -112,7 +119,7 @@
     <!-- Games List Table -->
     <table class="center ghTable">
     <tr>
-    <th>Game ID</th> <th>Public?</th> <th>Players</th> <th>User Who Created</th> <th>Date Created</th>
+    <th>Game ID</th> <th>Public?</th> <th>Players</th> <th>User Who Created</th> <th>Date Created</th> <th></th>
     </tr>
     <?php 
         // Games List Format:
@@ -144,12 +151,12 @@
 
             echo "<td class='tableTd'>"; print_r($player_name); echo "</td>";
             echo "<td class='tableTd'>"; print_r($game['date_created']); echo "</td>";
-            echo "<form method='post' action='./scripts/forms/processGHJoin.php'><input hidden name='gameid' value='$gameID'>";
-            echo "<td class='tableTd'><button type='submit' class='joinBtn button'>Join</button></td>";
+            echo "<td class='tableTd'><form method='post' action='./scripts/forms/processGHJoin.php'><input hidden name='gameid' value='$gameID'>";
+            echo "<button type='submit' class='joinBtn button'>Join</button>";
             if ($private) {
-                echo "<td class='tableTd'><input type='password' name='game_password'></td>";
+                echo "<input type='password' name='game_password' class='userInput'>";
             }
-            echo "</form></tr>";
+            echo "</form></td></tr>";
         }
     ?>
 
