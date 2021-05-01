@@ -139,20 +139,28 @@
 
         $.get("./scripts/forms/processActivePlayer.php", function(data) {
             console.log(data);
-            if(data == 1) {
-                $('.disabled').removeClass('disabled');
-                $('.disabled').attr("disabled", "");
-                $('#yourturn').show();
+            // 2 is if the game is ended
+            // if (data == 2) {
+            //     // window.location = "/~duranceaj3/webprog/FinalProject/gameover.php"; // WTF fix this!!!
+            //     // Now the site won't work on my elvis, or marc's
+            //     // This is silly
+            // }
+            if ((data == 1) || (data == '')) {
+                // 1 is true, you are the active player
+                if (data == 1) {
+                    $('.disabled').removeClass('disabled');
+                    $('.disabled').attr("disabled", "");
+                    $('#yourturn').show();
+                }
+
+                // '' is false, you are not the active player
+                else if (data == '') {
+                    $('.box').attr("disabled", "disabled");
+                    $('.box').addClass('disabled');
+                    $('#yourturn').hide();
+                }
+                window.setTimeout(update, 1000);
             }
-            else if (data == '') {
-                $('.box').attr("disabled", "disabled");
-                $('.box').addClass('disabled');
-                $('#yourturn').hide();
-            }
-            else if (data == 2) {
-                window.location = "/~duranceaj3/webprog/FinalProject/gameover.php";
-            }
-            window.setTimeout(update, 1000);
         });
     }
     
