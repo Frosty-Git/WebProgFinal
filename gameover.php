@@ -30,9 +30,6 @@ $is_tie = $game_stats['is_tie'];
     <h1>Game Results:</h1>
 
     <?php 
-
-    echo "<h5>"; echo $character; echo "</h5>";
-    echo "<h5>"; echo $x_won; echo "</h5>";
     if ($is_tie) {
         // tie game
         echo "<h5> You both lose and suck cause you tied. </h5>";
