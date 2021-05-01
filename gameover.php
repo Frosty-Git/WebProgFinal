@@ -27,25 +27,26 @@ $is_tie = $game_stats['is_tie'];
 </head>
 
 <body>
-    <h1>Game Results:</h1>
+    <center><h1>Game Results:</h1></center>
 
     <?php 
     if ($is_tie) {
         // tie game
-        echo "<h5> You both lose and suck cause you tied. </h5>";
+        echo "<center><h5> Looks like no one won. ¯\_(ツ)_/¯ </h5></center>";
     }
     else {
         if(($character == 'X' and $x_won) or ($character == 'O' and !$x_won)) {
             // you did win bruh
-            echo "<h5> You a mother fucking winner. </h5>";
+            echo "<center><h5> Congrats, you are the victor!（‐＾▽＾‐）</h5></center>";
         }
         else {
             // you suck
-            echo "<h5> You lost, at tic-tac-toe.... come on man </h5>";
+            echo "<center><h5> You lost, at tic-tac-toe . . . come on man. (╥_╥)</h5></center>";
         }
     }
     //show their stats
-    echo  "<table>";
+        // echo  "<center><h5>My Statistics:</h5></center>";
+        echo  "<table class='center goTable'>";
         echo  "<tr>";
             echo  "<th>Wins</th>";
             echo  "<th>Losses</th>";
@@ -53,16 +54,16 @@ $is_tie = $game_stats['is_tie'];
             echo  "<th>W/L Ratio</th>";
         echo "</tr>";
         echo  "<tr>"; 
-            echo  "<td>";
+            echo  "<td class='tableTd'>";
                 echo $wins;
             echo "</td>";
-            echo  "<td>";
+            echo  "<td class='tableTd'>";
                 echo $losses;
             echo "</td>";
-            echo  "<td>";
+            echo  "<td class='tableTd'>";
                 echo $ties;
             echo "</td>";
-            echo  "<td>";
+            echo  "<td class='tableTd'>";
                 if($losses != 0) {
                     echo round($wins/$losses, 2);
                 }
@@ -71,10 +72,12 @@ $is_tie = $game_stats['is_tie'];
                 }
             echo "</td>";
         echo "</tr>";
-    echo "</table>";
+    echo "</table><br>";
     
+    echo "<div class='centerDiv'>";
     echo "<form method='post' action='./gamehub.php'>";
-    echo "<button type='submit'>Return to Gamehub</button></form>";
+    echo "<button type='submit' class='button'>Return to Gamehub</button>";
+    echo "</form></div>";
 
     ?>
 </body>

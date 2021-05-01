@@ -14,25 +14,29 @@ require_once('./scripts/constants.php');
     <meta name='Author' content='Joseph Frost, Katie Lee, Marc Colin, Jacelynn Duranceau' />
     <meta name='generator' content='VS Code' />
     <link rel='shortcut icon' href='' />
+    <link rel="stylesheet" href="./css/base.css">
 </head>
 <body>
+    <div class="centerDiv">
+    <h1><span style="color: #FC4A1A">Tic</span><span style="color: #4ABDAC">-</span><span style="color: #FC4A1A">Tac</span><span style="color: #4ABDAC">-</span><span style="color: #FC4A1A">Toe</span></h1>
     <form action='./scripts/forms/processLogin.php' method='post'>
-        <fieldset>
-        <legend>Login</legend>
+        <fieldset class="fSet">
+        <legend class="fLegend">Login</legend>
         <table>
             <tr>
                 <td>Username:</td>
-                <td> <input name='username' type='text' /> </td>
+                <td> <input name='username' type='text' class="userInput"/> </td>
             </tr>
             <tr>
                 <td>Password:</td>
-                <td> <input name='password' type='password' /> </td>
+                <td> <input name='password' type='password' class="userInput"/> </td>
             </tr>
         </table>
         </fieldset>
         <p>
-            <input type='submit' />
+            <input type='submit' value="Login" class="button"/>
         </p>
+        </div>
     </form>
 
     <?php
