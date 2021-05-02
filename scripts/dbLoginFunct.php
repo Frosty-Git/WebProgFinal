@@ -1,17 +1,14 @@
 <?php 
     require_once('decoder.php');
     require_once("dbConnect.php");
+    require_once("dbGetters.php");
 
+    // Checks if the input username and password correctly match a 
+    // user in the db.
+    // Returns true if they are correct.
+    // Returns false if they are incorrect.
     function login($username, $password) {
-        try {
-            if (validateUser($username, $password)) {
-                return true;
-            }
-            return false;
-        }
-        catch (PDOException $e) {
-            die ('PDO error in login()": ' . $e->getMessage() );
-        }
+        return verifyPassword($username, $password);
     }
 
     function signup($username, $password) {
@@ -21,7 +18,8 @@
                return false;
             }
             else {
-                $player_creation = "INSERT INTO player (username, password, date_created) VALUES ('$username', '$password', now())";
+                $pwd_hashed = encodePassword($password);
+                $player_creation = "INSERT INTO player (username, password, date_created) VALUES ('$username', '$pwd_hashed', now())";
                 dbQuery($player_creation);
                 return true;
             }
@@ -58,6 +56,7 @@
 
     // Check if the username and password are inside the database.
     // Return true if it is.
+    // --------------------DEPRECATED---------------------------------
     function validateUser($username, $password) {
         try {
             $player_query = "SELECT username, password FROM player WHERE username='$username' AND password='$password'";
@@ -74,6 +73,7 @@
         }
     }
 
+    // Get's the user's id from the database.
     function getUserID($username) {
         try {
             $player_query = "SELECT player_id FROM player WHERE username='$username'";
@@ -86,6 +86,25 @@
         {
             die ('PDO error in getUserID()": ' . $e->getMessage() );
         }
+    }
+
+    // Uses PHP's hash password function to store a hashed with salt 
+    // version of the password to be stored in the database.
+    function encodePassword($password) {
+        return password_hash($password, PASSWORD_ARGON2ID);
+    }
+
+    // Uses PHP's password verification to verify the input password 
+    // with the password stored in the database.
+    // Returns true if the password is correct.
+    // Returns false if the password is incorrect.
+    function verifyPassword($username, $password) {
+        $result = false;
+        $pwd_hashed = getPassword($username);
+        if (password_verify($password, $pwd_hashed)) {
+            $result = true;
+        }
+        return $result;
     }
 
 ?>

@@ -23,6 +23,24 @@
         }
     }
 
+    // Get the Password from the Player table using a Username.
+    function getPassword($username) {
+        try {
+            $player_query = "SELECT password FROM player WHERE username='$username'";
+            $player_data = dbSelect($player_query); // from dbConnect.php
+            if (empty($player_data)) {
+                return FAILED; //from constants.php
+            }
+            $index = 0;
+            $player_data_array = decodeSelectResults($player_data, $index); //from decoder.php
+            return $player_data_array['password'];
+        }
+        catch(PDOException $e)
+        {
+            die ('PDO error in getUsername()": ' . $e->getMessage() );
+        }
+    }
+
     function getWins($playerID) {
         try {
             $query_result = dbSelect("SELECT wins FROM player WHERE player_id = '$playerID';"); // from dbConnect.php
