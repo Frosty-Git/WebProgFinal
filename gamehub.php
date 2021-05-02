@@ -117,56 +117,61 @@
     <br>
 
     <!-- Games List Table -->
+
     <table class="center ghTable">
     <tr>
     <th>Game ID</th> <th>Public?</th> <th>Players</th> <th>User Who Created</th> <th>Date Created</th> <th></th>
     </tr>
     <?php 
+        $count = 0;
+
         // Games List Format:
         // Game ID   Public/Private   Players (1/2)   User Who Created   Date Created   Join Button
         $playerID = $_SESSION['user_id'];
         $results = findAllGames(); //from dbGameSetupFunct.php
-        for ($i = 0; $i < count($results); $i++) {
-            $game = decodeSelectResults($results, $i); //from decoder.php
-            $gameID = $game['games_id'];
-            $private = $game['is_private'];
-            $player_name = getUsername($game['player1']); //from dbGetters.php
-
-            echo "<tr>";
-            echo "<td class='tableTd'>"; print_r($gameID); echo "</td>";
-
-            if ($private == 1) {
-                echo "<td class='tableTd'>No</td>";
+        $count = count($results);
+        if ($count == 0) {
+            echo "<tr><td colspan='6'>No Games Currently Being Played.
+                  </td></tr>";
+        }
+        else {
+            for ($i = 0; $i < $count; $i++) {
+            
+                $game = decodeSelectResults($results, $i); //from decoder.php
+                $gameID = $game['games_id'];
+                $private = $game['is_private'];
+                $player_name = getUsername($game['player1']); //from dbGetters.php
+    
+                echo "<tr>";
+                echo "<td class='tableTd'>"; print_r($gameID); echo "</td>";
+    
+                if ($private == 1) {
+                    echo "<td class='tableTd'>No</td>";
+                }
+                else {
+                    echo "<td class='tableTd'>Yes</td>";
+                }
+    
+                if ($game['player2'] == null) {
+                    echo "<td class='tableTd'>1/2</td>";
+                }
+                else {
+                    echo "<td class='tableTd'>2/2</td>";
+                }
+    
+                echo "<td class='tableTd'>"; print_r($player_name); echo "</td>";
+                echo "<td class='tableTd'>"; print_r($game['date_created']); echo "</td>";
+                echo "<td class='tableTd'><form method='post' action='./scripts/forms/processGHJoin.php'><input hidden name='gameid' value='$gameID'>";
+                echo "<button type='submit' class='joinBtn button'>Join</button>";
+                if ($private) {
+                    echo "<input type='password' name='game_password' class='userInput'>";
+                }
+                echo "</form></td></tr>";
             }
-            else {
-                echo "<td class='tableTd'>Yes</td>";
-            }
-
-            if ($game['player2'] == null) {
-                echo "<td class='tableTd'>1/2</td>";
-            }
-            else {
-                echo "<td class='tableTd'>2/2</td>";
-            }
-
-            echo "<td class='tableTd'>"; print_r($player_name); echo "</td>";
-            echo "<td class='tableTd'>"; print_r($game['date_created']); echo "</td>";
-            echo "<td class='tableTd'><form method='post' action='./scripts/forms/processGHJoin.php'><input hidden name='gameid' value='$gameID'>";
-            echo "<button type='submit' class='joinBtn button'>Join</button>";
-            if ($private) {
-                echo "<input type='password' name='game_password' class='userInput'>";
-            }
-            echo "</form></td></tr>";
         }
     ?>
 
     </table>
     <!-- End Games List Table -->
-
-    <?php
-    echo $_SESSION['user_id'];
-    echo "<br>";
-    echo $_SESSION['username'];
-    ?>
 </body>
 </html>

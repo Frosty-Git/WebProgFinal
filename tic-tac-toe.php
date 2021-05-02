@@ -23,31 +23,6 @@
 </head>
 <body>
 
-<?php
-//--------------Session Info Prints --- DELETE LATER--------------
-     echo '<p>game_id: ';
-     echo $_SESSION['game_id'];
-     echo "</p>";
-     echo '<p>user_id: ';
-     echo $_SESSION['user_id'];
-     echo "</p>";
-     echo '<p>username: ';
-     echo $_SESSION['username']; 
-     echo "</p>";
-     echo "<p>Character: "; 
-     echo $_SESSION['character'];
-     echo "</p>";
-     echo "<p>Active: "; 
-     echo $_SESSION['active'];
-     echo "</p>";
-
-     //---------- End Session Info Prints -----------------------------
-?>
-
-
-
-
-
 <div class="container-out">
     <div class="container-in">
     <div class="table-container">
