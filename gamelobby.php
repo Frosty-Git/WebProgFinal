@@ -9,99 +9,6 @@
     require_once(__DIR__.'/scripts/dbGameSetupFunct.php');
     require_once(__DIR__.'/scripts/dbGetters.php');
     
-    // // Check if user is already in a game or not.
-    // if ($_SESSION["game_id"] == IS_DEFAULT) {
-    //     // Set the game id to the user's currently in progress game id. If there
-    //     // is no such game, then this value will be FAILED (-1)
-         
-    //                             //from dbGameSetupFunct.php
-    // }
-
-
-    $_SESSION["password_fail"] = IS_DEFAULT; // If you made it here, the password was correct
-    $_SESSION["game_id"] = findGameNoID($_SESSION["user_id"]);
-    // If they are already in a game, redirect them to that game's board.
-    if ($_SESSION["game_id"] != IS_DEFAULT && $_SESSION["game_id"] != FAILED) {
-        // The user is already in a game, so redirect them to that game rather
-        // than loading the game lobby.
-        if(getIsStarted($_SESSION["game_id"]) != 0) { //from dbGetters.php
-            if(getIsEnded($_SESSION["game_id"]) == 0) {
-                header('Location: tic-tac-toe.php');
-            }
-        }
-        // else: the game hasn't started so you are allowed to be in the lobby, proceed
-    }
-    else { // The user isn't in a game yet, so don't let them access a game 
-           // lobby and set the game id back to default
-        $_SESSION["game_id"] = IS_DEFAULT;
-        header('Location: gamehub.php');
-    }
-
-    
-    // If the game is not started and they have a game id, then they 
-    // should indeed be on this page. Proceed ;)
-
-
-
-    // Set Game Lobby Info Variables
-    $gameID = $_SESSION['game_id'];
-    $user_id = $_SESSION['user_id'];
-    $username = $_SESSION['username'];
-    $private = getIsPrivate($gameID); //from dbGetters.php
-    $players = getPlayers($gameID); //from dbGetters.php
-    $user_is_player1 = false;
-    $player1 = $players[0]; //player1 according to db (game creator)
-    $player2 = null;
-    //player2 according to db. Check if null because player2 can be 
-    // null if only 1 player is currently in the game lobby
-    if (isset($players[1])) {
-        $player2 = $players[1]; 
-    }
-    else {
-        $player2 = IS_DEFAULT;
-    }
-    // Determine if the user is player1 or player2
-    if ($user_id == $player1) {
-        $user_is_player1 = true;
-    }
-
-    if ($_SESSION['user_id'] ==  $player1) {
-        $_SESSION['character'] = 'X';
-        $_SESSION['active'] = true;
-    }
-    elseif ($_SESSION['user_id'] != $player1) {
-        $_SESSION['character'] = 'O';
-        $_SESSION['active'] = false;
-    }
-
-
-    //--------------Session Info Prints --- DELETE LATER--------------
-    echo '<p>game_id: ';
-    echo $gameID;
-    echo "</p>";
-    echo '<p>user_id: ';
-    echo $user_id;
-    echo "</p>";
-    echo '<p>username: ';
-    echo $username; 
-    echo "</p>";
-    echo "<p>Game is private: "; 
-    echo $private;
-    echo "</p>";
-    echo "<p>Player1 ID: "; 
-    echo $player1;
-    echo "</p>";
-    echo "<p>Player2 ID: "; 
-    echo $player2;
-    echo "</p>";
-    echo "<p>Players[0] ID: "; 
-    echo $players[0];
-    echo "</p>";
-    echo "<p>Players[1] ID: "; 
-    echo $players[1];
-    echo "</p>";
-    //---------- End Session Info Prints -----------------------------
-
 ?>
 
 <!DOCTYPE html>
@@ -122,6 +29,65 @@
     <h1 class="centerText">Get Ready for Your High Velocity Gaming Experience</h1>
     
     <?php 
+        $_SESSION["password_fail"] = IS_DEFAULT; // If you made it here, the password was correct
+        $_SESSION["game_id"] = findGameNoID($_SESSION["user_id"]);
+        // If they are already in a game, redirect them to that game's board.
+        if ($_SESSION["game_id"] != IS_DEFAULT && $_SESSION["game_id"] != FAILED) {
+            // The user is already in a game, so redirect them to that game rather
+            // than loading the game lobby.
+            if(getIsStarted($_SESSION["game_id"]) != 0) { //from dbGetters.php
+                if(getIsEnded($_SESSION["game_id"]) == 0) {
+                    header('Location: tic-tac-toe.php');
+                }
+            }
+            // else: the game hasn't started so you are allowed to be in the lobby, proceed
+        }
+        else { // The user isn't in a game yet, so don't let them access a game 
+                // lobby and set the game id back to default
+            $_SESSION["game_id"] = IS_DEFAULT;
+            header('Location: gamehub.php');
+        }
+    
+        
+        // If the game is not started and they have a game id, then they 
+        // should indeed be on this page. Proceed ;)
+        
+        // -----------------------------------------------------------
+    
+        // Set Game Lobby Info Variables
+        $gameID = $_SESSION['game_id'];
+        $user_id = $_SESSION['user_id'];
+        $username = $_SESSION['username'];
+        $game_info = getGameInfo($gameID); //from dbGetters.php
+    
+        $private = $game_info['is_private']; //from dbGetters.php
+        // $players = getPlayers($gameID); //from dbGetters.php
+        $user_is_player1 = false;
+        $player1 = $game_info['player1']; //player1 according to db (game creator)
+        $player2 = null;
+        //player2 according to db. Check if null because player2 can be 
+        // null if only 1 player is currently in the game lobby
+        if (isset($game_info['player2'])) {
+            $player2 = $game_info['player2']; 
+        }
+        else {
+            $player2 = IS_DEFAULT;
+        }
+        // Determine if the user is player1 or player2
+        if ($user_id == $player1) {
+            $user_is_player1 = true;
+        }
+    
+        if ($_SESSION['user_id'] ==  $player1) {
+            $_SESSION['character'] = 'X';
+            $_SESSION['active'] = true;
+        }
+        elseif ($_SESSION['user_id'] != $player1) {
+            $_SESSION['character'] = 'O';
+            $_SESSION['active'] = false;
+        }
+
+
         echo '<div class="centerDiv">
             <h3>'; echo getUsername($player1); echo ' VS '; 
             echo '<span id="player2name">';
