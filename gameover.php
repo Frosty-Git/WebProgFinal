@@ -2,6 +2,7 @@
 session_start();
 
 require_once(__DIR__.'/scripts/dbGetters.php');
+require_once(__DIR__.'/scripts/dbGameFunct.php');
 
 $character = $_SESSION['character'];
 
@@ -12,6 +13,9 @@ $ties = getTies($_SESSION['user_id']);
 $game_stats = getGameWinner($_SESSION['user_id']);
 $x_won = $game_stats['x_won'];
 $is_tie = $game_stats['is_tie'];
+$games_id = $game_stats['games_id'];
+
+$board = getBoard($games_id); // Gets the last game's board state
 
 ?>
 
@@ -22,28 +26,60 @@ $is_tie = $game_stats['is_tie'];
     <meta charset='utf-8' />
     <meta name='Author' content='Joseph Frost, Katie Lee, Marc Colin, Jacelynn Duranceau' />
     <meta name='generator' content='VS Code' />
-    <link rel='shortcut icon' href='' />
+    <link rel='shortcut icon' href='#' />
     <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/tic-tac-toe.css">
 </head>
 
 <body>
-    <center><h1>Game Results:</h1></center>
+    <h1 class='centerText'>Game Results:</h1>
 
     <?php 
     if ($is_tie) {
         // tie game
-        echo "<center><h5> Looks like no one won. ¯\_(ツ)_/¯ </h5></center>";
+        echo "<h5 class='centerText'> Looks like no one won. ¯\_(ツ)_/¯ </h5>";
     }
     else {
         if(($character == 'X' and $x_won) or ($character == 'O' and !$x_won)) {
             // you did win bruh
-            echo "<center><h5> Congrats, you are the victor!（‐＾▽＾‐）</h5></center>";
+            echo "<h5 class='centerText'> Congrats, you are the victor!（‐＾▽＾‐）</h5>";
         }
         else {
             // you suck
-            echo "<center><h5> You lost, at tic-tac-toe . . . come on man. (╥_╥)</h5></center>";
+            echo "<h5 class='centerText'> You lost, at tic-tac-toe . . . come on man. (╥_╥)</h5>";
         }
     }
+
+    echo '<div class="container-out">
+        <div class="container-in">
+        <div class="table-container">';
+    echo "<h5 class='centerText'>Final Game Board: </h5>";
+    echo '<table class="centerDiv">';
+
+    echo "<tr>";
+    echo "<td><div class='box disabled' id='a1'>"; echo $board['a1']; echo "</div></td>";
+    echo "<td><div class='box disabled' id='a2'>"; echo $board['a2']; echo "</div></td>";
+    echo "<td><div class='box disabled' id='a3'>"; echo $board['a3']; echo "</div></td>";
+    echo "</tr>";
+    
+    echo "<tr>";
+    echo "<td><div class='box disabled' id='b1'>"; echo $board['b1']; echo "</div></td>";
+    echo "<td><div class='box disabled' id='b2'>"; echo $board['b2']; echo "</div></td>";
+    echo "<td><div class='box disabled' id='b3'>"; echo $board['b3']; echo "</div></td>";
+    echo "</tr>";
+
+    echo "<tr>";
+    echo "<td><div class='box disabled' id='c1'>"; echo $board['c1']; echo "</div></td>";
+    echo "<td><div class='box disabled' id='c2'>"; echo $board['c2']; echo "</div></td>";
+    echo "<td><div class='box disabled' id='c3'>"; echo $board['c3']; echo "</div></td>";
+    echo "</tr>";
+    echo "</table>";
+
+    echo '</div>
+        </div>
+        </div><br>';
+
+
     //show their stats
         // echo  "<center><h5>My Statistics:</h5></center>";
         echo  "<table class='center goTable'>";

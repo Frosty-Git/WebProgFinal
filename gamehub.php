@@ -40,26 +40,31 @@
 <!DOCTYPE html>
 <html xmlns='http://www.w3.org/1999/xhtml' lang='en'>
 <head>
-    <title>Games!</title>
+    <title>Tic-Tac-Toe | Game Hub</title>
     <meta charset='utf-8' />
     <meta name='Author' content='Joseph Frost, Katie Lee, Marc Colin, Jacelynn Duranceau' />
     <meta name='generator' content='VS Code' />
-    <link rel='shortcut icon' href='' />
+    <link rel='shortcut icon' href='#' />
     <link rel="stylesheet" href="./css/base.css">
 </head>
 
 <body>
-    <center><h1>Welcome to the Game Hub!</h1></center>
+    <h1 class='centerText'>Welcome to the Game Hub!</h1>
 
     <!-- Join Game Fail Message -->
     <?php
         if ($_SESSION["join_test"] == FAILED) {
-            echo "<p style='color: red;'>Game Full. Join another game sucka.</p>";
+            echo "<p style='color: red; text-align: center'>Game Full. Join another game sucka.</p>";
         }
 
         if ($_SESSION['FAILED_CREATE_GAME'] == FAILED_CREATE_GAME) {
-            echo "<p style='color: red;'>Could not create game. Try again!</p>";
+            echo "<p style='color: red; text-align: center'>Could not create game. Try again!</p>";
         }
+
+        if ($_SESSION["password_fail"] == FAILED) {
+            echo "<p style='color: red; text-align: center'>incorect paswurd tri agane.</p>";
+        }
+
     ?>
 
     <!-- Logout -->
@@ -69,12 +74,19 @@
         </form>
     </div>
 
+    <!-- Top Players Button -->
+    <div class="centerDiv">
+        <form action="top_players.php">
+            <input type="submit" value="See Top Players Here!" class="button2">
+        </form>
+    </div>
+
     <!-- Create Game Button -->
     <div class="centerDiv">
         <form action="./scripts/forms/processCreateGame.php" method="post">
             <input type="checkbox" class="checkBox" id="is_private" name="is_private">
             <label for="is_private">Private</label>
-            <input type="text" id="game_password" name="game_password" style="display:none" class="userInput">
+            <input type="password" id="game_password" name="game_password" style="display:none" class="userInput">
             <input type="submit" value="Create Game" class="button2">
         </form>
     </div>
@@ -105,53 +117,61 @@
     <br>
 
     <!-- Games List Table -->
+
     <table class="center ghTable">
     <tr>
-    <th>Game ID</th> <th>Public?</th> <th>Players</th> <th>User Who Created</th> <th>Date Created</th>
+    <th>Game ID</th> <th>Public?</th> <th>Players</th> <th>User Who Created</th> <th>Date Created</th> <th></th>
     </tr>
     <?php 
+        $count = 0;
+
         // Games List Format:
         // Game ID   Public/Private   Players (1/2)   User Who Created   Date Created   Join Button
         $playerID = $_SESSION['user_id'];
         $results = findAllGames(); //from dbGameSetupFunct.php
-        for ($i = 0; $i < count($results); $i++) {
-            $game = decodeSelectResults($results, $i); //from decoder.php
-            $gameID = $game['games_id'];
-            $private = $game['is_private'];
-            $player_name = getUsername($game['player1']); //from dbGetters.php
-
-            echo "<tr>";
-            echo "<td class='tableTd'>"; print_r($gameID); echo "</td>";
-
-            if ($private == 1) {
-                echo "<td class='tableTd'>No</td>";
+        $count = count($results);
+        if ($count == 0) {
+            echo "<tr><td colspan='6' class='centerText'>No Games Currently Being Played.
+                  </td></tr>";
+        }
+        else {
+            for ($i = 0; $i < $count; $i++) {
+            
+                $game = decodeSelectResults($results, $i); //from decoder.php
+                $gameID = $game['games_id'];
+                $private = $game['is_private'];
+                $player_name = getUsername($game['player1']); //from dbGetters.php
+    
+                echo "<tr>";
+                echo "<td class='tableTd'>"; print_r($gameID); echo "</td>";
+    
+                if ($private == 1) {
+                    echo "<td class='tableTd'>No</td>";
+                }
+                else {
+                    echo "<td class='tableTd'>Yes</td>";
+                }
+    
+                if ($game['player2'] == null) {
+                    echo "<td class='tableTd'>1/2</td>";
+                }
+                else {
+                    echo "<td class='tableTd'>2/2</td>";
+                }
+    
+                echo "<td class='tableTd'>"; print_r($player_name); echo "</td>";
+                echo "<td class='tableTd'>"; print_r($game['date_created']); echo "</td>";
+                echo "<td class='tableTd'><form method='post' action='./scripts/forms/processGHJoin.php'><input hidden name='gameid' value='$gameID'>";
+                echo "<button type='submit' class='joinBtn button'>Join</button>";
+                if ($private) {
+                    echo "<input type='password' name='game_password' class='userInput'>";
+                }
+                echo "</form></td></tr>";
             }
-            else {
-                echo "<td class='tableTd'>Yes</td>";
-            }
-
-            if ($game['player2'] == null) {
-                echo "<td class='tableTd'>1/2</td>";
-            }
-            else {
-                echo "<td class='tableTd'>2/2</td>";
-            }
-
-            echo "<td class='tableTd'>"; print_r($player_name); echo "</td>";
-            echo "<td class='tableTd'>"; print_r($game['date_created']); echo "</td>";
-            echo "<form method='post' action='./scripts/forms/processGHJoin.php'><input hidden name='gameid' value='$gameID'>";
-            echo "<td class='tableTd'><button type='submit' class='joinBtn button'>Join</button></td></form>";
-            echo "</tr>";
         }
     ?>
 
     </table>
     <!-- End Games List Table -->
-
-    <?php
-    echo $_SESSION['user_id'];
-    echo "<br>";
-    echo $_SESSION['username'];
-    ?>
 </body>
 </html>

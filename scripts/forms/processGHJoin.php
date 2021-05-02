@@ -32,6 +32,10 @@ if (checkGamePrivate($gameID)) { //from dbGameSetupFunct.php
     if (checkGamePassword($gameID, $password)) { //from dbGameSetupFunct.php
         process_join(); 
     }
+    else {
+        $_SESSION['password_fail'] = FAILED;
+        header('Location: ../../gamehub.php');
+    }
 }
 else {
     process_join(); 
