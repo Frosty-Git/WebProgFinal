@@ -2,10 +2,12 @@
 // Start the session
 session_start();
 
-require_once('./scripts/sessionSetup.php');
-
 // Yoink imports
 require_once('./scripts/constants.php');
+
+if ($_SESSION['user_id'] != FAILED) {
+    require_once('./scripts/sessionSetup.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,40 +19,66 @@ require_once('./scripts/constants.php');
     <meta name='generator' content='VS Code' />
     <link rel='shortcut icon' href='#' />
     <link rel="stylesheet" href="./css/base.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		  crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="centerDiv">
     <h1><span style="color: #FC4A1A">Tic</span><span style="color: #4ABDAC">-</span><span style="color: #FC4A1A">Tac</span><span style="color: #4ABDAC">-</span><span style="color: #FC4A1A">Toe</span></h1>
+
+    <?php
+        if ($_SESSION["username"] == 1) {
+            echo "<p style='color: red;' class='centerText'>Username taken... 
+                Please try again.</p>";
+        }
+        else if ($_SESSION['username'] == 2) {
+            echo "<p style='color: red;' class='centerText'>Password is too short (must be at least 6 characters).
+                Please try again</p>";
+        }
+        else if ($_SESSION['username'] == 3) {
+            echo "<p style='color: red;' class='centerText'>Passwords do not match.
+                Please try again</p>";
+        }
+    ?>
+
     <form enctype="multipart/form-data" action='./scripts/forms/processSignup.php' method='post'>
         <fieldset class="fSet">
         <legend class="fLegend">Sign Up</legend>
         <table>
             <tr>
-                <td>Username:</td>
-                <td> <input name='username' type='text' class="userInput" required/> </td>
+                <th>Username:</th>
+                <td> <input id='username' name='username' type='text' class="userInput" required/> </td>
             </tr>
             <tr>
-                <td>Password:</td>
-                <td> <input name='password' type='password' class="userInput" required/> </td>
+                <th>Password:</th>
+                <td> <input id='password1' name='password1' type='password' class="userInput" required/> </td>
             </tr>
-            <!-- <tr>
-                <td>Picture:</td>
-                <td> <input name="picture" type="file"> </td>
-            </tr> -->
+            <tr>
+                <th>Confirm Password:</th>
+                <td> <input id='password2' name='password2' type='password' class="userInput" required/> </td>
+            </tr>
         </table>
         </fieldset>
         <p>
-            <input type='submit' value="Sign Up" class="button"/>
+            <input id='submitBtn' type='submit' value="Sign Up" class="button disabled" disabled/>
         </p>
     </form>
     </div>
 
-    <?php
-    if ($_SESSION["user_id"] == FAILED) {
-        echo "<p style='color: red;'>Username taken... 
-            Please try again.</p>";
-    }
-    ?>
+    <script>
+        $('#username').on('keyup', function() {
+            var length = $('#username').val().length;
+            if (length < 5) {
+                $('#submitBtn').addClass('disabled');
+                $('#submitBtn').attr("disabled", "disabled");
+            }
+            else {
+                $('#submitBtn').removeClass('disabled');
+                $('#submitBtn').attr("disabled", false);
+            }
+        });
+    </script>
 
 </body>
 </html>

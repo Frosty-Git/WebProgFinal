@@ -116,7 +116,7 @@
                 // 1 is true, you are the active player
                 if (data == 1) {
                     $('.disabled').removeClass('disabled');
-                    $('.disabled').attr("disabled", "");
+                    $('.disabled').attr("disabled", false);
                     $('#yourturn').show();
                 }
 
