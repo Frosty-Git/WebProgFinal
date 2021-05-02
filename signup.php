@@ -27,11 +27,11 @@ require_once('./scripts/constants.php');
         <table>
             <tr>
                 <td>Username:</td>
-                <td> <input name='username' type='text' class="userInput"/> </td>
+                <td> <input name='username' type='text' class="userInput" required/> </td>
             </tr>
             <tr>
                 <td>Password:</td>
-                <td> <input name='password' type='password' class="userInput"/> </td>
+                <td> <input name='password' type='password' class="userInput" required/> </td>
             </tr>
             <!-- <tr>
                 <td>Picture:</td>

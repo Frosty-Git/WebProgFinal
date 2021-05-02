@@ -249,6 +249,21 @@
         }
     }
 
+    function getGameInfo($gameID) {
+        try {
+            $query_result = dbSelect("SELECT * FROM games WHERE games_id = '$gameID';"); // from dbConnect.php
+            if (empty($query_result)) {
+                return FAILED; //from constants.php
+            }
+            $result_decoded = decodeSelectFirstResult($query_result); //from decoder.php
+            return $result_decoded;
+        }
+        catch(PDOException $e)
+        {
+            die ('PDO error in getGameInfo()": ' . $e->getMessage() );
+        }
+    }
+
 
 
     // ----------------End Games Table Getters------------------------
