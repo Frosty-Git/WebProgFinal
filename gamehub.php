@@ -131,7 +131,7 @@
         $results = findAllGames(); //from dbGameSetupFunct.php
         $count = count($results);
         if ($count == 0) {
-            echo "<tr><td colspan='6'>No Games Currently Being Played.
+            echo "<tr><td colspan='6' class='centerText'>No Games Currently Being Played.
                   </td></tr>";
         }
         else {
