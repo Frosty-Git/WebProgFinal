@@ -11,6 +11,6 @@ $gameID = $_POST['game_id'];
 
 $answer = makeMove($playerID, $gameID, $location, $is_x);
 if ($answer) {
-    header('Location: ../../gamehub.php');
+    header('Location: ../../gameover.php');
 }
 ?>

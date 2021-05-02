@@ -2,6 +2,8 @@
 <?php
 session_start();
 
+// MAYBE WE CAN GET RID OF THIS?
+
 require_once('../dbGameFunct.php');
 
 $gameID = $_SESSION['game_id'];

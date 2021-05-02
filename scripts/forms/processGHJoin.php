@@ -12,7 +12,6 @@ $gameID = $_POST['gameid'];
 $password = $_POST['game_password'];
 
 function process_join() {
-
     // Apparently you need to use this global keyword to be able to 
     // use. Those global variables declared outside this function.
     global $user_id, $gameID;

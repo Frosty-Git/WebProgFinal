@@ -11,6 +11,8 @@
         return verifyPassword($username, $password);
     }
 
+    // Signs up the user if it passes validateUsername,
+    // checkPasswordLength, and confirmPassword
     function signup($username, $password) {
         try {
             // If the username is already in the database
@@ -107,6 +109,8 @@
         return $result;
     }
 
+    // Matches the password and confirm password and
+    // returns a boolean
     function confirmPassword($password1, $password2) {
         try {
             if($password1 === $password2) {

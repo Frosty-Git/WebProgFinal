@@ -5,7 +5,9 @@ session_start();
 // Yoink imports
 require_once('./scripts/constants.php');
 
-if ($_SESSION['user_id'] != FAILED) {
+// Need to do this otherwise all session stuff gets reset to 0
+// and the errors will not show up
+if ($_SESSION['user_id'] != FAILED) { 
     require_once('./scripts/sessionSetup.php');
 }
 ?>
