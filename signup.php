@@ -35,7 +35,7 @@ if ($_SESSION['user_id'] != FAILED) {
                 Please try again.</p>";
         }
         else if ($_SESSION['username'] == 2) {
-            echo "<p style='color: red;' class='centerText'>Password is too short (must be at least 6 characters).
+            echo "<p style='color: red;' class='centerText'>Password is too short (must be at least 7 characters).
                 Please try again</p>";
         }
         else if ($_SESSION['username'] == 3) {

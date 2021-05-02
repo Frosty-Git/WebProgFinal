@@ -131,6 +131,7 @@
         $results = findAllGames(); //from dbGameSetupFunct.php
         $count = count($results);
         if ($count == 0) {
+            echo "<tr></tr>"; // added a new line
             echo "<tr><td colspan='6' class='centerText'>No Games Currently Being Played.
                   </td></tr>";
         }
@@ -162,10 +163,10 @@
                 echo "<td class='tableTd'>"; print_r($player_name); echo "</td>";
                 echo "<td class='tableTd'>"; print_r($game['date_created']); echo "</td>";
                 echo "<td class='tableTd'><form method='post' action='./scripts/forms/processGHJoin.php'><input hidden name='gameid' value='$gameID'>";
-                echo "<button type='submit' class='joinBtn button'>Join</button>";
                 if ($private) {
                     echo "<input type='password' name='game_password' class='userInput'>";
                 }
+                echo "<button type='submit' class='joinBtn button'>Join</button>";
                 echo "</form></td></tr>";
             }
         }
