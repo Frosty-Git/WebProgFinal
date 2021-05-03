@@ -74,18 +74,22 @@
     <!-- Join Game Fail Message -->
     <?php
         if ($_SESSION["join_test"] == FAILED) {
+            $_SESSION["join_test"] = IS_DEFAULT;
             echo "<p style='color: red; text-align: center'>Game Full. Join another game!</p>";
         }
 
         if ($_SESSION['FAILED_CREATE_GAME'] == FAILED_CREATE_GAME) {
+            $_SESSION['FAILED_CREATE_GAME'] = IS_DEFAULT;
             echo "<p style='color: red; text-align: center'>Could not create game. Try again!</p>";
         }
 
         if ($_SESSION["password_fail"] == FAILED) {
+            $_SESSION["password_fail"] = IS_DEFAULT;
             echo "<p style='color: red; text-align: center'>Incorrect password. Try again!</p>";
         }
 
         if ($_SESSION["game_fail"] == FAILED) {
+            $_SESSION["game_fail"] = IS_DEFAULT;
             echo "<p style='color: red; text-align: center'>Game does not exist. Please choose another game.</p>";
         }
     ?>
