@@ -22,7 +22,7 @@ $board = getBoard($games_id); // Gets the last game's board state
 <!DOCTYPE html>
 <html xmlns='http://www.w3.org/1999/xhtml' lang='en'>
 <head>
-    <title>Games!</title>
+    <title>Tic-Tac-Toe | Game Over</title>
     <meta charset='utf-8' />
     <meta name='Author' content='Joseph Frost, Katie Lee, Marc Colin, Jacelynn Duranceau' />
     <meta name='generator' content='VS Code' />

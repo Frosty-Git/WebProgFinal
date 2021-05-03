@@ -67,28 +67,42 @@ h1 {
 }
 
 .button2:hover {
-    background-color: #4ABDAC;
+    background: #4ABDAC;
 }
 
-/* input.checkBox[type="checkbox"]:checked{
-    background-color: #4ABDAC;
-}
-input.checkBox[type="checkbox"]:active{
-    background-color: #4ABDAC;
-}
-input.checkBox[type="checkbox"]:focus{
-    background-color: #4ABDAC;
-}
-.checkBox[type="checkbox"]:after{
-    background-color: #4ABDAC;
+.checkBox {
+    top: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 15px;
+    width: 15px;
+    border-radius: 3px;
+    border: 1px solid #FC4A1A;
+    vertical-align: text-top;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.checkBox:active, .checkBox:focus{
+.checkBox:checked{
     background-color: #4ABDAC;
     border-color:#d9dadc;
     -webkit-box-shadow: inset 0 1px 1px rgb(74,189,172),0 0 8px rgb(74,189,172);
     box-shadow: inset 0 1px 1px rgb(74,189,172),0 0 8px rgb(74,189,172);
-} */
+    vertical-align: text-top;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkBox:checked:after{
+    content: '✔';
+    font-size: 10px;
+    color: #fff;
+
+}
 
 /* End GameHub */
 
@@ -112,4 +126,29 @@ input.checkBox[type="checkbox"]:focus{
 
 .centerText {
     text-align: center;
+}
+
+.ghTable2 {
+    width: 80%;
+}
+
+.link {
+    text-decoration: none;
+    color: #4ABDAC;
+}
+
+.link:visited, .link:after {
+    color: #FC4A1A;
+}
+
+footer {
+    border-top: 3px dotted #FC4A1A; 
+    bottom: 1%; 
+    position:fixed;
+    width: 100%;
+    color: #4ABDAC;
+}
+
+.homeButton {
+    margin: 0rem .5rem 0rem .5rem;
 }

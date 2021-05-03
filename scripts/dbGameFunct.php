@@ -3,7 +3,7 @@
     require_once("dbConnect.php");
     require_once("dbGetters.php");
 
-    // When a player clicks on a box, it will make a move in the game. 
+    //  When a player clicks on a box, it will make a move in the game. 
     //  If move is valid, the move will be created in the moves table and update 
     //  the games table on the date and active player.
     //  It will check for if there is a winner and if there is a full board (tie) - returns true
@@ -43,6 +43,7 @@
         }
     }
 
+    
     // Checks if the location of the move is empty in the board 
     function validateMove($gameID, $location) {
         try {
@@ -57,51 +58,8 @@
             die ('PDO error in validateMove()": ' . $e->getMessage() );
         }
     }
-
-    // The function for player 2 to wait for a move to happen
-    // DO WE STILL NEED THIS?
-    function waitForMove($gameID, $playerID) {
-        try {
-            $query = "SELECT moves_id FROM moves WHERE game_id='$gameID' ORDER BY moves_id DESC LIMIT 1;";
-            $last_move = dbSelect($query)[0];
-            $waiting = true;
-
-            while ($waiting) {
-                sleep(1);
-                $query = "SELECT moves_id FROM moves WHERE game_id='$gameID' AND moves_id>'$last_move';";
-                $result = dbSelect($query);
-                if (!empty($result)) {
-                    $waiting = false;
-                    // Switch the active player.
-                    return true;
-                }
-            }
-        }
-        catch (PDOException $e) {
-            die ('PDO error in waitForMove()": ' . $e->getMessage() );
-        }
-    }
-
-
-    // CHECK PROCESS START PLAYER 2
-    // DO WE STILL NEED THIS?
-    function player2Start($gameID, $playerID) {
-        try {
-            $query = "SELECT moves_id FROM moves WHERE game_id='$gameID';";
-            $result = dbSelect($query);
-            if (!empty($result)) {
-                // Switch the active player.
-                return true;
-            }
-            //player2Start($gameID, $playerID);
-            return false;
-        }
-        catch (PDOException $e) {
-            die ('PDO error in waitForMove()": ' . $e->getMessage() );
-        }
-    }
-
     
+
     // Checks to see if a player has won.
     // params: gameID = the game's id
     //         is_x = If the player being checked is X or O
@@ -167,6 +125,7 @@
         
     }
 
+
     // Checks if the board has been filled and all the places
     // in the board has a letter in it.
     function checkFullBoard($gameID) {
@@ -198,25 +157,6 @@
         }
     }
 
-    // --------- CAN WE GET RID OF THESE?? --------
-    function checkForTie($gameID) {
-
-    }
-
-    // the pretty pretty thing for makemove's if else shenanigans
-    function checkEndGame() {
-
-    }
-    
-    function endGame($gameID) {
-
-    }
-
-    function drawBoard() {
-
-    }
-    // --------------------------------------------
-
 
     // Updates the board in the database with the letter of the player at the
     // location of the move. 
@@ -236,6 +176,7 @@
         }
     }
 
+
     // Returns the whole board as an array
     function getBoard($gameID) {
         // Ensures order of the board (in case * doesn't)
@@ -244,12 +185,12 @@
         return json_decode(json_encode($board[0]),true);
     }
 
-    // DO WE STILL NEED THIS? 
+
+    // Returns the whole board as a JSON
     function getEncodedBoard($gameID) {
         // Ensures order of the board (in case * doesn't)
         $query = "SELECT a1, a2, a3, b1, b2, b3, c1, c2, c3 FROM board WHERE game_id = '$gameID';";
         $board = dbSelect($query);
         return json_encode($board[0]);
     }
-
 ?>

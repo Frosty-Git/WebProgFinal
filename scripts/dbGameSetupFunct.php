@@ -2,6 +2,7 @@
     require_once("dbConnect.php");
     require_once("decoder.php");
     require_once("dbGetters.php");
+    require_once("dbLoginFunct.php");
     
     // Creates the game
     // params: playerID = player 1's id
@@ -10,27 +11,16 @@
     //                    if the game is public, the password is an empty string
     function createGame($playerID, $is_private, $password) {
         try { 
-            // this doesnt work
-            $game_creation = "CALL createGame('$playerID', '$is_private', '$password')";
+            $hashed_password = encodePassword($password);
+            $game_creation = "CALL createGame('$playerID', '$is_private', '$hashed_password')";
             dbQuery($game_creation); 
         }
         catch (PDOException $e) {
             die ('PDO error in createGame()": ' . $e->getMessage() );
         }
     }
-
-    // Is this being used? if not, can we delete?
-    function createBoard($gameID) {
-        try {
-            $board_creation = "INSERT INTO board (game_id) VALUES ('$gameID')";
-            dbQuery($board_creation);
-            return "You created a game!";
-        }
-        catch (PDOException $e) {
-            die ('PDO error in createBoard()": ' . $e->getMessage() );
-        }
-    }
     
+
     // Enter in the game id to join your friend's game.
     function findGame($gameID) {
         try {
@@ -38,14 +28,15 @@
             $game = dbSelect($games_query);
             
             if(empty($game)) {
-                return "No game found!";
+                return false;
             }
-            return $game;
+            return true;
         }
         catch (PDOException $e) {
             die ('PDO error in findGame()": ' . $e->getMessage() );
         }
     }
+
 
     // Finds the game id if you have the player id.
     // Returns the game id of the most recently created open game 
@@ -68,6 +59,7 @@
         }
     }
 
+
     // Finds all the games that are open to join.
     function findOpenGames() {
         try {
@@ -83,6 +75,7 @@
         }
     }
 
+
     //Finds all active games 
     function findAllGames() {
         try {
@@ -97,6 +90,7 @@
             die ('PDO error in findOpenGame()": ' . $e->getMessage() );
         }
     }
+
 
     // The second player joining the game that they found.
     function joinGame($gameID, $playerID) {
@@ -120,6 +114,7 @@
         }
     }
 
+
     // Checks if the game is private or not (true if private, false if public)
     function checkGamePrivate($gameID) {
         try {
@@ -138,6 +133,7 @@
         }
     }
 
+
     // Checks the password for the private game
     function checkGamePassword($gameID, $password) {
         try {
@@ -145,7 +141,7 @@
             $games_set = dbSelect($games_query);
             $gamePassword = decodeSelectFirstResult($games_set)['password'];
 
-            if($password == $gamePassword) {
+            if(password_verify($password, $gamePassword)) {
                 return true;
             }
             return false;
@@ -154,6 +150,7 @@
             die ('PDO error in checkGamePassword()": ' . $e->getMessage() );
         }
     }
+
 
     // Starts the game by calling stored procedure startGame
     // Can only be used by Player 1
@@ -175,6 +172,7 @@
         }
     }
 
+
     // Deletes the game by calling stored procedure deleteGame
     // Can only be used by Player 1
     function cancelGame($gameID, $player) {
@@ -188,6 +186,7 @@
             die ('PDO error in cancelGame()": ' . $e->getMessage() );
         }
     }
+
 
     // Sets player 2 back to empty by calling stored procedure leaveGame
     // Can only be used by Player 2
@@ -203,6 +202,7 @@
         }
     }
 
+    
     // Kicks player2 out of the game by calling stored procedure kickPlayer2
     // Can only be used by Player 1
     function kickPlayer2($gameID, $player) {

@@ -114,7 +114,6 @@
         });
 
         $.get("./scripts/forms/processActivePlayer.php", function(data) {
-            console.log(data);
             // 2 is if the game is ended
             if (data == 2) {
                 window.location = "gameover.php";
@@ -161,6 +160,7 @@
         });
     }
 </script>
+
 
 </body>
 </html>

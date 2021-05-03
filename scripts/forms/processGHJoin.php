@@ -19,6 +19,7 @@ function process_join() {
     if (joinGame($gameID, $user_id)) { //from dbGameSetupFunct.php
         $_SESSION['join_test'] = SUCCESS;
         $_SESSION['game_id'] = $gameID;
+        $_SESSION['game_fail'] = SUCCESS;
         header('Location: ../../gamelobby.php');
     }
     else {
@@ -27,17 +28,24 @@ function process_join() {
     }
 }
 
-if (checkGamePrivate($gameID)) { //from dbGameSetupFunct.php
-    if (checkGamePassword($gameID, $password)) { //from dbGameSetupFunct.php
-        process_join(); 
+if (findGame($gameID)) { //check if game exists
+    if (checkGamePrivate($gameID)) { //from dbGameSetupFunct.php
+        if (checkGamePassword($gameID, $password)) { //from dbGameSetupFunct.php
+            process_join(); 
+        }
+        else {
+            $_SESSION['password_fail'] = FAILED;
+            header('Location: ../../gamehub.php');
+        }
     }
     else {
-        $_SESSION['password_fail'] = FAILED;
-        header('Location: ../../gamehub.php');
+        process_join(); 
     }
-}
+} 
 else {
-    process_join(); 
+    $_SESSION['game_fail'] = FAILED;
+    header('Location: ../../gamehub.php');
 }
+
 
 ?>

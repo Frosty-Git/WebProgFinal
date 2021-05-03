@@ -11,6 +11,7 @@
         return verifyPassword($username, $password);
     }
 
+
     // Signs up the user if it passes validateUsername,
     // checkPasswordLength, and confirmPassword
     function signup($username, $password) {
@@ -31,6 +32,7 @@
         }
     }
     
+
     // Check if the username is inside the database.
     // Return true if it is.
     function validateUsername($username) {
@@ -56,6 +58,7 @@
         
     }
 
+
     // Check if the username and password are inside the database.
     // Return true if it is.
     // --------------------DEPRECATED---------------------------------
@@ -74,6 +77,7 @@
             die ('PDO error in validatePassword()": ' . $e->getMessage() );
         }
     }
+
 
     // Get's the user's id from the database.
     function getUserID($username) {
@@ -96,6 +100,7 @@
         return password_hash($password, PASSWORD_ARGON2ID);
     }
 
+
     // Uses PHP's password verification to verify the input password 
     // with the password stored in the database.
     // Returns true if the password is correct.
@@ -108,6 +113,7 @@
         }
         return $result;
     }
+
 
     // Matches the password and confirm password and
     // returns a boolean
@@ -123,6 +129,7 @@
             die ('PDO error in validatePassword()": ' . $e->getMessage() );
         }
     }
+
 
     // This will be called after confirmPassword is called, so 
     // it only needs one password to check the length
