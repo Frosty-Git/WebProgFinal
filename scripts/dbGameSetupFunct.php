@@ -2,6 +2,7 @@
     require_once("dbConnect.php");
     require_once("decoder.php");
     require_once("dbGetters.php");
+    require_once("dbLoginFunct.php");
     
     // Creates the game
     // params: playerID = player 1's id
@@ -10,8 +11,8 @@
     //                    if the game is public, the password is an empty string
     function createGame($playerID, $is_private, $password) {
         try { 
-            // this doesnt work
-            $game_creation = "CALL createGame('$playerID', '$is_private', '$password')";
+            $hashed_password = encodePassword($password);
+            $game_creation = "CALL createGame('$playerID', '$is_private', '$hashed_password')";
             dbQuery($game_creation); 
         }
         catch (PDOException $e) {
@@ -19,17 +20,17 @@
         }
     }
 
-    // Is this being used? if not, can we delete?
-    function createBoard($gameID) {
-        try {
-            $board_creation = "INSERT INTO board (game_id) VALUES ('$gameID')";
-            dbQuery($board_creation);
-            return "You created a game!";
-        }
-        catch (PDOException $e) {
-            die ('PDO error in createBoard()": ' . $e->getMessage() );
-        }
-    }
+    // // Is this being used? if not, can we delete?
+    // function createBoard($gameID) {
+    //     try {
+    //         $board_creation = "INSERT INTO board (game_id) VALUES ('$gameID')";
+    //         dbQuery($board_creation);
+    //         return "You created a game!";
+    //     }
+    //     catch (PDOException $e) {
+    //         die ('PDO error in createBoard()": ' . $e->getMessage() );
+    //     }
+    // }
     
     // Enter in the game id to join your friend's game.
     function findGame($gameID) {
@@ -145,7 +146,7 @@
             $games_set = dbSelect($games_query);
             $gamePassword = decodeSelectFirstResult($games_set)['password'];
 
-            if($password == $gamePassword) {
+            if(password_verify($password, $gamePassword)) {
                 return true;
             }
             return false;

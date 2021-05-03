@@ -2,7 +2,7 @@
     session_start();
 
     // Check if user is not logged in, redirect to login page.
-    // require_once('./scripts/checkLogIn.php');
+    require_once('./scripts/checkLogIn.php');
 
     // Yoink Imports
     require_once(__DIR__.'/scripts/constants.php');
@@ -50,8 +50,7 @@
             $_SESSION["game_id"] = IS_DEFAULT;
             header('Location: gamehub.php');
         }
-    
-        
+      
         // If the game is not started and they have a game id, then they 
         // should indeed be on this page. Proceed ;)
         

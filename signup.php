@@ -50,7 +50,7 @@ if ($_SESSION['user_id'] != FAILED) {
         <table>
             <tr>
                 <th>Username:</th>
-                <td> <input id='username' name='username' type='text' class="userInput" placeholder="Must be 3+ characters..." required/> </td>
+                <td> <input maxlength="25" id='username' name='username' type='text' class="userInput" placeholder="Must be 3+ characters..." required/> </td>
             </tr>
             <tr>
                 <th>Password:</th>
@@ -74,7 +74,7 @@ if ($_SESSION['user_id'] != FAILED) {
             let value = $('#username').val();
             let re = /^[A-Za-z0-9\-\_]+$/; // Username can contain letters, numbers, _, and -
             let re2 = /[A-Za-z0-9]+/; // Username must have at least one letter or number
-            if (length < 3 || !value.match(re) || !value.match(re2)) {
+            if (length < 3 || !value.match(re) || !value.match(re2) || ) {
                 $('#submitBtn').addClass('disabled');
                 $('#submitBtn').attr("disabled", "disabled");
             }

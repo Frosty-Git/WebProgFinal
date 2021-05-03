@@ -15,6 +15,7 @@
     //     // Set the game id to the user's currently in progress game id. If there
     //     // is no such game, then this value will be FAILED (-1)
     // }
+    
     $_SESSION["game_id"] = findGameNoID($_SESSION["user_id"]);
     // Check if user is already in a game or not.
     // If they are already in a game, redirect them to that game.
@@ -65,7 +66,7 @@
                 </form>
             </td>
         </tr>
-    <table>
+    </table>
 
     <!-- Join Game Fail Message -->
     <?php
@@ -112,7 +113,7 @@
             <!-- Find Game Button -->
             <td style="width: 50%; text-align:right;">
                 <form action="./scripts/forms/processFindGame.php" method="post">
-                    <input type="text" name="searchGame" placeholder="Search game ID..." class="userInput">
+                    <input type="text" name="searchGame" placeholder="Search game ID..." class="userInput" required>
                     <button type="submit" class="button2">Find Game</button>
                 </form>
             </td>

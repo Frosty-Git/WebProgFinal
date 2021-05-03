@@ -7,7 +7,11 @@ require_once(__DIR__.'/../dbGameSetupFunct.php');
 $player_id = $_SESSION['user_id'];
 $gameID = $_POST['searchGame'];
 
-if(joinGame($gameID, $player_id)) {
+if(getIsPrivate($gameID)) {
+    $_SESSION['game_id'] = $gameID;
+    header('Location: ../../gamepassword.php');
+}
+else if(joinGame($gameID, $player_id)) {
     $_SESSION['join_test'] = SUCCESS;
     $_SESSION['game_id'] = $gameID;
     header('Location: ../../gamelobby.php');
