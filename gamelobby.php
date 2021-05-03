@@ -30,6 +30,9 @@
     
     <?php 
         $_SESSION["password_fail"] = IS_DEFAULT; // If you made it here, the password was correct
+        $_SESSION["join_test"] = IS_DEFAULT;
+        $_SESSION['FAILED_CREATE_GAME'] = IS_DEFAULT;
+
         $_SESSION["game_id"] = findGameNoID($_SESSION["user_id"]);
         // If they are already in a game, redirect them to that game's board.
         if ($_SESSION["game_id"] != IS_DEFAULT && $_SESSION["game_id"] != FAILED) {
@@ -101,21 +104,19 @@
         echo '</h3></div>';
         if ($user_is_player1) {
             // Start Button: Only clickable for the host. Starts the game.
-            echo '<div class="centerDiv"><form action="./scripts/forms/processStartGame.php">
+            echo '<div class="centerDiv" ><form action="./scripts/forms/processStartGame.php" class="inlineForm">
                       <input type="submit" value="Start Game" class="button2">
                   </form>';
 
             // End Game Button: For Host, ends game.
-            echo '<form action="./scripts/forms/processCancelGame.php">
+            echo '<form action="./scripts/forms/processCancelGame.php" class="inlineForm">
                       <input type="submit" value="Cancel Game" class="button2">
                   </form>';
             // Kick Player 2 button: For Host, kicks second player from game
-            echo '<form action="./scripts/forms/processKickPlayer2.php">
+            echo '<form action="./scripts/forms/processKickPlayer2.php" class="inlineForm">
                       <input type="submit" value="Kick Player 2" class="button2">
                   </form>
                   </div>';
-
-            // header("Refresh:5");
         }
         else {
             echo '<div class="centerDiv"><p>Waiting for host to start the game.</p>';
@@ -124,7 +125,6 @@
                       <input type="submit" value="Leave Game" class="button2">
                   </form>
                   </div>';
-            // header("Refresh:5");
         }
         
         // If the user is player2, then they need to be checking the 

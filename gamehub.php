@@ -66,14 +66,6 @@
             </td>
         </tr>
     <table>
-    <!-- Logout -->
-    <!-- <div class="logout">
-        <form action="./scripts/forms/processLogout.php" method="post">
-            <input type="submit" value="Logout" class="button2">
-        </form>
-    </div> -->
-
-    <!-- <h1 class='centerText'>Welcome to the Game Hub!</h1> -->
 
     <!-- Join Game Fail Message -->
     <?php
@@ -90,15 +82,6 @@
         }
 
     ?>
-
-    <!-- Top Players Button -->
-    <!-- <div class="centerDiv">
-        <form action="top_players.php">
-            <input type="submit" value="See Top Players Here!" class="button2">
-        </form>
-    </div> -->
-
-    <!-- <br> -->
     
     <table class="center ghTable2">
         <tr>
