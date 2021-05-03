@@ -113,3 +113,7 @@ input.checkBox[type="checkbox"]:focus{
 .centerText {
     text-align: center;
 }
+
+.ghTable2 {
+    width: 80%;
+}

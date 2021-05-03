@@ -49,7 +49,31 @@
 </head>
 
 <body>
-    <h1 class='centerText'>Welcome to the Game Hub!</h1>
+    <table class="center ghTable2">
+        <tr>
+            <td style="text-align:left; width:30%;">
+                <form action="./scripts/forms/processLogout.php" method="post">
+                    <input type="submit" value="Logout" class="button2">
+                </form>
+            </td>
+            <td style="text-align:center; width:40%;">
+                <h1 class='centerText'>Welcome to the Game Hub!</h1>
+            </td>
+            <td style="text-align:right; width:30%;">
+                <form action="top_players.php">
+                    <input type="submit" value="See Top Players Here!" class="button2">
+                </form>
+            </td>
+        </tr>
+    <table>
+    <!-- Logout -->
+    <!-- <div class="logout">
+        <form action="./scripts/forms/processLogout.php" method="post">
+            <input type="submit" value="Logout" class="button2">
+        </form>
+    </div> -->
+
+    <!-- <h1 class='centerText'>Welcome to the Game Hub!</h1> -->
 
     <!-- Join Game Fail Message -->
     <?php
@@ -67,61 +91,23 @@
 
     ?>
 
-    <!-- Logout -->
-    <div class="centerDiv">
-        <form action="./scripts/forms/processLogout.php" method="post">
-            <input type="submit" value="Logout" class="button2">
-        </form>
-    </div>
-
     <!-- Top Players Button -->
-    <div class="centerDiv">
+    <!-- <div class="centerDiv">
         <form action="top_players.php">
             <input type="submit" value="See Top Players Here!" class="button2">
         </form>
-    </div>
-
-    <!-- Create Game Button -->
-    <!-- <div class="centerDiv">
-        <form action="./scripts/forms/processCreateGame.php" method="post">
-            <input type="checkbox" class="checkBox" id="is_private" name="is_private">
-            <label for="is_private">Private</label>
-            <input type="password" id="game_password" name="game_password" style="display:none" class="userInput">
-            <input type="submit" value="Create Game" class="button2">
-        </form>
-    </div>
-    <script>
-        let private = document.getElementById('is_private');
-        let game_p = document.getElementById('game_password');
-        private.onclick = function() {
-            if (private.checked) {
-                // console.log("Is Private Checked.");
-                game_p.required = true;
-                game_p.style.display = 'inline';
-            }
-            else {
-                game_p.required = false;
-                game_p.style.display = 'none';
-            }
-        };
-    </script> -->
-
-    <!-- Find Game Button -->
-    <!-- <div class="centerDiv">
-        <form action="./scripts/forms/processFindGame.php" method="post">
-            <input type="text" name="searchGame" placeholder="Search game ID..." class="userInput">
-            <button type="submit" class="button2">Find Game</button>
-        </form>
     </div> -->
+
+    <!-- <br> -->
     
-    <table class="center" style="width:80%">
+    <table class="center ghTable2">
         <tr>
             <td style="width: 50%; text-align:left;">
                  <!-- Create Game Button -->
                 <form action="./scripts/forms/processCreateGame.php" method="post">
                     <input type="checkbox" class="checkBox" id="is_private" name="is_private">
                     <label for="is_private">Private</label>
-                    <input type="password" id="game_password" name="game_password" style="display:none" class="userInput">
+                    <input type="password" id="game_password" name="game_password" style="display:none" class="userInput" placeholder="Create game password...">
                     <input type="submit" value="Create Game" class="button2">
                 </form>
                 <script>
@@ -198,7 +184,7 @@
                 echo "<td class='tableTd'>"; print_r($game['date_created']); echo "</td>";
                 echo "<td class='tableTd'><form method='post' action='./scripts/forms/processGHJoin.php'><input hidden name='gameid' value='$gameID'>";
                 if ($private) {
-                    echo "<input type='password' name='game_password' class='userInput'>";
+                    echo "<input type='password' name='game_password' class='userInput' placeholder='Enter game password...'>";
                 }
                 echo "<button type='submit' class='joinBtn button'>Join</button>";
                 echo "</form></td></tr>";
