@@ -10,8 +10,11 @@
 
     // Yoink imports.
     require_once(__DIR__.'/../dbGameSetupFunct.php');
+    require_once(__DIR__.'/../dbGetters.php');
 
-    kickPlayer2($_SESSION['game_id'], $_SESSION['user_id']); 
+    if (getIsStarted($_SESSION['game_id']) != 1 || getIsEnded($_SESSION['game_id']) != 0) {
+        kickPlayer2($_SESSION['game_id'], $_SESSION['user_id']); 
                 //from dbGameSetupFunct.php
+    }
     header('Location: ../../gamelobby.php'); // Reload the page to see player 2 is gone
 ?>

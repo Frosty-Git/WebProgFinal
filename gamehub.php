@@ -16,7 +16,7 @@
     //     // is no such game, then this value will be FAILED (-1)
     // }
     
-    $_SESSION["game_id"] = findGameNoID($_SESSION["user_id"]);
+    $_SESSION["game_id"] = findGameNoID($_SESSION["user_id"]); //from dbGameSetupFunct.php
     // Check if user is already in a game or not.
     // If they are already in a game, redirect them to that game.
     if ($_SESSION["game_id"] != FAILED) { //from dbGameSetupFunct.php
@@ -27,15 +27,34 @@
         }
         else { // The game has started, redirect to the game board if the game hasn't ended
             if(getIsEnded($_SESSION["game_id"]) == 0) {
+                $game_info = getGameInfo($_SESSION["game_id"]); //from dbGetters.php
+                $player1 = $game_info['player1']; //player1 according to db (game creator)
+                $player2 = null;
+                //player2 according to db. Check if null because player2 can be 
+                // null if only 1 player is currently in the game lobby
+                if (isset($game_info['player2'])) {
+                    $player2 = $game_info['player2']; 
+                }
+                else {
+                    $player2 = IS_DEFAULT;
+                }
+
+                if ($_SESSION['user_id'] ==  $player1) {
+                    $_SESSION['character'] = 'X';
+                }
+                elseif ($_SESSION['user_id'] != $player1) {
+                    $_SESSION['character'] = 'O';
+                }
                 header('Location: tic-tac-toe.php');
             }
         }
     }
+    else {
+        // If you make it to this point, you aren't in a game so proceed and set
+        // the game id back to default
+        $_SESSION["game_id"] = IS_DEFAULT;
+    }
 
-    // If you make it to this point, you aren't in a game so proceed and set
-    // the game id back to default
-    $_SESSION["game_id"] = IS_DEFAULT;
-    // $_SESSION["character"] = IS_DEFAULT;
 ?>
 
 <!DOCTYPE html>

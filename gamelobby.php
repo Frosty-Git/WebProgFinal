@@ -89,6 +89,7 @@
             $_SESSION['active'] = false;
         }
 
+        
 
         echo '<div class="centerDiv">
             <h3>'; echo getUsername($player1); echo ' VS '; 
@@ -101,6 +102,9 @@
         }
         echo '</span>';
         echo '</h3></div>';
+
+        echo '<div class="centerDiv"><h4>Game ID: '; echo $gameID; echo '</h4></div>';
+
         if ($user_is_player1) {
             // Start Button: Only clickable for the host. Starts the game.
             echo '<div class="centerDiv" ><form action="./scripts/forms/processStartGame.php" class="inlineForm">

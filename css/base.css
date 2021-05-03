@@ -131,3 +131,19 @@ h1 {
 .ghTable2 {
     width: 80%;
 }
+
+.link {
+    text-decoration: none;
+    color: #4ABDAC;
+}
+
+.link:visited, .link:after {
+    color: #FC4A1A;
+}
+
+footer {
+    border-top: 3px dotted #FC4A1A; 
+    bottom: 1%; 
+    position:fixed;
+    width: 100%;
+}

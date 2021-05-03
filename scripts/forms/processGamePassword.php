@@ -5,20 +5,26 @@ require_once(__DIR__.'/../constants.php');
 require_once(__DIR__.'/../dbGameSetupFunct.php');
 
 $_SESSION['game_fail'] = SUCCESS;
-if (checkGamePassword($_SESSION['game_id'], $_POST['game_password'])){
-    if (joinGame($_SESSION['game_id'], $_SESSION['user_id'])) {
-        $_SESSION['join_test'] = SUCCESS;
-        header('Location: ../../gamelobby.php');
+if (findGame($gameID)) { // Check if game exists
+    if (checkGamePassword($_SESSION['game_id'], $_POST['game_password'])){
+        if (joinGame($_SESSION['game_id'], $_SESSION['user_id'])) {
+             $_SESSION['join_test'] = SUCCESS;
+             header('Location: ../../gamelobby.php');
+        }
+        else {
+            // The game is full
+            $_SESSION['join_test'] = FAILED;
+            header('Location: ../../gamehub.php'); 
+        }
     }
     else {
-        // The game is full
+        // Password is incorrect
         $_SESSION['join_test'] = FAILED;
-        header('Location: ../../gamehub.php'); 
+        header('Location: ../../gamepassword.php');
     }
-}
+} 
 else {
-    // Password is incorrect
-    $_SESSION['join_test'] = FAILED;
-    header('Location: ../../gamepassword.php');
+    $_SESSION['game_fail'] = FAILED;
+    header('Location: ../../gamehub.php');
 }
 ?>
