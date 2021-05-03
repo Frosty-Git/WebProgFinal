@@ -33,7 +33,7 @@
 
             $board = getBoard($_SESSION['game_id']);
 
-            if ($_SESSION['active']) {
+            if ($_SESSION['active']) { // Starting board for active player
                 echo "<tr>";
                 echo "<td><div class='box' id='a1'>"; echo $board['a1']; echo "</div></td>";
                 echo "<td><div class='box' id='a2'>"; echo $board['a2']; echo "</div></td>";
@@ -52,7 +52,7 @@
                 echo "<td><div class='box' id='c3'>"; echo $board['c3']; echo "</div></td>";
                 echo "</tr>";
             }
-            else {
+            else { // Starting board for inactive player
                 echo "<tr>";
                 echo "<td><div class='box disabled' id='a1'>"; echo $board['a1']; echo "</div></td>";
                 echo "<td><div class='box disabled' id='a2'>"; echo $board['a2']; echo "</div></td>";
@@ -84,10 +84,13 @@
 <!-- used to fill in box, check for winner, and switch players -->
 <script>
     $(document).ready(function() {
-        $('.disabled').attr("disabled", "disabled");
+        $('.disabled').attr("disabled", "disabled"); // Sets the board to be disabled if it is not the active user
         update();
     });
 
+    // Gets the board and checks if a person made a move 
+    // or the game ended every second.
+    // This will recursively get called until the game has ended.
     function update() {
         $.ajax({
             type:"GET",
@@ -116,7 +119,7 @@
                 // 1 is true, you are the active player
                 if (data == 1) {
                     $('.disabled').removeClass('disabled');
-                    $('.disabled').attr("disabled", "");
+                    $('.disabled').attr("disabled", false);
                     $('#yourturn').show();
                 }
 
@@ -128,17 +131,17 @@
                 }
                 window.setTimeout(update, 1000);
             }
-
         });
     }
     
+    // This is for when a user clicks on a box, it makes a move
+    // in the database by giving it the location and the game ID. 
     const boxes = document.getElementsByClassName("box");
     for(let i = 0; i < boxes.length; i++) {
         boxes[i].addEventListener("click", function(){
             let location = boxes[i].id;
             if (boxes[i].innerHTML.trim() == "") {
                 $('#yourturn').hide();
-                
                 let letter = "<?php echo $_SESSION['character']; ?>";
                 boxes[i].innerHTML = letter;
                 let gameID = "<?php echo $_SESSION['game_id']; ?>";

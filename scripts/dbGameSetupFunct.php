@@ -3,18 +3,23 @@
     require_once("decoder.php");
     require_once("dbGetters.php");
     
+    // Creates the game
+    // params: playerID = player 1's id
+    //         is_private = If the game is private or not
+    //         password = if the game is private, the password will be set
+    //                    if the game is public, the password is an empty string
     function createGame($playerID, $is_private, $password) {
         try { 
             // this doesnt work
             $game_creation = "CALL createGame('$playerID', '$is_private', '$password')";
-            dbQuery($game_creation);
-            
+            dbQuery($game_creation); 
         }
         catch (PDOException $e) {
             die ('PDO error in createGame()": ' . $e->getMessage() );
         }
     }
 
+    // Is this being used? if not, can we delete?
     function createBoard($gameID) {
         try {
             $board_creation = "INSERT INTO board (game_id) VALUES ('$gameID')";
@@ -115,6 +120,7 @@
         }
     }
 
+    // Checks if the game is private or not (true if private, false if public)
     function checkGamePrivate($gameID) {
         try {
             $games_query = "SELECT is_private FROM games WHERE games_id='$gameID'" ;
@@ -132,6 +138,7 @@
         }
     }
 
+    // Checks the password for the private game
     function checkGamePassword($gameID, $password) {
         try {
             $games_query = "SELECT password FROM games WHERE games_id='$gameID'" ;
@@ -148,6 +155,8 @@
         }
     }
 
+    // Starts the game by calling stored procedure startGame
+    // Can only be used by Player 1
     function startGame($gameID, $player) {
         try {
             // The player cancelling the game must be player 1 (the host)
@@ -166,6 +175,8 @@
         }
     }
 
+    // Deletes the game by calling stored procedure deleteGame
+    // Can only be used by Player 1
     function cancelGame($gameID, $player) {
         try {
             // The player cancelling the game must be player 1 (the host)
@@ -178,6 +189,8 @@
         }
     }
 
+    // Sets player 2 back to empty by calling stored procedure leaveGame
+    // Can only be used by Player 2
     function leaveGame($gameID, $player) {
         try {
             // The player leaving the game must be player 2
@@ -190,6 +203,8 @@
         }
     }
 
+    // Kicks player2 out of the game by calling stored procedure kickPlayer2
+    // Can only be used by Player 1
     function kickPlayer2($gameID, $player) {
         try {
             // Player 1 kicks player 2. $player must match player 1, and player

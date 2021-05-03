@@ -11,6 +11,8 @@
         return verifyPassword($username, $password);
     }
 
+    // Signs up the user if it passes validateUsername,
+    // checkPasswordLength, and confirmPassword
     function signup($username, $password) {
         try {
             // If the username is already in the database
@@ -105,6 +107,36 @@
             $result = true;
         }
         return $result;
+    }
+
+    // Matches the password and confirm password and
+    // returns a boolean
+    function confirmPassword($password1, $password2) {
+        try {
+            if($password1 === $password2) {
+                return true; // Passwords match
+            }
+            return false; // Passwords do not match
+        }
+        catch(PDOException $e)
+        {
+            die ('PDO error in validatePassword()": ' . $e->getMessage() );
+        }
+    }
+
+    // This will be called after confirmPassword is called, so 
+    // it only needs one password to check the length
+    function checkPasswordLength($password) {
+        try {
+            if (strlen($password) > 6) {
+                return true;
+            }
+            return false; // Passwords match, but are too short
+        }
+        catch(PDOException $e)
+        {
+            die ('PDO error in validatePassword()": ' . $e->getMessage() );
+        }
     }
 
 ?>

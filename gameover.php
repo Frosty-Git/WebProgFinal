@@ -81,8 +81,7 @@ $board = getBoard($games_id); // Gets the last game's board state
 
 
     //show their stats
-        // echo  "<center><h5>My Statistics:</h5></center>";
-        echo  "<table class='center goTable'>";
+    echo  "<table class='center goTable'>";
         echo  "<tr>";
             echo  "<th>Wins</th>";
             echo  "<th>Losses</th>";

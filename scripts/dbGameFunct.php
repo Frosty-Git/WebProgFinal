@@ -3,6 +3,11 @@
     require_once("dbConnect.php");
     require_once("dbGetters.php");
 
+    // When a player clicks on a box, it will make a move in the game. 
+    //  If move is valid, the move will be created in the moves table and update 
+    //  the games table on the date and active player.
+    //  It will check for if there is a winner and if there is a full board (tie) - returns true
+    //  If the move is not valid or the game has not ended - return false
     function makeMove($playerID, $gameID, $location, $is_x) {
         try {
             if (validateMove($gameID, $location)) {
@@ -38,7 +43,7 @@
         }
     }
 
-
+    // Checks if the location of the move is empty in the board 
     function validateMove($gameID, $location) {
         try {
             $select_query = "SELECT location FROM moves WHERE game_id = '$gameID' AND location = '$location';";
@@ -54,6 +59,7 @@
     }
 
     // The function for player 2 to wait for a move to happen
+    // DO WE STILL NEED THIS?
     function waitForMove($gameID, $playerID) {
         try {
             $query = "SELECT moves_id FROM moves WHERE game_id='$gameID' ORDER BY moves_id DESC LIMIT 1;";
@@ -76,6 +82,9 @@
         }
     }
 
+
+    // CHECK PROCESS START PLAYER 2
+    // DO WE STILL NEED THIS?
     function player2Start($gameID, $playerID) {
         try {
             $query = "SELECT moves_id FROM moves WHERE game_id='$gameID';";
@@ -94,8 +103,7 @@
 
     
     // Checks to see if a player has won.
-    // params: dbh = the database
-    //         gameID = the game's id
+    // params: gameID = the game's id
     //         is_x = If the player being checked is X or O
     // return: true if the player being checked for won. false if not.
     function checkForWinner($gameID, $is_x) {
@@ -159,6 +167,8 @@
         
     }
 
+    // Checks if the board has been filled and all the places
+    // in the board has a letter in it.
     function checkFullBoard($gameID) {
         try {
             $board = getBoard($gameID);
@@ -188,6 +198,7 @@
         }
     }
 
+    // --------- CAN WE GET RID OF THESE?? --------
     function checkForTie($gameID) {
 
     }
@@ -201,6 +212,14 @@
 
     }
 
+    function drawBoard() {
+
+    }
+    // --------------------------------------------
+
+
+    // Updates the board in the database with the letter of the player at the
+    // location of the move. 
     function editBoard($gameID, $location, $is_x) {
         try {
             $update_query = null;
@@ -217,10 +236,7 @@
         }
     }
 
-    function drawBoard() {
-
-    }
-
+    // Returns the whole board as an array
     function getBoard($gameID) {
         // Ensures order of the board (in case * doesn't)
         $query = "SELECT a1, a2, a3, b1, b2, b3, c1, c2, c3 FROM board WHERE game_id = '$gameID';";
@@ -228,6 +244,7 @@
         return json_decode(json_encode($board[0]),true);
     }
 
+    // DO WE STILL NEED THIS? 
     function getEncodedBoard($gameID) {
         // Ensures order of the board (in case * doesn't)
         $query = "SELECT a1, a2, a3, b1, b2, b3, c1, c2, c3 FROM board WHERE game_id = '$gameID';";

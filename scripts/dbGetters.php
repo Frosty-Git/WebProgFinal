@@ -41,6 +41,7 @@
         }
     }
 
+    // Gets the number of wins a player has from the Player table using their ID
     function getWins($playerID) {
         try {
             $query_result = dbSelect("SELECT wins FROM player WHERE player_id = '$playerID';"); // from dbConnect.php
@@ -56,6 +57,7 @@
         }
     }
 
+    // Gets the number of losses a player has from the Player table using their ID
     function getLosses($playerID) {
         try {
             $query_result = dbSelect("SELECT losses FROM player WHERE player_id = '$playerID';"); // from dbConnect.php
@@ -71,6 +73,7 @@
         }
     }
 
+    // Gets the number of ties a player has from the Player table using their ID
     function getTies($playerID) {
         try {
             $query_result = dbSelect("SELECT ties FROM player WHERE player_id = '$playerID';"); // from dbConnect.php
@@ -228,7 +231,8 @@
         }
     }
 
-    
+    // Given the game ID and a single player ID, it will get the other player
+    // that is not the param playerID 
     function getOtherPlayer($gameID, $playerID) {
         try {
             $players = getPlayers($gameID);
@@ -242,6 +246,8 @@
         }
     }
 
+    // Gets the last game of the player ID passed in
+    // Specifically, it will get the game ID (games_id), who won (x_won), and if it's a tie (is_tie)
     function getGameWinner($playerID) {
         try {
             $query = "CALL findLastGame('$playerID')";
@@ -255,6 +261,8 @@
         }
     }
 
+    // Gets the top 10 players for the top_players.php
+    // Will get the top 10 players who have the most wins
     function getTopPlayerInfo() {
         try {
             $query = "CALL getTopPlayerInfo()";
@@ -267,6 +275,8 @@
         }
     }
 
+    // Gets all the information for a game (all columns in the Games table)
+    // Will be returned as an array.
     function getGameInfo($gameID) {
         try {
             $query_result = dbSelect("SELECT * FROM games WHERE games_id = '$gameID';"); // from dbConnect.php
