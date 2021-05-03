@@ -13,6 +13,7 @@
     $_SESSION["active"] = IS_DEFAULT;
     $_SESSION["character"] = IS_DEFAULT;
     $_SESSION["password_fail"] = IS_DEFAULT;
+    $_SESSION["game_fail"] = IS_DEFAULT;
     // $_SESSION[""];
     
 ?>

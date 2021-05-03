@@ -47,6 +47,9 @@
     <meta name='generator' content='VS Code' />
     <link rel='shortcut icon' href='#' />
     <link rel="stylesheet" href="./css/base.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		  crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -82,6 +85,9 @@
             echo "<p style='color: red; text-align: center'>Incorrect password. Try again!</p>";
         }
 
+        if ($_SESSION["game_fail"] == FAILED) {
+            echo "<p style='color: red; text-align: center'>Game does not exist. Please choose another game.</p>";
+        }
     ?>
     
     <table class="center ghTable2">
@@ -99,7 +105,6 @@
                     let game_p = document.getElementById('game_password');
                     private.onclick = function() {
                         if (private.checked) {
-                            // console.log("Is Private Checked.");
                             game_p.required = true;
                             game_p.style.display = 'inline';
                         }
@@ -110,12 +115,27 @@
                     };
                 </script>
             </td>
+            
             <!-- Find Game Button -->
             <td style="width: 50%; text-align:right;">
                 <form action="./scripts/forms/processFindGame.php" method="post">
-                    <input type="text" name="searchGame" placeholder="Search game ID..." class="userInput" required>
-                    <button type="submit" class="button2">Find Game</button>
+                    <input type="text" name="searchGame" id="searchGame" placeholder="Search game ID..." class="userInput" required>
+                    <button type="submit" id="submitBtn" class="button2 disabled" disabled>Find Game</button>
                 </form>
+                <script>
+                    $('#searchGame').on('keyup', function() {
+                        let value = $('#searchGame').val();
+                        let re = /^[0-9]+$/; // Only accept numeric input for Game Id
+                        if (!value.match(re)) {
+                            $('#submitBtn').addClass('disabled');
+                            $('#submitBtn').attr("disabled", "disabled");
+                        }
+                        else {
+                            $('#submitBtn').removeClass('disabled');
+                            $('#submitBtn').attr("disabled", false);
+                        }
+                    });
+                </script>
             </td>
         </tr>
     </table>

@@ -291,21 +291,5 @@
             die ('PDO error in getGameInfo()": ' . $e->getMessage() );
         }
     }
-
-
-
     // ----------------End Games Table Getters------------------------
-
-
-
-    // ------------------Board Table Getters--------------------------
-
-    // ----------------End Board Table Getters------------------------
-
-
-    
-    // ------------------Moves Table Getters--------------------------
-
-    // ----------------End Moves Table Getters------------------------
-
 ?>

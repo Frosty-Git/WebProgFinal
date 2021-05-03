@@ -19,19 +19,8 @@
             die ('PDO error in createGame()": ' . $e->getMessage() );
         }
     }
-
-    // // Is this being used? if not, can we delete?
-    // function createBoard($gameID) {
-    //     try {
-    //         $board_creation = "INSERT INTO board (game_id) VALUES ('$gameID')";
-    //         dbQuery($board_creation);
-    //         return "You created a game!";
-    //     }
-    //     catch (PDOException $e) {
-    //         die ('PDO error in createBoard()": ' . $e->getMessage() );
-    //     }
-    // }
     
+
     // Enter in the game id to join your friend's game.
     function findGame($gameID) {
         try {
@@ -39,9 +28,9 @@
             $game = dbSelect($games_query);
             
             if(empty($game)) {
-                return "No game found!";
+                return false;
             }
-            return $game;
+            return true;
         }
         catch (PDOException $e) {
             die ('PDO error in findGame()": ' . $e->getMessage() );
