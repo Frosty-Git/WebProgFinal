@@ -12,41 +12,38 @@
 <body>
   <div class="centerDiv">
     <h1><span style="color: #FC4A1A">Tic</span><span style="color: #4ABDAC">-</span><span style="color: #FC4A1A">Tac</span><span style="color: #4ABDAC">-</span><span style="color: #FC4A1A">Toe</span></h1>
-      <form action="login.php" class="inlineForm">
+      <br>
+      <form action="login.php" class="inlineForm homeButton">
         <input type="submit" value="Login Here!" class="button2">
       </form>
-      <form action="signup.php" class="inlineForm">
+      <form action="signup.php" class="inlineForm homeButton">
         <input type="submit" value="Sign Up Here!" class="button">
       </form>
-      <form action="top_players.php" class="inlineForm">
+      <form action="top_players.php" class="inlineForm homeButton">
         <input type="submit" value="See Top Players Here!" class="button2">
       </form>
   </div>
 
 
   <footer>
-  <a class="link" href="http://elvis.rowan.edu/~frostj16/" 
-    title="Joe's Home Page">
-    Joe
-  </a>, 
-  <a class="link" href="http://elvis.rowan.edu/~leekat32/" 
-    title="Katie's Home Page">
-    Katie
-  </a>, 
-  <a class="link" href="http://elvis.rowan.edu/~colinm36/" 
-    title="Marc's Home Page">
-    Marc
-  </a>& 
-  <a class="link" href="http://elvis.rowan.edu/~duranceaj3/" 
-    title="Jacelynn's Home Page">
-    Jacelynn
-  </a>
-
-  <!-- <span style="float: right;">
-  <a href="http://validator.w3.org/check/referer">HTML5</a> /
-  <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3">
-      CSS3 </a>
-  </span> -->
+    <div>
+      <a class="link" href="http://elvis.rowan.edu/~frostj16/" 
+        title="Joe's Home Page">
+        Joe
+      </a><span>, </span>
+      <a class="link" href="http://elvis.rowan.edu/~leekat32/" 
+        title="Katie's Home Page">
+        Katie
+      </a><span>, </span>
+      <a class="link" href="http://elvis.rowan.edu/~colinm36/" 
+        title="Marc's Home Page">
+        Marc
+      </a><span> & </span>
+      <a class="link" href="http://elvis.rowan.edu/~duranceaj3/" 
+        title="Jacelynn's Home Page">
+        Jacelynn
+      </a>
+    </div>
   </footer>
 
 </body>

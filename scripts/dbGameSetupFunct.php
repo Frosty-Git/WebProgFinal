@@ -37,6 +37,7 @@
         }
     }
 
+
     // Finds the game id if you have the player id.
     // Returns the game id of the most recently created open game 
     // which the entered playerID is in if there is one.
@@ -58,6 +59,7 @@
         }
     }
 
+
     // Finds all the games that are open to join.
     function findOpenGames() {
         try {
@@ -73,6 +75,7 @@
         }
     }
 
+
     //Finds all active games 
     function findAllGames() {
         try {
@@ -87,6 +90,7 @@
             die ('PDO error in findOpenGame()": ' . $e->getMessage() );
         }
     }
+
 
     // The second player joining the game that they found.
     function joinGame($gameID, $playerID) {
@@ -110,6 +114,7 @@
         }
     }
 
+
     // Checks if the game is private or not (true if private, false if public)
     function checkGamePrivate($gameID) {
         try {
@@ -128,6 +133,7 @@
         }
     }
 
+
     // Checks the password for the private game
     function checkGamePassword($gameID, $password) {
         try {
@@ -144,6 +150,7 @@
             die ('PDO error in checkGamePassword()": ' . $e->getMessage() );
         }
     }
+
 
     // Starts the game by calling stored procedure startGame
     // Can only be used by Player 1
@@ -165,6 +172,7 @@
         }
     }
 
+
     // Deletes the game by calling stored procedure deleteGame
     // Can only be used by Player 1
     function cancelGame($gameID, $player) {
@@ -178,6 +186,7 @@
             die ('PDO error in cancelGame()": ' . $e->getMessage() );
         }
     }
+
 
     // Sets player 2 back to empty by calling stored procedure leaveGame
     // Can only be used by Player 2
@@ -193,6 +202,7 @@
         }
     }
 
+    
     // Kicks player2 out of the game by calling stored procedure kickPlayer2
     // Can only be used by Player 1
     function kickPlayer2($gameID, $player) {

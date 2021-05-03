@@ -6,10 +6,8 @@
     require_once('./scripts/checkLogIn.php');
 
     // Yoink Imports
-    // require_once('./scripts/constants.php');
-    // require_once('./scripts/decoder.php');
-    // require_once('./scripts/dbGameSetupFunct.php');
-    // require_once('./scripts/dbGetters.php');
+    require_once('./scripts/constants.php');
+    
     $gameID = $_SESSION['game_id'];
 ?>
 

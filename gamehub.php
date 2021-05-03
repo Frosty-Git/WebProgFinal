@@ -10,11 +10,6 @@
     require_once('./scripts/decoder.php');
     require_once('./scripts/dbGameSetupFunct.php');
     require_once('./scripts/dbGetters.php');
-
-    // if ($_SESSION["game_id"] == IS_DEFAULT) {
-    //     // Set the game id to the user's currently in progress game id. If there
-    //     // is no such game, then this value will be FAILED (-1)
-    // }
     
     $_SESSION["game_id"] = findGameNoID($_SESSION["user_id"]); //from dbGameSetupFunct.php
     // Check if user is already in a game or not.
@@ -184,7 +179,6 @@
         }
         else {
             for ($i = 0; $i < $count; $i++) {
-            
                 $game = decodeSelectResults($results, $i); //from decoder.php
                 $gameID = $game['games_id'];
                 $private = $game['is_private'];

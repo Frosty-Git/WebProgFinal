@@ -23,6 +23,7 @@
         }
     }
 
+    
     // Get the Password from the Player table using a Username.
     function getPassword($username) {
         try {
@@ -41,6 +42,7 @@
         }
     }
 
+
     // Gets the number of wins a player has from the Player table using their ID
     function getWins($playerID) {
         try {
@@ -57,6 +59,7 @@
         }
     }
 
+
     // Gets the number of losses a player has from the Player table using their ID
     function getLosses($playerID) {
         try {
@@ -72,6 +75,7 @@
             die ('PDO error in getLosses()": ' . $e->getMessage() );
         }
     }
+
 
     // Gets the number of ties a player has from the Player table using their ID
     function getTies($playerID) {
@@ -111,6 +115,7 @@
         }
     }
     
+
     // Get whether or not the game is started from the Games table.
     function getIsStarted($gameID) {
         try {
@@ -126,6 +131,7 @@
             die ('PDO error in getIsStarted()": ' . $e->getMessage() );
         }
     }
+
 
     // Get whether or not the game has ended from the Games table.
     function getIsEnded($gameID) {
@@ -143,6 +149,7 @@
         }
     }
     
+
     // Get Player1.
     function getPlayer1($gameID) {
         try {
@@ -158,6 +165,7 @@
             die ('PDO error in getPlayer1()": ' . $e->getMessage() );
         }
     }
+
 
     // Get Player2.
     // Note: player2 will be null if there is only one player 
@@ -177,6 +185,7 @@
         }
     }
 
+
     // Gets the active player of the game (whose turn it is)
     function getActivePlayer($gameID) {
         try {
@@ -193,6 +202,7 @@
         }
     }
 
+
     // Get the game's password.
     function getGamePassword($gameID) {
         try {
@@ -208,6 +218,7 @@
             die ('PDO error in getGamePassword()": ' . $e->getMessage() );
         }
     }
+
 
     // Gets both players in the game. Returns them as an array. 
     // Index 0 is player1. Index 1 is player2.
@@ -231,6 +242,7 @@
         }
     }
 
+
     // Given the game ID and a single player ID, it will get the other player
     // that is not the param playerID 
     function getOtherPlayer($gameID, $playerID) {
@@ -245,6 +257,7 @@
             die ('PDO error in getOtherPlayer()": ' . $e->getMessage() );
         }
     }
+
 
     // Gets the last game of the player ID passed in
     // Specifically, it will get the game ID (games_id), who won (x_won), and if it's a tie (is_tie)
@@ -261,6 +274,7 @@
         }
     }
 
+
     // Gets the top 10 players for the top_players.php
     // Will get the top 10 players who have the most wins
     function getTopPlayerInfo() {
@@ -274,6 +288,7 @@
             die ('PDO error in getGameWinner()": ' . $e->getMessage() );
         }
     }
+
 
     // Gets all the information for a game (all columns in the Games table)
     // Will be returned as an array.

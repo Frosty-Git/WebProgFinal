@@ -146,4 +146,9 @@ footer {
     bottom: 1%; 
     position:fixed;
     width: 100%;
+    color: #4ABDAC;
+}
+
+.homeButton {
+    margin: 0rem .5rem 0rem .5rem;
 }

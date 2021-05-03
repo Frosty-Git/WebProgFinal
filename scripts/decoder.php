@@ -6,6 +6,7 @@ function decodeSelectResults($results, $index) {
     return json_decode(json_encode($results[$index]),true);    
 }
 
+
 // Same as the overloaded version with two params. This one is for 
 // when you only want the first result of the query.
 function decodeSelectFirstResult($results) {
