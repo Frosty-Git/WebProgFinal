@@ -23,11 +23,15 @@
 </head>
 <body>
 
+<div class="centerDiv">
+    <h1><span style="color: #FC4A1A">Tic</span><span style="color: #4ABDAC">-</span><span style="color: #FC4A1A">Tac</span><span style="color: #4ABDAC">-</span><span style="color: #FC4A1A">Toe</span></h1>
+</div>
+
 <div class="container-out">
     <div class="container-in">
     <div class="table-container">
         <?php
-            echo '<p id="yourturn">Your Turn</p>';
+            echo '<p id="yourturn" style="color:#4ABDAC; font-size: 125%; font-style: oblique;">Your Turn</p>';
             echo '<table class="centerDiv">';
 
 
@@ -105,7 +109,7 @@
                 $('#b3').html(res.b3); 
                 $('#c1').html(res.c1); 
                 $('#c2').html(res.c2); 
-                $('#c3').html(res.c3); 
+                $('#c3').html(res.c3);
             }
         });
 

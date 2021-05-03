@@ -54,7 +54,7 @@
     <!-- Join Game Fail Message -->
     <?php
         if ($_SESSION["join_test"] == FAILED) {
-            echo "<p style='color: red; text-align: center'>Game Full. Join another game sucka.</p>";
+            echo "<p style='color: red; text-align: center'>Game Full. Join another game!</p>";
         }
 
         if ($_SESSION['FAILED_CREATE_GAME'] == FAILED_CREATE_GAME) {
@@ -62,7 +62,7 @@
         }
 
         if ($_SESSION["password_fail"] == FAILED) {
-            echo "<p style='color: red; text-align: center'>incorect paswurd tri agane.</p>";
+            echo "<p style='color: red; text-align: center'>Incorrect password. Try again!</p>";
         }
 
     ?>
@@ -82,7 +82,7 @@
     </div>
 
     <!-- Create Game Button -->
-    <div class="centerDiv">
+    <!-- <div class="centerDiv">
         <form action="./scripts/forms/processCreateGame.php" method="post">
             <input type="checkbox" class="checkBox" id="is_private" name="is_private">
             <label for="is_private">Private</label>
@@ -104,17 +104,51 @@
                 game_p.style.display = 'none';
             }
         };
-    </script>
+    </script> -->
 
     <!-- Find Game Button -->
-    <div class="centerDiv">
+    <!-- <div class="centerDiv">
         <form action="./scripts/forms/processFindGame.php" method="post">
             <input type="text" name="searchGame" placeholder="Search game ID..." class="userInput">
             <button type="submit" class="button2">Find Game</button>
         </form>
-    </div>
-
-    <br>
+    </div> -->
+    
+    <table class="center" style="width:80%">
+        <tr>
+            <td style="width: 50%; text-align:left;">
+                 <!-- Create Game Button -->
+                <form action="./scripts/forms/processCreateGame.php" method="post">
+                    <input type="checkbox" class="checkBox" id="is_private" name="is_private">
+                    <label for="is_private">Private</label>
+                    <input type="password" id="game_password" name="game_password" style="display:none" class="userInput">
+                    <input type="submit" value="Create Game" class="button2">
+                </form>
+                <script>
+                    let private = document.getElementById('is_private');
+                    let game_p = document.getElementById('game_password');
+                    private.onclick = function() {
+                        if (private.checked) {
+                            // console.log("Is Private Checked.");
+                            game_p.required = true;
+                            game_p.style.display = 'inline';
+                        }
+                        else {
+                            game_p.required = false;
+                            game_p.style.display = 'none';
+                        }
+                    };
+                </script>
+            </td>
+            <!-- Find Game Button -->
+            <td style="width: 50%; text-align:right;">
+                <form action="./scripts/forms/processFindGame.php" method="post">
+                    <input type="text" name="searchGame" placeholder="Search game ID..." class="userInput">
+                    <button type="submit" class="button2">Find Game</button>
+                </form>
+            </td>
+        </tr>
+    </table>
 
     <!-- Games List Table -->
 

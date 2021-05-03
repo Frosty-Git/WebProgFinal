@@ -111,7 +111,7 @@ $board = getBoard($games_id); // Gets the last game's board state
     
     echo "<div class='centerDiv'>";
     echo "<form method='post' action='./gamehub.php'>";
-    echo "<button type='submit' class='button'>Return to Gamehub</button>";
+    echo "<button type='submit' class='button'>Return to Game Hub</button>";
     echo "</form></div>";
 
     ?>
