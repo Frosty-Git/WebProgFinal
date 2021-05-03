@@ -113,7 +113,7 @@
             }
         });
 
-        $.get("./scripts/forms/processActivePlayer.php", function(data) {class
+        $.get("./scripts/forms/processActivePlayer.php", function(data) {
             // 2 is if the game is ended
             if (data == 2) {
                 window.location = "gameover.php";
