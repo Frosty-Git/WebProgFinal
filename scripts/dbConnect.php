@@ -3,10 +3,7 @@
   function ConnectDB() {
 
     /*** mysql server info ***/
-    $hostname = 'elvis.rowan.edu';
-    $username = 'colinm36';
-    $password = '1Nicepenguin!';
-    $dbname   = 'colinm36';
+    // Removed For Public Visibility
 
     try {
         $dbh = new PDO("mysql:host=$hostname;dbname=$dbname",
